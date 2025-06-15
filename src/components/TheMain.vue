@@ -2,31 +2,31 @@
   <main class="bg-custom-bg pt-[81px] flex flex-col space-y-24">
     <HeroSection />
 
-    <LazySection>
+    <LazySection :delay="0">
       <SummarySection />
     </LazySection>
 
-    <LazySection>
+    <LazySection :delay="100">
       <SchoolSection />
     </LazySection>
 
-    <LazySection>
+    <LazySection :delay="200">
       <SearchSection />
     </LazySection>
 
-    <LazySection>
+    <LazySection :delay="300">
       <PersonalSection />
     </LazySection>
 
-    <LazySection>
+    <LazySection :delay="400">
       <AwardSection />
     </LazySection>
 
-    <LazySection>
+    <LazySection :delay="500">
       <CTASection />
     </LazySection>
 
-    <LazySection>
+    <LazySection :delay="600">
       <RuleSection />
     </LazySection>
   </main>
