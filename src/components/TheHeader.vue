@@ -10,7 +10,7 @@
     <!-- Navigation buttons -->
     <nav class="flex space-x-4">
       <Button
-        v-for="(button, index) in navButtons"
+        v-for="(button, index) in visibleNavButtons"
         :key="index"
         :variant="button.variant"
         :size="'lg'"
@@ -21,22 +21,49 @@
         {{ button.text }}
       </Button>
     </nav>
+
+    <LoginDialog />
+
   </header>
 </template>
 
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue'
 import { LogoIcon } from '@/components/ui/icon'
+import LoginDialog from '@/components/LoginDialog.vue'
+import { useLoginDialog } from '@/composables/useLoginDialog'
+import { useAuthStore } from '@/stores/auth'
+import { computed } from 'vue'
 
 const navButtons = [
   { text: '校際戰績', color: 'bg-[#38a1db]', variant: 'default' as const },
   { text: '個人成就', color: 'bg-[#38a1db]', variant: 'default' as const },
   { text: '紅利領取', color: 'bg-[#38a1db]', variant: 'default' as const },
   { text: '活動辦法', color: 'bg-[#38a1db]', variant: 'default' as const },
-  { text: '登入', color: 'bg-[#c92a2e]', variant: 'destructive' as const },
 ]
 
+const authButtons = {
+  login: { text: '登入', color: 'bg-[#c92a2e]', variant: 'destructive' as const },
+  logout: { text: '登出', color: 'bg-[#c92a2e]', variant: 'destructive' as const }
+}
+
+const authStore = useAuthStore()
+const { openLoginDialog } = useLoginDialog()
+
+// 根據登入狀態決定顯示的按鈕
+const visibleNavButtons = computed(() => {
+  const authButton = authStore.isAuthenticated ? authButtons.logout : authButtons.login
+  return [...navButtons, authButton]
+})
+
 const handleNavClick = (buttonText: string) => {
-  console.log(`Clicked: ${buttonText}`)
+  if (buttonText === '登入') {
+    openLoginDialog()
+  } else if (buttonText === '登出') {
+    authStore.clearAuth()
+    // 可選：重新導向到首頁或顯示登出成功訊息
+  } else {
+    console.log(`Clicked: ${buttonText}`)
+  }
 }
 </script>

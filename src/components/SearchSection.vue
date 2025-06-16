@@ -11,20 +11,22 @@
           </h2>
 
           <div class="grid grid-cols-[8fr_6fr_3fr] gap-5 w-full">
-            <TheSelect v-model="selectedSchool" label="學校" :options="schools" @change="handleSchoolChange" />
-            <TheSelect v-model="selectedWeek" label="週次" :options="weeks" @change="handleWeekChange" />
-            <button class="bg-primary text-white font-noto-sans-tc text-[28px] w-full rounded-md cursor-pointer">
-              查詢
-            </button>
+            <TheInput v-model="schoolName" label="學校" placeholder="請輸入學校名稱" />
+            <TheSelect v-model="selectedWeek" label="週次" :options="selectableWeeks" />
+            <QueryButton
+              :loading="loading"
+              @click="searchHandler(selectedWeek, schoolName)"
+            />
+
             <p class="font-noto-sans-tc text-[28px] text-primary col-span-3">
-              第2週 07/17(四) 中午12:00 ~ 07/23(三) 中午11:59 止
+              {{ weekText }}
             </p>
           </div>
 
           <div class="grid grid-cols-[8fr_3fr_6fr] gap-5 w-full items-center justify-items-center">
-            <div class="text-card border-[#5B0E11]">龍騰高中</div>
+            <div class="text-card border-[#5B0E11]">{{ bonusData?.school_name }}</div>
             <div class="bold-text text-primary px-2">累積紅利</div>
-            <div class="golden-text-card">19,999,999</div>
+            <div class="golden-text-card">{{ Number(bonusData?.BONUS).toLocaleString() }}</div>
           </div>
         </div>
       </div>
@@ -33,28 +35,42 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import TheSelect from '@/components/ui/select/TheSelect.vue'
+import TheInput from '@/components/ui/input/TheInput.vue'
+import QueryButton from '@/components/ui/button/QueryButton.vue'
+import { useActivityWeeks } from '@/composables/useActivityWeeks'
+import { computed } from 'vue'
+import { useBonusBySchoolByWeek } from '@/composables/useBonusBySchoolByWeek'
 
-const schools = [
-  { id: 1, name: '龍來龍去高中' },
-  { id: 2, name: '第二高中' },
-  { id: 3, name: '第三高中' },
-]
+const { activityWeeks, currentWeek, formatWeekText } = useActivityWeeks()
+const { searchHandler, bonusData, loading } = useBonusBySchoolByWeek()
 
-const weeks = [
-  { id: 1, name: '第1週' },
-  { id: 2, name: '第2週' },
-  { id: 3, name: '第3週' },
-]
+const hasBonusData = computed(() => bonusData.value)
 
-const selectedSchool = ref(schools[0].name)
-const selectedWeek = ref(weeks[0].name)
+const selectableWeeks = computed<{ id: number, name: string }[]>(() => {
+  return activityWeeks.value.map(week => ({
+    id: week.week,
+    name: `第${week.week}週`
+  }))
+})
 
-const handleSchoolChange = (schoolName: string) => {
-  console.log('選擇的學校:', schoolName)
-}
-const handleWeekChange = (weekName: string) => {
-  console.log('選擇的週次:', weekName)
-}
+const schoolName = ref(bonusData.value?.school_name)
+const selectedWeek = ref(currentWeek.value)
+
+const weekText = computed(() => {
+  const weekConfig = activityWeeks.value.find(week => week.week === selectedWeek.value)!
+  return formatWeekText(weekConfig)
+})
+
+const stopWatcher = watch(
+  () => bonusData.value?.school_name,
+  (newSchoolName) => {
+    if (newSchoolName) {
+      schoolName.value = newSchoolName
+      stopWatcher() // 停止監聽, 僅做初始賦值
+    }
+  },
+  { immediate: true }
+)
 </script>

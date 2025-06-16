@@ -1,6 +1,5 @@
 <template>
   <div class="relative w-full max-w-md">
-
     <!-- label -->
     <div class="absolute w-14 h-5 -top-4 left-3.5 bg-[#fce8c2] z-10">
       <div class="text-xl text-center font-noto-sans-tc font-normal text-primary tracking-[0] leading-normal">
@@ -8,20 +7,22 @@
       </div>
     </div>
 
-    <!-- select -->
-    <select v-model="selectedItem"
-      class="w-full h-full py-[12px] px-[18px] border border-solid border-primary rounded-md
+    <!-- input -->
+    <input
+      v-model="inputValue"
+      :type="type"
+      :placeholder="placeholder"
+      class="w-full h-full py-[12px] px-[18px] pr-12 border border-solid border-primary rounded-md
       font-noto-sans-tc text-[28px] text-primary focus:outline-none focus:ring-2
-      focus:ring-primary focus:border-transparent appearance-none cursor-pointer flex items-center bg-transparent">
-      <option v-for="item in options" :key="item.id" :value="item.id">
-        {{ item.name }}
-      </option>
-    </select>
+      focus:ring-primary focus:border-transparent bg-transparent"
+    />
 
-    <!-- custom arrow -->
+    <!-- pencil icon -->
     <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
       <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+        </path>
       </svg>
     </div>
   </div>
@@ -30,29 +31,27 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-interface SelectOption {
-  id: number
-  name: string
-}
-
 interface Props {
   label: string
-  options: SelectOption[]
-  modelValue?: number
+  modelValue?: string
+  type?: string
+  placeholder?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: undefined,
+  modelValue: '',
+  type: 'text',
+  placeholder: ''
 })
 
 const emit = defineEmits<{
-  'update:modelValue': [value: number],
+  'update:modelValue': [value: string]
 }>()
 
 // 雙向綁定的計算屬性
-const selectedItem = computed({
+const inputValue = computed({
   get: () => props.modelValue,
-  set: (value: number) => {
+  set: (value: string) => {
     emit('update:modelValue', value)
   }
 })

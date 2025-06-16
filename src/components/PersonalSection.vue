@@ -2,16 +2,17 @@
   <section class="w-full px-12 mt-48">
     <TheCard>
       <template #header>
-        <RibbonHeader />
+        <RibbonHeader title="個人成就" />
       </template>
       <template #content>
 
         <div class="flex flex-col items-center gap-4">
-          <div class="grid grid-cols-[min-content_1fr_min-content] justify-items-center items-center
+          <div class="grid grid-cols-[min-content_1fr_1fr] justify-items-center items-center
           gap-8">
             <UserIcon :height="67" />
             <h2 class="bold-text text-center">本週任務紅利已累積</h2>
-            <div class="golden-text-card">19,999,999</div>
+            <div class="golden-text-card justify-self-end"
+              :class="{ 'blur-sm': !isDataLoaded }">{{ totalBonus }}</div>
           </div>
         </div>
 
@@ -33,7 +34,7 @@
           <template v-for="item in weeklyBonus" :key="item.week">
             <div class="text-card font-normal">{{ item.week }}</div>
             <div class="bold-text">紅利</div>
-            <div class="golden-text-card">{{ item.bonus }}</div>
+            <div class="golden-text-card" :class="{ 'blur-sm': !isDataLoaded }">{{ item.bonus }}</div>
           </template>
         </div>
 
@@ -46,18 +47,48 @@
 import RibbonHeader from '@/components/RibbonHeader.vue'
 import UserIcon from '@/components/ui/icon/UserIcon.vue'
 import TheCard from '@/components/ui/card/TheCard.vue';
+import { useBonusByUser } from '@/composables/useBonusByUser';
+import { computed } from 'vue';
+
+const { data } = useBonusByUser();
 
 const title = '每週任務紅利';
 
-const weeklyBonus = [
-  { week: '第一週', bonus: '1,999' },
-  { week: '第二週', bonus: '1,999' },
-  { week: '第三週', bonus: '1,999' },
-  { week: '第四週', bonus: '1,999' },
-  { week: '第五週', bonus: '1,999' },
-  { week: '第六週', bonus: '1,999' },
-  { week: '第七週', bonus: '1,999' },
+const defaultWeeklyBonus = [
+  { week: '第一週', bonus: '1,999', numBonus: 1999 },
+  { week: '第二週', bonus: '1,999', numBonus: 1999 },
+  { week: '第三週', bonus: '1,999', numBonus: 1999 },
+  { week: '第四週', bonus: '1,999', numBonus: 1999 },
+  { week: '第五週', bonus: '1,999', numBonus: 1999 },
+  { week: '第六週', bonus: '1,999', numBonus: 1999 },
+  { week: '第七週', bonus: '1,999', numBonus: 1999 },
 ];
+
+const isDataLoaded = computed(() => {
+  return data.value && data.value.status;
+})
+
+const weeklyBonus = computed(() => {
+  if (!data.value || !data.value.status) {
+    return defaultWeeklyBonus;
+  }
+  return Object.values(data.value.data).map((bonus, index) => {
+    return {
+      week: defaultWeeklyBonus[index].week,
+      bonus: Number(bonus).toLocaleString(),
+      numBonus: bonus,
+    };
+  });
+})
+
+const totalBonus = computed(() => {
+  if (!data.value || !data.value.status) {
+    return '19,999,999';
+  }
+  return Number(weeklyBonus.value.reduce((acc, curr) => {
+    return acc + Number(curr.numBonus);
+  }, 0)).toLocaleString();
+});
 </script>
 
 <style scoped>
