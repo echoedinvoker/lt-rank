@@ -13,7 +13,7 @@
 <script setup lang="ts">
 interface Props {
   label?: string;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'secondaryNotBtn';
 }
 
 withDefaults(defineProps<Props>(), {
