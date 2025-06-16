@@ -7,18 +7,20 @@
       <div class="flex flex-col items-center space-y-8 px-28 py-16 pt-28">
         <!-- Tab Buttons -->
         <div class="flex justify-center gap-4 max-w-7/8 flex-wrap">
-          <tempalte v-for="week in weeks" :key="week.id">
-            <TabButton
-              class="text-[30px] font-bold px-10 py-3 !rounded-2xl"
-              :label="week.label"
-              :variant="selectedWeek === week.id ? 'primary' : 'secondary'"
-              @click="selectedWeek = week.id"
-            />
-          </tempalte>
+          <template v-for="week in weeks" :key="week.id">
+            <div>
+              <TabButton
+                class="text-[30px] font-bold px-10 py-3 !rounded-2xl"
+                :label="week.label"
+                :variant="selectedWeek === week.id ? 'primary' : 'secondaryNotBtn'"
+                @click="selectedWeek = week.id"
+              />
+            </div>
+          </template>
         </div>
         <!-- Week Info -->
         <p class="font-noto-sans-tc font-normal text-white text-[28px] text-center">
-          第2週 07/17(四) 中午12:00 ~ 07/23(三) 中午11:59 止
+          {{ selectedWeekText }}
         </p>
         <!-- Award Cards -->
         <div class="grid grid-cols-[max-content_1fr_max-content_1fr] gap-4 w-full relative">
@@ -45,19 +47,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import TabButton from '@/components/ui/button/TabButton.vue'
+import { useActivityWeeks } from '@/composables/useActivityWeeks'
 
-const selectedWeek = ref(1)
-const weeks = [
-  { id: 1, label: '第1週' },
-  { id: 2, label: '第2週' },
-  { id: 3, label: '第3週' },
-  { id: 4, label: '第4週' },
-  { id: 5, label: '第5週' },
-  { id: 6, label: '第6週' },
-  { id: 7, label: '第7週' },
-]
+const { currentWeek, activityWeeks, formatWeekText } = useActivityWeeks()
+const selectedWeek = computed(() => currentWeek.value);
+const selectedWeekText = computed(() => {
+  const selectedWeekConfig = activityWeeks.value.find(week => week.week === selectedWeek.value)!
+  return formatWeekText(selectedWeekConfig);
+});
+
+const weeks = computed(() => {
+  return activityWeeks.value.map(week => ({
+    id: week.week,
+    label: `第${week.week}週`
+  }));
+});
 
 </script>
 

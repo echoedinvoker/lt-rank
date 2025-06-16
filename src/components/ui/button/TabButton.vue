@@ -24,7 +24,8 @@ const emit = defineEmits<{ click: [] }>();
 
 const variants = {
   primary: 'bg-white text-black border-black',
-  secondary: 'bg-black text-white border-white hover:scale-105 active:scale-95 hover:bg-gray-800 active:bg-gray-700 hover:shadow-lg active:shadow-inner active:transition-none cursor-pointer'
+  secondary: 'bg-black text-white border-white hover:scale-105 active:scale-95 hover:bg-gray-800 active:bg-gray-700 hover:shadow-lg active:shadow-inner active:transition-none cursor-pointer',
+  secondaryNotBtn: 'bg-black text-white border-white'
 };
 
 // 添加觸覺反饋（如果支援）

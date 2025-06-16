@@ -24,9 +24,11 @@
           </div>
 
           <div class="grid grid-cols-[8fr_3fr_6fr] gap-5 w-full items-center justify-items-center">
-            <div class="text-card border-[#5B0E11]">{{ bonusData?.school_name }}</div>
+            <div class="text-card border-[#5B0E11]" :class="{ 'blur-sm': !hasBonusData }">{{ hasBonusData ? bonusData?.school_name : '學校名稱' }}</div>
             <div class="bold-text text-primary px-2">累積紅利</div>
-            <div class="golden-text-card">{{ Number(bonusData?.BONUS).toLocaleString() }}</div>
+            <div class="golden-text-card"
+              :class="{ 'blur-sm': !hasBonusData }"
+              >{{ hasBonusData ? Number(bonusData?.BONUS).toLocaleString() : '19,999,999' }}</div>
           </div>
         </div>
       </div>

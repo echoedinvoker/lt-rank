@@ -1,13 +1,8 @@
 <template>
   <div class="flex items-center justify-around w-full gap-8 relative z-10">
-    <TabButton
-      @click="selectedTab = 'new'"
-      :variant="selectedTab === 'new' ? 'primary' : 'secondary'"
-    >校際戰績</TabButton>
-    <TabButton
-      @click="selectedTab = 'last'"
-      :variant="selectedTab === 'last' ? 'primary' : 'secondary'"
-    >上週戰績</TabButton>
+    <TabButton @click="selectedTab = 'new'" :variant="selectedTab === 'new' ? 'primary' : 'secondary'">校際戰績</TabButton>
+    <TabButton @click="selectedTab = 'last'" :variant="selectedTab === 'last' ? 'primary' : 'secondary'">上週戰績
+    </TabButton>
   </div>
   <p class="font-noto-sans-tc font-bold text-[#ffff00] text-3xl text-center pb-3">
     {{ selectedTab === 'new' ? currentWeekText : lastWeekText }}
