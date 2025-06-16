@@ -1,16 +1,32 @@
 import { ref, onMounted } from "vue"
 import { useActivityWeeks } from '@/composables/useActivityWeeks'
 import { useAuthStore } from "@/stores/auth"
-import { pointApi, type BonusBySchoolResponse } from '@/api/point'
+import { pointApi } from '@/api/point'
+import { computed } from "vue"
+import { watch } from "vue"
+import { useSearchStore } from "@/stores/search"
+
 
 export function useBonusBySchoolByWeek() {
 
-  const { currentWeek } = useActivityWeeks()
+  const { activityWeeks, currentWeek, formatWeekText } = useActivityWeeks()
   const authStore = useAuthStore()
+  const searchStore = useSearchStore()
 
-  const bonusData = ref<BonusBySchoolResponse['data'] | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
+
+  const selectableWeeks = computed<{ id: number, name: string }[]>(() => {
+    return activityWeeks.value.map(week => ({
+      id: week.week,
+      name: `第${week.week}週`
+    }))
+  })
+
+  const weekText = computed(() => {
+    const weekConfig = activityWeeks.value.find(week => week.week === searchStore.selectedWeek)!
+    return formatWeekText(weekConfig)
+  })
 
   // 獲取積分數據的通用方法
   const fetchBonusData = async (uid: number, schoolName?: string, week?: number) => {
@@ -30,7 +46,7 @@ export function useBonusBySchoolByWeek() {
       })
 
       if (response.status) {
-        bonusData.value = response.data
+        searchStore.bonusData = response.data
       } else {
         error.value = response.message || '獲取數據失敗'
       }
@@ -42,7 +58,19 @@ export function useBonusBySchoolByWeek() {
     }
   }
 
+  const stopWatcherSchoolName = watch(
+    () => searchStore.bonusData?.school_name,
+    (newSchoolName) => {
+      if (newSchoolName) {
+        searchStore.schoolName = newSchoolName
+        stopWatcherSchoolName() // 停止監聽, 僅做初始賦值
+      }
+    },
+    { immediate: true }
+  )
+
   onMounted(() => {
+    searchStore.selectedWeek = currentWeek.value || 1
     // 一開始載入時, 先使用 uid 與 currentWeek 來查詢 (沒有 schoolName, 會自動取得該uid學生的school name 與 bonus 資訊)
     if (authStore.uid && currentWeek.value) {
       fetchBonusData(Number(authStore.uid), undefined, currentWeek.value)
@@ -51,9 +79,12 @@ export function useBonusBySchoolByWeek() {
 
   return {
     // 響應式數據
-    bonusData,
     loading,
     error,
+
+    // Computed 屬性
+    weekText,
+    selectableWeeks,
 
     // 查詢方法
     searchHandler: async (week: number, schoolName?: string) => {
@@ -62,9 +93,11 @@ export function useBonusBySchoolByWeek() {
     },
 
     // 重新載入當前數據
-    refresh: () => {
+    refresh: async () => {
       if (authStore.userUid && currentWeek.value) {
-        fetchBonusData(Number(authStore.userUid), undefined, currentWeek.value)
+        await fetchBonusData(Number(authStore.uid), undefined, currentWeek.value)
+        searchStore.schoolName = searchStore.bonusData?.school_name || ''
+        searchStore.selectedWeek = currentWeek.value
       }
     }
   }

@@ -11,11 +11,11 @@
           </h2>
 
           <div class="grid grid-cols-[8fr_6fr_3fr] gap-5 w-full">
-            <TheInput v-model="schoolName" label="學校" placeholder="請輸入學校名稱" />
-            <TheSelect v-model="selectedWeek" label="週次" :options="selectableWeeks" />
+            <TheInput v-model="searchStore.schoolName" label="學校" placeholder="請輸入學校名稱" />
+            <TheSelect v-model="searchStore.selectedWeek" label="週次" :options="selectableWeeks" />
             <QueryButton
               :loading="loading"
-              @click="searchHandler(selectedWeek, schoolName)"
+              @click="searchHandler(searchStore.selectedWeek, searchStore.schoolName)"
             />
 
             <p class="font-noto-sans-tc text-[28px] text-primary col-span-3">
@@ -24,11 +24,12 @@
           </div>
 
           <div class="grid grid-cols-[8fr_3fr_6fr] gap-5 w-full items-center justify-items-center">
-            <div class="text-card border-[#5B0E11]" :class="{ 'blur-sm': !hasBonusData }">{{ hasBonusData ? bonusData?.school_name : '學校名稱' }}</div>
+            <div class="text-card border-[#5B0E11]"
+              :class="{ 'blur-sm': !hasBonusData }">{{ hasBonusData ? searchStore.bonusData?.school_name : '學校名稱' }}</div>
             <div class="bold-text text-primary px-2">累積紅利</div>
             <div class="golden-text-card"
               :class="{ 'blur-sm': !hasBonusData }"
-              >{{ hasBonusData ? Number(bonusData?.BONUS).toLocaleString() : '19,999,999' }}</div>
+              >{{ hasBonusData ? Number(searchStore.bonusData?.BONUS).toLocaleString() : '19,999,999' }}</div>
           </div>
         </div>
       </div>
@@ -37,42 +38,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
 import TheSelect from '@/components/ui/select/TheSelect.vue'
 import TheInput from '@/components/ui/input/TheInput.vue'
 import QueryButton from '@/components/ui/button/QueryButton.vue'
-import { useActivityWeeks } from '@/composables/useActivityWeeks'
 import { computed } from 'vue'
 import { useBonusBySchoolByWeek } from '@/composables/useBonusBySchoolByWeek'
+import { useSearchStore } from '@/stores/search'
 
-const { activityWeeks, currentWeek, formatWeekText } = useActivityWeeks()
-const { searchHandler, bonusData, loading } = useBonusBySchoolByWeek()
+const searchStore = useSearchStore()
+const { searchHandler, loading, weekText, selectableWeeks } = useBonusBySchoolByWeek()
+const hasBonusData = computed(() => searchStore.bonusData)
 
-const hasBonusData = computed(() => bonusData.value)
 
-const selectableWeeks = computed<{ id: number, name: string }[]>(() => {
-  return activityWeeks.value.map(week => ({
-    id: week.week,
-    name: `第${week.week}週`
-  }))
-})
 
-const schoolName = ref(bonusData.value?.school_name)
-const selectedWeek = ref(currentWeek.value)
 
-const weekText = computed(() => {
-  const weekConfig = activityWeeks.value.find(week => week.week === selectedWeek.value)!
-  return formatWeekText(weekConfig)
-})
-
-const stopWatcher = watch(
-  () => bonusData.value?.school_name,
-  (newSchoolName) => {
-    if (newSchoolName) {
-      schoolName.value = newSchoolName
-      stopWatcher() // 停止監聽, 僅做初始賦值
-    }
-  },
-  { immediate: true }
-)
 </script>
