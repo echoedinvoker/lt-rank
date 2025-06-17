@@ -9,6 +9,8 @@
   --color-custom-bg: #323600;
   --font-monda: 'Monda', 'Helvetica', sans-serif;
   --font-noto-sans-tc: 'Noto Sans TC', 'Helvetica', sans-serif;
+  --breakpoint-xs: 490px;
+  --breakpoint-xxs: 550px;
 
   /* Shadcn */
   --color-background: var(--background);

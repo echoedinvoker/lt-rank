@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full sm:px-9 mt-48 mb-4">
+  <section class="w-full sm:px-9 mt-12 sm:mt-48 mb-4">
     <div class="bg-award px-12 sm:px-14 py-16 max-w-[1198px] mx-auto relative">
       <!-- Absolute Header Image -->
       <div class="absolute top-0 left-1/2 bg-award-title w-[285px] h-[137px] sm:w-[488px] sm:h-[235px]
@@ -70,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import TabButton from '@/components/ui/button/TabButton.vue'
 import { useActivityWeeks } from '@/composables/useActivityWeeks'
 

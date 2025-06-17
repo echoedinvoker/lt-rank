@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full px-9 -mt-12 mb-12 max-w-[793px] mx-auto">
+  <section class="w-full px-9 -mt-12 max-w-[793px] mx-auto">
     <CTAButton />
   </section>
 </template>

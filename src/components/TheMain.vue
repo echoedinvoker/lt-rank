@@ -1,5 +1,5 @@
 <template>
-  <main class="bg-custom-bg lg:pt-[81px] flex flex-col space-y-7 sm:space-y-24">
+  <main class="bg-custom-bg lg:pt-[81px] flex flex-col space-y-7 xs:space-y-12 xxs:space-y-18 sm:space-y-24">
     <HeroSection />
 
     <LazySection :delay="0">
@@ -7,7 +7,7 @@
     </LazySection>
 
     <LazySection :delay="0">
-      <CTASection class="-mt-[120px] sm:-mt-[250px] lg:-mt-[300px]" />
+      <CTASection class="-mt-[130px] xs:-mt-[150px] xxs:-mt-[170px] sm:-mt-[250px] lg:-mt-[300px]" />
     </LazySection>
 
     <LazySection :delay="100">

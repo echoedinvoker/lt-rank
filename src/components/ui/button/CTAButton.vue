@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full mx-auto h-[125px]">
+  <div class="w-full mx-auto">
     <button
       class="cta-button relative z-50 w-full h-full mx-auto cursor-pointer flex items-center justify-center"
       :class="{ 'is-active': isPressed }"
