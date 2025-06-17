@@ -1,4 +1,5 @@
 import { ref, onMounted, onUnmounted, computed, type Ref } from 'vue'
+import { useLoginDialog } from '@/composables/useLoginDialog'
 
 export function useScrollHideHeader(isMobileMenuOpen: Ref<boolean>) {
   const lastScrollY = ref(0)
@@ -8,9 +9,11 @@ export function useScrollHideHeader(isMobileMenuOpen: Ref<boolean>) {
   // 檢查是否為小螢幕 (< 1024px, lg breakpoint)
   const isMobile = ref(window.innerWidth < 640)
 
+  const { showLoginModal } = useLoginDialog()
+
   // 只有在小螢幕且選單未開啟時才隱藏 header
   const isHeaderHidden = computed(() => {
-    return isMobile.value && !isMobileMenuOpen.value && isScrollingDown.value
+    return isMobile.value && !isMobileMenuOpen.value && !showLoginModal.value && isScrollingDown.value
   })
 
   const handleScroll = () => {
