@@ -31,6 +31,7 @@ const headerHeight = ref(0)
 onMounted(() => {
   // 假設你的 header 有 id 或 class，這裡用常見的方式獲取
   const header = document.querySelector('header') || document.querySelector('.header')
+  console.log('Header Element:', header)
   if (header) {
     headerHeight.value = header.offsetHeight
   } else {
