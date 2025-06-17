@@ -11,14 +11,20 @@
         <p class="font-noto-sans-tc font-base text-white sm:hidden">選擇週次</p>
         <!-- Tab Buttons -->
         <div class="flex justify-center gap-1 sm:gap-4 max-w-7/8 sm:flex-wrap w-full">
-          <template v-for="week in weeks" :key="week.id">
+          <template v-for="weekConfig in activityWeeks" :key="weekConfig.week">
             <div>
-              <TabButton class="hidden lg:block text-[30px] font-bold px-10 py-3 !rounded-2xl" :label="week.label"
-                :variant="selectedWeek === week.id ? 'primary' : 'secondary'" @click="selectedWeek = week.id" />
-              <button :class="`lg:hidden w-7.5 h-7.5 sm:w-16 sm:h-16  rounded flex items-center justify-center
+              <TabButton class="hidden lg:block text-[30px] font-bold px-10 py-3 !rounded-2xl"
+                :label="`第${weekConfig.week}週`"
+                :variant="selectedWeek.week === weekConfig.week ? 'primary' : 'secondary'"
+                @click="handleClick(weekConfig)" />
+              <button
+                @click="handleClick(weekConfig)"
+                :class="`lg:hidden w-7.5 h-7.5 sm:w-16 sm:h-16  rounded flex items-center justify-center
                 border-2 sm:border-3 sm:text-lg
-                ${selectedWeek === week.id ? 'bg-white text-black border-black' : 'bg-black text-white border-white cursor-pointer hover:bg-gray-800 active:bg-gray-700'}
-                `">{{ week.id.toString() }}</button>
+                ${selectedWeek.week === weekConfig.week
+                  ? 'bg-white text-black border-black'
+                  : 'bg-black text-white border-white cursor-pointer hover:bg-gray-800 active:bg-gray-700'
+                }`">{{ weekConfig.week.toString() }}</button>
             </div>
           </template>
         </div>
@@ -70,23 +76,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import TabButton from '@/components/ui/button/TabButton.vue'
-import { useActivityWeeks } from '@/composables/useActivityWeeks'
+import { useActivityWeeks, type WeekConfig } from '@/composables/useActivityWeeks'
 
-const { currentWeek, activityWeeks, formatWeekText } = useActivityWeeks()
-const selectedWeek = computed(() => currentWeek.value)
-const selectedWeekText = computed(() => {
-  const selectedWeekConfig = activityWeeks.value.find((week) => week.week === selectedWeek.value)!
-  return formatWeekText(selectedWeekConfig)
-})
+const { selectedWeek, selectedWeekText, activityWeeks } = useActivityWeeks()
 
-const weeks = computed(() => {
-  return activityWeeks.value.map((week) => ({
-    id: week.week,
-    label: `第${week.week}週`,
-  }))
-})
+const handleClick = (weekConfig: WeekConfig) => {
+  selectedWeek.value = weekConfig
+}
 </script>
 
 <style scoped>
