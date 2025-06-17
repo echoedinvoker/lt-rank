@@ -1,6 +1,6 @@
 <template>
-  <div class="flex items-center">
-<svg width="111" height="111" viewBox="0 0 111 111" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <div>
+<svg viewBox="0 0 111 111" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M110.598 55.3911C110.598 85.6951 86.0362 110.257 55.7322 110.257C25.4282 110.257 0.866211 85.6875 0.866211 55.3911C0.866211 25.0947 25.4358 0.532715 55.7322 0.532715C86.0286 0.532715 110.598 25.0947 110.598 55.3987V55.3911Z" fill="url(#paint0_linear_4_3997)"/>
 <g style="mix-blend-mode:multiply" opacity="0.3">
 <path d="M104.482 58.1745C104.482 83.56 83.901 104.141 58.5231 104.141C33.1453 104.141 12.5486 83.56 12.5486 58.1745C12.5486 32.7889 33.13 12.2075 58.5231 12.2075C83.9163 12.2075 104.482 32.7889 104.482 58.1745Z" fill="#BABCBE"/>
@@ -25,14 +25,3 @@
 </svg>
   </div>
 </template>
-
-<script setup lang="ts">
-// 可以添加 props 來控制 logo 大小
-interface Props {
-  height?: number
-}
-
-withDefaults(defineProps<Props>(), {
-  height: 35,
-})
-</script>

@@ -1,5 +1,5 @@
 <template>
-  <ul class="list-disc pl-16 pr-8 text-[#711F11] space-y-12">
+  <ul class="list-disc pl-6 sm:pl-16 sm:pr-8 text-[#711F11] space-y-12 leading-7 sm:leading-10">
     <li v-for="(content, index) in contents" :key="index">
       <span class="text-black whitespace-pre-line">{{ content }}</span>
     </li>

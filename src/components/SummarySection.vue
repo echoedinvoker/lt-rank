@@ -6,18 +6,18 @@
       rounded-lg sm:rounded-xl
       max-w-[1098px] mx-auto">
 
-      <div class="flex flex-col items-center justify-center sm:space-y-8 px-12 pb-4 sm:pb-24 rounded bg-lines-pattern
+      <div class="flex flex-col items-center justify-center sm:space-y-8 px-5 sm:px-12 pb-4 sm:pb-24 rounded bg-lines-pattern
         responsive-box-shadow">
 
         <!-- 頂部裝飾圖標 -->
         <div class="flex justify-center sm:mt-9 sm:mb-3">
-          <div class="w-2/3 sm:w-4/5">
+          <div class="w-2/3 sm:w-5/6">
             <img :src="decoDespSvg" alt="Decoration Icons" class="w-full object-cover" />
           </div>
         </div>
 
         <!-- 描述文字 -->
-        <div class="w-full max-w-[647px] font-normal text-black text-base text-2xl text-center
+        <div class="w-full max-w-[647px] font-normal text-black text-base text-[16px] sm:text-[26px] text-center
         tracking-[0] sm:leading-9">
           <template v-for="(line, index) in mainContent.description" :key="index">
             {{ line }} <br />
@@ -26,8 +26,8 @@
 
         <!-- 資訊框 -->
         <div class="w-full max-w-[905px] rounded-[11px] bg-white shadow-md flex items-center
-        justify-center px-4 my-6 sm:my-0">
-          <div class="w-full max-w-[781px] py-4 font-normal text-black text-base text-2xl text-center
+        justify-center px-5 my-6 sm:my-0">
+          <div class="w-full max-w-[781px] py-4 font-normal text-black text-base text-[15px] sm:text-[22px] text-center
           tracking-[0] sm:leading-9">
             {{ mainContent.infoBox }}
           </div>
@@ -40,7 +40,6 @@
 
 <script setup lang="ts">
 import decoDespSvg from '@/assets/deco-desp.svg'
-import CTAButton from '@/components/ui/button/CTAButton.vue'
 
 // 促銷內容數據
 const mainContent = {

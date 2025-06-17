@@ -11,20 +11,24 @@
             <div>績</div>
           </h2>
 
-          <div class="md:grid md:grid-cols-[8fr_6fr_3fr] md:gap-5 space-y-5 sm:space-y-7 w-full">
+          <div class="md:grid md:grid-cols-[8fr_6fr_3fr] md:gap-5 space-y-5 sm:space-y-7 w-full
+            justify-items-center
+            max-w-[320px] sm:max-w-[600px] lg:max-w-[800px]">
             <TheInput v-model="searchStore.schoolName" label="學校" placeholder="請輸入學校名稱" />
             <TheSelect v-model="searchStore.selectedWeek" label="週次" :options="selectableWeeks" />
             <QueryButton :loading="loading" @click="searchHandler(searchStore.selectedWeek, searchStore.schoolName)" />
 
             <p class="font-noto-sans-tc text-base sm:text-2xl lg:text-[28px] text-primary col-span-3
-            text-center">
+            text-center sm:text-left md:-mt-8">
               {{ weekText }}
             </p>
           </div>
 
           <div
-            class="grid grid-cols-[min-content_1fr] sm:grid-cols-[8fr_3fr_6fr] gap-2 sm:gap-5 w-full items-center justify-items-center">
-            <div class="col-span-2 sm:col-span-1 text-card border-[#5B0E11] smooth-transition"
+            class="grid grid-cols-[min-content_1fr] md:grid-cols-[8fr_3fr_6fr] gap-2 sm:gap-5 w-full items-center justify-items-center
+            max-w-[320px] sm:max-w-[600px] lg:max-w-[800px]
+            ">
+            <div class="col-span-2 md:col-span-1 text-card border-[#5B0E11] smooth-transition"
               :class="{ 'blur-sm': !hasBonusData }">{{ hasBonusData ? searchStore.bonusData?.school_name : '學校名稱' }}
             </div>
             <div class="bold-text text-primary px-0 sm:px-2 leading-4.5 sm:leading-8 text-center">

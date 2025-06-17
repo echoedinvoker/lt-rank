@@ -1,22 +1,24 @@
 <template>
-  <section class="w-full px-9 mt-48">
+  <section class="w-full px-9 mt-12 sm:mt-24 lg:mt-48">
     <TheCard>
       <template #header>
         <RibbonHeader title="個人成就" />
       </template>
       <template #content>
 
-        <div class="flex flex-col items-center gap-4">
-          <div class="grid grid-cols-[min-content_1fr_1fr] justify-items-center items-center
-          gap-8">
-            <UserIcon :height="67" />
+        <div class="flex flex-col items-center gap-4 mb-6">
+          <div class="grid grid-cols-[min-content_1fr] lg:grid-cols-[min-content_1fr_1fr]
+            justify-items-center items-center gap-2 sm:gap-8">
+            <UserIcon class="w-11 h-11 sm:w-24 sm:h-24" />
             <h2 class="bold-text text-center">本週任務紅利已累積</h2>
-            <div class="golden-text-card justify-self-end smooth-transition"
+            <div class="golden-text-card justify-self-end smooth-transition col-start-2 col-end-3
+              lg:col-span-1 transform -translate-y-1/6 lg:translate-y-0 -translate-x-[3%]
+              lg:translate-x-0 -scale-x-105 lg:scale-x-100"
               :class="{ 'blur-sm': !isDataLoaded }">{{ totalBonus }}</div>
           </div>
         </div>
 
-        <div class="bg-[#932C11] w-full rounded-lg p-2.5 drop-shadow-[0_8px_0_#4D1111]">
+        <div class="hidden md:block bg-[#932C11] w-full rounded-lg p-2.5 drop-shadow-[0_8px_0_#4D1111]">
           <div class="bg-lines-sm-pattern w-full rounded-2xl flex items-center justify-center overflow-hidden">
             <h2 class="text-[50px] tracking-widest font-black font-noto-sans-tc text-white p-5 grid
               grid-cols-[1fr_repeat(6,min-content)_1fr] gap-4 items-center">
@@ -30,7 +32,10 @@
         </div>
 
         <div
-          class="w-full grid grid-cols-[repeat(2,minmax(0,max-content))_1fr_repeat(2,minmax(0,max-content))_1fr] items-center justify-items-center gap-6 mt-6">
+          class="w-full grid grid-cols-[repeat(2,minmax(0,max-content))_1fr]
+          lg:grid-cols-[repeat(2,minmax(0,max-content))_1fr_repeat(2,minmax(0,max-content))_1fr]
+          items-center justify-items-center gap-3 sm:gap-6 sm:mt-6 max-w-[270px] sm:max-w-[550px]
+          lg:max-w-[1098px]">
           <template v-for="item in weeklyBonus" :key="item.week">
             <div class="text-card font-normal">{{ item.week }}</div>
             <div class="bold-text">紅利</div>
@@ -56,13 +61,13 @@ const { data } = useBonusByUser();
 const title = '每週任務紅利';
 
 const defaultWeeklyBonus = [
-  { week: '第一週', bonus: '1,999', numBonus: 1999 },
-  { week: '第二週', bonus: '1,999', numBonus: 1999 },
-  { week: '第三週', bonus: '1,999', numBonus: 1999 },
-  { week: '第四週', bonus: '1,999', numBonus: 1999 },
-  { week: '第五週', bonus: '1,999', numBonus: 1999 },
-  { week: '第六週', bonus: '1,999', numBonus: 1999 },
-  { week: '第七週', bonus: '1,999', numBonus: 1999 },
+  { week: '第1週', bonus: '1,999', numBonus: 1999 },
+  { week: '第2週', bonus: '1,999', numBonus: 1999 },
+  { week: '第3週', bonus: '1,999', numBonus: 1999 },
+  { week: '第4週', bonus: '1,999', numBonus: 1999 },
+  { week: '第5週', bonus: '1,999', numBonus: 1999 },
+  { week: '第6週', bonus: '1,999', numBonus: 1999 },
+  { week: '第7週', bonus: '1,999', numBonus: 1999 },
 ];
 
 const isDataLoaded = computed(() => {

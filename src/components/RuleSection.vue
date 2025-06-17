@@ -1,10 +1,14 @@
 <template>
-  <section class="w-full px-9 mt-38">
-    <div class="bg-[#BD5310] px-[26px] py-[22px] rounded-xl max-w-[1098px] mx-auto relative">
-      <div class="flex flex-col space-y-8 px-24 pt-24 pb-18 rounded bg-[#FBDCAB] font-noto-sans-tc text-[28px] relative"
-        style="box-shadow: inset 0 0 0 16px rgba(77, 17, 17, 0.9)">
+  <section class="w-full px-2.5 sm:px-9 mt-38">
+    <div class="bg-[#BD5310] p-2.5 sm:p-6 rounded-xl max-w-[1098px] mx-auto relative">
+      <div class="flex flex-col space-y-3 sm:space-y-8 px-7 sm:px-24 p-9 sm:pt-24 sm:pb-72 rounded bg-[#FBDCAB] font-noto-sans-tc
+        text-base sm:text-[28px] relative responsive-box-shadow">
         <h2
-          class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl font-black font-noto-sans-tc text-white grid grid-cols-[1fr_max-content_max-content_max-content_max-content_1fr] justify-center w-1/3 min-w-[350px] bg-gradient-to-b from-[#00C5C5] to-[#007187] border-[6px] border-[#007187] rounded-md px-8 py-4 gap-4">
+          class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl
+          sm:text-6xl font-black font-noto-sans-tc text-white grid
+          grid-cols-[1fr_max-content_max-content_max-content_max-content_1fr] justify-center
+          bg-gradient-to-b from-[#00C5C5] to-[#007187] border-1 sm:border-[6px] border-[#007187]
+          rounded-xs sm:rounded-md px-3 sm:px-10 py-1 sm:py-6 gap-1 sm:gap-4">
           <div></div>
           <div>活</div>
           <div>動</div>
@@ -56,4 +60,21 @@
 
 <script setup lang="ts">
 import TextList from '@/components/ui/list/TextList.vue'
+
+// TODO adjust header py
 </script>
+
+<style scoped>
+/* 響應式 box-shadow */
+.responsive-box-shadow {
+  box-shadow: inset 0 0 0 6px rgba(77, 17, 17, 0.9);
+  /* 小螢幕預設 8px */
+}
+
+/* 大螢幕時使用 16px */
+@media (min-width: 640px) {
+  .responsive-box-shadow {
+    box-shadow: inset 0 0 0 16px rgba(77, 17, 17, 0.9);
+  }
+}
+</style>
