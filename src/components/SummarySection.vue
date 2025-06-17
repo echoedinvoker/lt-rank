@@ -1,39 +1,39 @@
 <template>
-  <section class="w-full px-12 mb-96">
+  <section class="w-full px-9">
     <!-- 內容容器 -->
-    <div class="bg-gradient-to-r from-[#D66B11] to-[#932C11] px-[26px] py-[22px] rounded-xl
+    <div class="bg-gradient-to-b sm:bg-gradient-to-r from-[#D66B11] to-[#932C11] px-2.5 sm:px-6
+      py-3 sm:py-5.5 mb-18 lg:mb-32
+      rounded-lg sm:rounded-xl
       max-w-[1098px] mx-auto">
 
-      <div
-        class="flex flex-col items-center justify-center space-y-8 px-12 rounded bg-lines-pattern"
-          style="box-shadow: inset 0 0 0 16px rgba(77, 17, 17, 0.9);">
+      <div class="flex flex-col items-center justify-center sm:space-y-8 px-12 pb-4 sm:pb-24 rounded bg-lines-pattern
+        responsive-box-shadow">
 
-      <!-- 頂部裝飾圖標 -->
-      <div class="flex justify-center mt-[38px] mb-[12px]">
-        <div class="w-[314px] h-[151px]">
-          <img :src="decoDespSvg" alt="Decoration Icons" class="w-full object-cover" />
+        <!-- 頂部裝飾圖標 -->
+        <div class="flex justify-center sm:mt-9 sm:mb-3">
+          <div class="w-2/3 sm:w-4/5">
+            <img :src="decoDespSvg" alt="Decoration Icons" class="w-full object-cover" />
+          </div>
         </div>
-      </div>
 
-      <!-- 描述文字 -->
-      <div class="w-full max-w-[647px] font-normal text-black text-[26px] text-center tracking-[0] leading-9">
-        <template v-for="(line, index) in mainContent.description" :key="index">
-          {{ line }} <br />
-        </template>
-      </div>
-
-      <!-- 資訊框 -->
-      <div
-        class="w-full max-w-[905px] rounded-[11px] bg-white shadow-md flex items-center
-        justify-center px-4">
-        <div class="w-full max-w-[781px] py-4 font-normal text-black text-[22px] text-center tracking-[0] leading-9">
-          {{ mainContent.infoBox }}
+        <!-- 描述文字 -->
+        <div class="w-full max-w-[647px] font-normal text-black text-base text-2xl text-center
+        tracking-[0] sm:leading-9">
+          <template v-for="(line, index) in mainContent.description" :key="index">
+            {{ line }} <br />
+          </template>
         </div>
+
+        <!-- 資訊框 -->
+        <div class="w-full max-w-[905px] rounded-[11px] bg-white shadow-md flex items-center
+        justify-center px-4 my-6 sm:my-0">
+          <div class="w-full max-w-[781px] py-4 font-normal text-black text-base text-2xl text-center
+          tracking-[0] sm:leading-9">
+            {{ mainContent.infoBox }}
+          </div>
+        </div>
+
       </div>
-
-      <CTAButton />
-
-    </div>
     </div>
   </section>
 </template>
@@ -105,13 +105,16 @@ const handleCTAClick = () => {
 }
 
 .custom-gradient {
-  background: linear-gradient(
-    to bottom,
-    #FCD788 33%,    /* offset="0.33" */
-    #FCCC6D 49%,    /* offset="0.49" */
-    #FCB028 82%,    /* offset="0.82" */
-    #FCA000 100%    /* offset="1" */
-  );
+  background: linear-gradient(to bottom,
+      #FCD788 33%,
+      /* offset="0.33" */
+      #FCCC6D 49%,
+      /* offset="0.49" */
+      #FCB028 82%,
+      /* offset="0.82" */
+      #FCA000 100%
+      /* offset="1" */
+    );
 }
 
 .bg-lines-pattern {
@@ -136,5 +139,20 @@ const handleCTAClick = () => {
   mix-blend-mode: multiply;
   pointer-events: none;
   z-index: -1;
+}
+</style>
+
+<style scoped>
+/* 響應式 box-shadow */
+.responsive-box-shadow {
+  box-shadow: inset 0 0 0 6px rgba(77, 17, 17, 0.9);
+  /* 小螢幕預設 8px */
+}
+
+/* 大螢幕時使用 16px */
+@media (min-width: 640px) {
+  .responsive-box-shadow {
+    box-shadow: inset 0 0 0 16px rgba(77, 17, 17, 0.9);
+  }
 }
 </style>

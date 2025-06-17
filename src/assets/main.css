@@ -130,13 +130,13 @@
 }
 @layer components {
   .bold-text {
-    @apply text-white text-3xl font-bold font-noto-sans-tc;
+    @apply text-white text-base sm:text-3xl font-bold font-noto-sans-tc;
   }
   .text-card {
-    @apply bg-gradient-to-b from-[#932C11] to-[#5B0E11] text-white border-3 border-white rounded-md text-3xl font-black font-noto-sans-tc py-4 px-6 w-full;
+    @apply bg-gradient-to-b from-[#932C11] to-[#5B0E11] text-white border-3 border-white rounded-md text-base sm:text-3xl font-black font-noto-sans-tc py-1 px-4 sm:py-3 sm:px-6 w-full;
   }
   .golden-text-card {
-    @apply w-full flex justify-center items-center font-monda text-4xl font-bold text-white px-4 py-4;
+    @apply w-full flex justify-center items-center font-monda text-2xl sm:text-4xl font-bold text-white p-2 sm:p-4;
     background-image: url('@/assets/bg-num.svg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -163,5 +163,9 @@
     /* 只有背景會變黑，不影響文字 */
     filter: grayscale(100%) brightness(0.4) contrast(1.2);
     z-index: -1; /* 確保背景在文字後面 */
+  }
+
+  .smooth-transition {
+    @apply transition-all duration-300 ease-in-out;
   }
 }

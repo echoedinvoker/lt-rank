@@ -1,14 +1,19 @@
 <template>
-  <main class="bg-custom-bg pt-[81px] flex flex-col space-y-24">
+  <main class="bg-custom-bg lg:pt-[81px] flex flex-col space-y-7 sm:space-y-24">
     <HeroSection />
 
     <LazySection :delay="0">
       <SummarySection />
     </LazySection>
 
+    <LazySection :delay="0">
+      <CTASection class="-mt-[120px] sm:-mt-[250px] lg:-mt-[300px]" />
+    </LazySection>
+
     <LazySection :delay="100">
       <SchoolSection />
     </LazySection>
+
 
     <LazySection :delay="200">
       <SearchSection />

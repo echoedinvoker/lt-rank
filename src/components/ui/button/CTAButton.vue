@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full max-w-[795px] mx-auto mb-8 h-8">
+  <div class="w-full mx-auto h-8">
     <button
-      class="cta-button relative w-full max-w-[793px] h-[139px] mx-auto cursor-pointer flex items-center justify-center"
+      class="cta-button relative w-full h-[139px] mx-auto cursor-pointer flex items-center justify-center"
       @click="handleCTAClick">
       <!-- 按鈕背景 -->
       <img :src="btnMissionPage" alt="Mission Button Background"

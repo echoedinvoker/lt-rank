@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full px-12 mt-48">
+  <section class="w-full px-9 mt-48">
     <div class="bg-award px-14 py-12 max-w-[1198px] mx-auto relative">
       <!-- Absolute Header Image -->
       <div class="absolute top-0 left-1/2 bg-award-title w-[691px] h-[332px] transform -translate-x-1/2 -translate-y-1/2"></div>

@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full px-12">
+  <section class="w-full px-9 mt-38">
     <div class="bg-[#BD5310] px-[26px] py-[22px] rounded-xl max-w-[1098px] mx-auto relative">
       <div class="flex flex-col space-y-8 px-24 pt-24 pb-18 rounded bg-[#FBDCAB] font-noto-sans-tc text-[28px] relative"
         style="box-shadow: inset 0 0 0 16px rgba(77, 17, 17, 0.9)">

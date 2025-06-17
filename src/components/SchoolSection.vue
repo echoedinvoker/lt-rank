@@ -1,8 +1,8 @@
 <template>
-  <section class="w-full px-12">
+  <section class="w-full px-7">
     <TheCard>
       <template #header>
-        <RibbonHeader />
+        <RibbonHeader title="school" />
       </template>
       <template #content>
         <SchoolMain />

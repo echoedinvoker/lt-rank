@@ -3,11 +3,8 @@
     @click="handleClick"
     :disabled="loading"
     :class="`bg-primary text-white font-noto-sans-tc w-full rounded-md cursor-pointer
-           disabled:opacity-50 disabled:cursor-not-allowed
-           transition-all duration-200
-           flex items-center justify-center gap-2
-           ${loading ? 'text-[26px]':' text-[28px]'}
-           `">
+    disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center
+    justify-center gap-2 py-1.5 ${loading ? 'text-lg sm:text-[26px]':'text-lg sm:text-[28px]'}`">
     <!-- 載入動畫 -->
     <svg
       v-if="loading"

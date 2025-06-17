@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full px-12 mt-48">
+  <section class="w-full px-9 mt-48">
     <TheCard>
       <template #header>
         <RibbonHeader title="個人成就" />
@@ -11,7 +11,7 @@
           gap-8">
             <UserIcon :height="67" />
             <h2 class="bold-text text-center">本週任務紅利已累積</h2>
-            <div class="golden-text-card justify-self-end"
+            <div class="golden-text-card justify-self-end smooth-transition"
               :class="{ 'blur-sm': !isDataLoaded }">{{ totalBonus }}</div>
           </div>
         </div>
@@ -34,7 +34,8 @@
           <template v-for="item in weeklyBonus" :key="item.week">
             <div class="text-card font-normal">{{ item.week }}</div>
             <div class="bold-text">紅利</div>
-            <div class="golden-text-card" :class="{ 'blur-sm': !isDataLoaded }">{{ item.bonus }}</div>
+            <div class="golden-text-card smooth-transition"
+              :class="{ 'blur-sm': !isDataLoaded }">{{ item.bonus }}</div>
           </template>
         </div>
 
