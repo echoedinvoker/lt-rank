@@ -6,7 +6,7 @@ export function useScrollHideHeader(isMobileMenuOpen: Ref<boolean>) {
   const scrollThreshold = 10 // 滾動閾值，避免小幅滾動觸發
 
   // 檢查是否為小螢幕 (< 1024px, lg breakpoint)
-  const isMobile = ref(window.innerWidth < 1024)
+  const isMobile = ref(window.innerWidth < 640)
 
   // 只有在小螢幕且選單未開啟時才隱藏 header
   const isHeaderHidden = computed(() => {
@@ -23,6 +23,9 @@ export function useScrollHideHeader(isMobileMenuOpen: Ref<boolean>) {
     if (Math.abs(scrollDiff) > scrollThreshold) {
       isScrollingDown.value = scrollDiff > 0 && currentScrollY > 100 // 頁面頂部 100px 內不隱藏
       lastScrollY.value = currentScrollY
+      if (isMobileMenuOpen.value) {
+        isMobileMenuOpen.value = false // 如果滾動時選單開啟，則關閉選單
+      }
     }
   }
 
