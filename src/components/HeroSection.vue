@@ -1,50 +1,83 @@
 <template>
-  <section>
+  <section class="relative">
+    <!-- 大螢幕熱氣球背景 -->
     <img
+      ref="heroImage"
       src="@/assets/hero-B.png"
       alt="Hero Section"
-      class="w-full h-auto object-cover min-h-[800px] hidden sm:block"
-      loading="lazy"
+      class="w-full h-auto object-cover min-h-[800px] hidden sm:block sm:block transition-opacity duration-500"
+      :class="{ 'opacity-0': !imageLoaded, 'opacity-100': imageLoaded }"
+      @load="onImageLoad"
+      @error="onImageError"
     />
     <!-- 大螢幕熱氣球 - 左側 -->
     <img
       src="@/assets/ballon-left-B.svg"
       alt="Hot Air Balloon Left"
-      class="hidden sm:block absolute top-[16%] left-[8%] w-[5%] h-auto floating-balloon-left"
-      loading="lazy"
+      class="hidden sm:block absolute top-[16%] left-[8%] w-[5%] h-auto floating-balloon-left transition-opacity duration-500"
+      :class="{ 'opacity-0': !imageLoaded, 'opacity-100': imageLoaded }"
     />
     <!-- 大螢幕熱氣球 - 右側 -->
     <img
       src="@/assets/ballon-right-B.svg"
       alt="Hot Air Balloon Right"
-      class="hidden sm:block absolute top-[11%] right-[10%] w-[13%] h-auto floating-balloon-right"
-      loading="lazy"
+      class="hidden sm:block absolute top-[11%] right-[10%] w-[13%] h-auto floating-balloon-right transition-opacity duration-500"
+      :class="{ 'opacity-0': !imageLoaded, 'opacity-100': imageLoaded }"
     />
 
+    <!-- 小螢幕熱氣球背景 -->
     <img
       src="@/assets/hero-S.png"
       alt="Hero Section"
-      class="w-full h-auto object-cover sm:hidden"
-      loading="lazy"
+      class="w-full h-auto object-cover sm:hidden transition-opacity duration-500"
+      :class="{ 'opacity-0': !imageLoaded, 'opacity-100': imageLoaded }"
+      @load="onImageLoad"
     />
     <!-- 小螢幕熱氣球 - 左側 -->
     <img
       src="@/assets/ballon-left-S.svg"
       alt="Hot Air Balloon Left"
-      class="sm:hidden absolute top-[18%] left-[10%] w-[8%] h-auto floating-balloon-left"
-      loading="lazy"
+      class="sm:hidden absolute top-[18%] left-[10%] w-[8%] h-auto floating-balloon-left transition-opacity duration-500"
+      :class="{ 'opacity-0': !imageLoaded, 'opacity-100': imageLoaded }"
     />
 
     <!-- 小螢幕熱氣球 - 右側 -->
     <img
       src="@/assets/ballon-right-S.svg"
       alt="Hot Air Balloon Right"
-      class="sm:hidden absolute top-[15%] right-[6%] w-[15%] h-auto floating-balloon-right"
-      loading="lazy"
+      class="sm:hidden absolute top-[15%] right-[6%] w-[15%] h-auto floating-balloon-right transition-opacity duration-500"
+      :class="{ 'opacity-0': !imageLoaded, 'opacity-100': imageLoaded }"
     />
   </section>
 </template>
 
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const imageLoaded = ref(false)
+
+// 預載入關鍵圖片到記憶體
+onMounted(() => {
+  const preloadImages = [
+    '/src/assets/hero-B.png',
+    '/src/assets/hero-S.png'
+  ]
+
+  preloadImages.forEach(src => {
+    const img = new Image()
+    img.src = src
+  })
+})
+
+const onImageLoad = () => {
+  imageLoaded.value = true
+}
+
+const onImageError = () => {
+  console.error('Hero image failed to load')
+  imageLoaded.value = true // 即使載入失敗也要隱藏骨架屏
+}
+</script>
 <style scoped>
 /* 左側熱氣球漂浮動畫 - 較慢的節奏 */
 .floating-balloon-left {
