@@ -1,3 +1,6 @@
+// 生成隨機整數的輔助函數 (0~1999)
+const generateRandomBonus = () => Math.floor(Math.random() * 2000)
+
 // Mock 資料定義
 const mockSchoolData = [
   { name: "竹南高中", baseBonus: 2450 },
@@ -58,7 +61,14 @@ const staticMockData: Record<string, any> = {
   '/point/getBonusByUserByWeek': {
     status: true,
     data: {
-      "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0
+      // 每次呼叫都會產生新的隨機數值 (0~1999)
+      "1": generateRandomBonus(),
+      "2": generateRandomBonus(),
+      "3": generateRandomBonus(),
+      "4": generateRandomBonus(),
+      "5": generateRandomBonus(),
+      "6": generateRandomBonus(),
+      "7": generateRandomBonus()
     },
     message: "success"
   }

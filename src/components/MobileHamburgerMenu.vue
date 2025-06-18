@@ -26,18 +26,24 @@ import { useMobileHamburger } from '@/composables/useMobileHamburger'
 const { isMobileMenuOpen, visibleNavButtons, handleNavClick } = useMobileHamburger()
 
 // 動態獲取 header 高度
-const headerHeight = ref(0)
+const headerHeight = ref(60)
 
-onMounted(() => {
-  // 假設你的 header 有 id 或 class，這裡用常見的方式獲取
-  const header = document.querySelector('header') || document.querySelector('.header')
-  if (header) {
-    headerHeight.value = header.offsetHeight
-  } else {
-    // 如果找不到 header，使用預設高度
-    headerHeight.value = 64 // 預設 header 高度
-  }
-})
+// 會有大螢幕與得較大 header 高度 (約 81px)，小螢幕時一樣使用大螢幕 header 高度造成 menu 滑出時上方
+// offset 比實際小螢幕 header 高度大，造成 menu 顯示位置不正確 (過低, 造成上方有空白)
+// 所以先使用固定值 60
+//
+// onMounted(() => {
+//   // 假設你的 header 有 id 或 class，這裡用常見的方式獲取
+//   const header = document.querySelector('header') || document.querySelector('.header')
+//   console.log('Header Element:', header)
+//   if (header) {
+//     headerHeight.value = header.offsetHeight
+//   } else {
+//     // 如果找不到 header，使用預設高度
+//     headerHeight.value = 64 // 預設 header 高度
+//   }
+//   console.log('Header Height:', headerHeight.value)
+// })
 </script>
 
 <style scoped>

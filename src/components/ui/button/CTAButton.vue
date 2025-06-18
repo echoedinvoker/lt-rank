@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mx-auto">
     <button
-      class="cta-button relative z-50 w-full h-full mx-auto cursor-pointer flex items-center justify-center"
+      class="cta-button relative z-30 w-full h-full mx-auto cursor-pointer flex items-center justify-center"
       :class="{ 'is-active': isPressed }"
       @click="handleCTAClick"
       @touchstart="handleTouchStart"
@@ -24,6 +24,7 @@ const isPressed = ref(false)
 // CTA 按鈕點擊處理
 const handleCTAClick = () => {
   console.log('CTA button clicked!')
+  window.location.href = 'https://ltutor-web-uat.utiltech.tw/tasks' // TODO: 使用 env 變數替換 URL
 }
 
 // 觸摸事件處理 (移動端)

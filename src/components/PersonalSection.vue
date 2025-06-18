@@ -13,7 +13,7 @@
             <h2 class="bold-text text-center">本週任務紅利已累積</h2>
             <div class="golden-text-card justify-self-end smooth-transition col-start-2 col-end-3
               lg:col-span-1 transform -translate-y-1/6 lg:translate-y-0 -translate-x-[3%]
-              lg:translate-x-0 -scale-x-105 lg:scale-x-100"
+              lg:translate-x-0 scale-x-105 lg:scale-x-100"
               :class="{ 'blur-sm': !isDataLoaded }">{{ totalBonus }}</div>
           </div>
         </div>
