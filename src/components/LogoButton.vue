@@ -21,6 +21,7 @@ const isPressedLogo = ref(false)
 const handleLogoClick = () => {
   // Handle logo click event, e.g., navigate to home page
   console.log('Logo clicked!')
+  window.location.href = 'https://ltutor-web-uat.utiltech.tw/' // TODO: 使用 env 變數替換 URL
 }
 
 // 觸摸事件處理 (移動端)
