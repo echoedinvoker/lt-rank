@@ -1,7 +1,7 @@
 <template>
   <button
     @click="handleClick"
-    :disabled="loading"
+    :disabled="loading || !authStore.isAuthenticated"
     :class="`bg-primary text-white font-noto-sans-tc w-full rounded-md cursor-pointer
     disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center
     justify-center gap-2 py-1.5 ${loading ? 'text-lg sm:text-[26px]':'text-lg sm:text-[28px]'}`">
@@ -32,6 +32,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/auth';
+
 interface Props {
   loading?: boolean
   buttonText?: string
@@ -48,6 +50,8 @@ const props = withDefaults(defineProps<Props>(), {
   buttonText: '查詢',
   loadingText: '查詢中'
 })
+
+const authStore = useAuthStore()
 
 // 定義 emits
 const emit = defineEmits<Emits>()
