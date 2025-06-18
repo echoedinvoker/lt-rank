@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { useLoginDialog } from '@/composables/useLoginDialog'
 import { useAuthStore } from '@/stores/auth'
+import { useMainComponent } from '@/composables/useMainComponent'
 
 const sectionIdMap = {
   校際戰績: 'school-section',
@@ -28,6 +29,7 @@ const authButtons = {
 export function useMobileHamburger() {
   const authStore = useAuthStore()
   const { openLoginDialog } = useLoginDialog()
+  const { forceShowSection: forceShowMainSection } = useMainComponent()
 
   // 根據登入狀態決定顯示的按鈕
   const visibleNavButtons = computed(() => {
@@ -40,17 +42,28 @@ export function useMobileHamburger() {
     isMobileMenuOpen.value = !isMobileMenuOpen.value
   }
 
-  // 滾動到指定 section
-  const scrollToSection = (sectionId: string) => {
+  // 滾動到指定 section (支援 LazySection)
+  const scrollToSection = async (sectionId: string) => {
+
+    // 先強制顯示 LazySection
+    forceShowMainSection(sectionId)
+
+    // 等待 DOM 更新和動畫完成
+    await new Promise(resolve => setTimeout(resolve, 800))
+
     const element = document.getElementById(sectionId)
+
     if (element) {
+      // 重新計算元素位置，因為 LazySection 可能改變了佈局
+      const elementRect = element.getBoundingClientRect()
+      const elementPosition = window.scrollY + elementRect.top
+
       // 動態獲取 header 高度
       const headerElement = document.querySelector('.header') as HTMLElement
       const headerHeight = headerElement ? headerElement.offsetHeight : 0
 
-      // 計算目標位置，減去 header 高度避免被遮擋
-      const elementPosition = element.offsetTop
-      const offsetPosition = elementPosition - headerHeight * 3
+      // 計算目標位置，只減去 header 高度加一點 padding
+      const offsetPosition = Math.max(0, elementPosition - headerHeight - 20) // 確保不會是負數
 
       window.scrollTo({
         top: offsetPosition,
@@ -61,6 +74,7 @@ export function useMobileHamburger() {
 
   // 處理導航按鈕點擊 (與 TheHeader.vue 保持一致的邏輯)
   const handleNavClick = (buttonText: string) => {
+
     // 關閉選單
     if (isMobileMenuOpen.value) {
       toggleMobileMenu()
@@ -71,9 +85,8 @@ export function useMobileHamburger() {
     } else if (buttonText === '登出') {
       authStore.clearAuth()
     } else {
-      console.log(`Clicked: ${buttonText}`)
-      // 加入 scroll to section 的邏輯
       const sectionId = sectionIdMap[buttonText as keyof typeof sectionIdMap]
+
       if (sectionId) {
         scrollToSection(sectionId)
       }
