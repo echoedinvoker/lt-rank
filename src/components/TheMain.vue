@@ -1,6 +1,6 @@
 <template>
   <main class="bg-custom-bg lg:pt-[81px] flex flex-col space-y-7 xs:space-y-12 xxs:space-y-18
-    sm:space-y-24 prevent-overscroll min-h-screen">
+    sm:space-y-24 min-h-screen">
     <HeroSection ref="heroSection" />
 
     <LazySection>
@@ -99,8 +99,19 @@ onMounted(() => {
 
 <style scoped>
 /* 防止移動端過度滾動產生白色區域 */
-.prevent-overscroll {
+main {
+  /* 防止過度滾動 */
   overscroll-behavior: none;
+  /* 確保背景色延伸到整個視窗 */
+  min-height: 100vh;
+  /* 防止滾動時的彈性效果 */
   -webkit-overflow-scrolling: touch;
+}
+
+/* 針對整個頁面的過度滾動控制 */
+html, body {
+  overscroll-behavior: none;
+  /* 防止移動端拉伸效果 */
+  overscroll-behavior-y: none;
 }
 </style>
