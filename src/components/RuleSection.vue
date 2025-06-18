@@ -1,14 +1,10 @@
 <template>
   <section class="w-full px-2.5 sm:px-9 mt-12 sm:mt-52">
     <div class="bg-[#BD5310] p-2.5 sm:p-6 rounded-xl max-w-[1098px] mx-auto relative">
-      <div class="flex flex-col space-y-3 sm:space-y-8 px-7 sm:px-24 p-9 sm:pt-24 sm:pb-72 rounded bg-[#FBDCAB] font-noto-sans-tc
-        text-base sm:text-[28px] relative responsive-box-shadow">
+      <div
+        class="flex flex-col space-y-3 sm:space-y-8 px-7 sm:px-24 p-9 sm:pt-24 sm:pb-72 rounded bg-[#FBDCAB] font-noto-sans-tc text-base sm:text-[28px] relative responsive-box-shadow">
         <h2
-          class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl
-          sm:text-6xl font-black font-noto-sans-tc text-white grid
-          grid-cols-[1fr_max-content_max-content_max-content_max-content_1fr] justify-center
-          bg-gradient-to-b from-[#00C5C5] to-[#007187] border-1 sm:border-[6px] border-[#007187]
-          rounded-xs sm:rounded-md px-3 sm:px-10 py-1 sm:py-6 gap-1 sm:gap-4">
+          class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl sm:text-6xl font-black font-noto-sans-tc text-white grid grid-cols-[1fr_max-content_max-content_max-content_max-content_1fr] justify-center bg-gradient-to-b from-[#00C5C5] to-[#007187] border-1 sm:border-[6px] border-[#007187] rounded-xs sm:rounded-md px-3 sm:px-10 py-1 sm:py-6 gap-1 sm:gap-4">
           <div></div>
           <div>活</div>
           <div>動</div>
@@ -30,8 +26,28 @@
 
         <TextList :contents="[
           '如：A高中當週累積總任務紅利為 9,999；B高中當週累積總任務紅利為 1,111；C高中當週累積總任務紅利為 6,666；D高中當週累積總任務紅利為 8,888，則當週前3名依序為：A高中、D高中、C高中。',
-          '每週前3名的學校，該校的會員每帳號依序可獲得：1000點獎勵紅利、500點獎勵紅利、100點獎勵紅利。\n 獎勵紅利統一於活動下週三晚上23:59:59前歸戶完成，可至活動頁領取。\n 如：第2週獎勵紅利，統一於2025/07/30 (三) 晚上23:59:59前歸戶。',
+          '每週前3名的學校，該校的會員每帳號依序可獲得：1000點獎勵紅利、500點獎勵紅利、100點獎勵紅利。',
+          '獎勵紅利統一於活動下週三晚上23:59:59前歸戶完成，可至活動頁領取。\n 如：第2週獎勵紅利，統一於2025/07/30 (三) 晚上23:59:59前歸戶。',
         ]" />
+
+        <p>
+          4.
+          個人戰績以「個人帳號」為計算單位，採計每週活動期間產生的「任務紅利」累積達500時，將可額外獲得500「獎勵紅利」。
+        </p>
+
+        <TextList :contents="[
+          '獎勵紅利統一於活動下週三晚上23:59:59前歸戶完成，可至活動頁領取。\n 如：第2週獎勵紅利，統一於2025/07/30 (三) 晚上23:59:59前歸戶。'
+        ]" />
+
+        <p>
+          5. 相關紅利定義：
+        </p>
+
+        <TextList :contents="[
+          '任務紅利：經完成LTrust平台派發任務後，所獲得的紅利。本紅利做為每週「校際戰績」與「個人戰績」成績計算。',
+          '獎勵紅利：每週「校際戰績」前3名或「個人戰績」達500紅利時，所額外獲得的紅利。本紅利僅作獎勵使用，不列入「校際戰績」與「個人戰績」成績計算。'
+        ]" />
+
 
         <p>
           6.

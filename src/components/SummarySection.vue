@@ -52,15 +52,8 @@ const mainContent = {
     '立即登入，開戰吧！',
   ],
   infoBox:
-    '獲得的紅利可於 09/01起兌換 Qbot線上題庫、國寫AI批閱、英作AI批閱等豐富的學習服務，累積越多，兌換越多！敬請期待！',
+    '獲得的紅利可於 09/01（一）起兌換 Qbot線上題庫、國寫AI批閱、英作AI批閱等豐富的學習服務，累積越多，兌換越多！敬請期待！',
   callToAction: '立即挑戰任務 ‧ 搶紅利',
-}
-
-// CTA 按鈕點擊處理
-const handleCTAClick = () => {
-  // 在這裡添加按鈕點擊邏輯
-  console.log('CTA button clicked!')
-  // 例如：導航到任務頁面或打開彈窗
 }
 </script>
 

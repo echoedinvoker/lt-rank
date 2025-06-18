@@ -2,7 +2,7 @@
   <div class="flex items-center justify-around w-full gap-2 sm:gap-8 relative z-10 max-w-[320px]
     sm:max-w-[1098px]
     ">
-    <TabButton @click="selectedTab = 'new'" :variant="selectedTab === 'new' ? 'primary' : 'secondary'">校際戰績</TabButton>
+    <TabButton @click="selectedTab = 'new'" :variant="selectedTab === 'new' ? 'primary' : 'secondary'">最新戰績</TabButton>
     <TabButton @click="selectedTab = 'last'" :variant="selectedTab === 'last' ? 'primary' : 'secondary'">上週戰績
     </TabButton>
   </div>
