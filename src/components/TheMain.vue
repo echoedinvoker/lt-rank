@@ -1,5 +1,6 @@
 <template>
-  <main class="bg-custom-bg lg:pt-[81px] flex flex-col space-y-7 xs:space-y-12 xxs:space-y-18 sm:space-y-24">
+  <main class="bg-custom-bg lg:pt-[81px] flex flex-col space-y-7 xs:space-y-12 xxs:space-y-18
+    sm:space-y-24 prevent-overscroll min-h-screen">
     <HeroSection ref="heroSection" />
 
     <LazySection>
@@ -95,3 +96,11 @@ onMounted(() => {
   })
 })
 </script>
+
+<style scoped>
+/* 防止移動端過度滾動產生白色區域 */
+.prevent-overscroll {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+</style>

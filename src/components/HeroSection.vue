@@ -1,5 +1,17 @@
 <template>
   <section class="relative">
+    <!-- 骨架屏 - 在圖片載入前保持空間 -->
+    <div
+      v-if="!imageLoaded"
+      class="w-full min-h-[800px] bg-transparent"
+      :class="{ 'sm:block': true, 'block sm:hidden': false }"
+    >
+      <!-- 可選：添加淡淡的載入指示器 -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="w-8 h-8 border-2 border-gray-300 border-t-transparent rounded-full animate-spin opacity-30"></div>
+      </div>
+    </div>
+
     <!-- 大螢幕熱氣球背景 -->
     <img
       ref="heroImage"
