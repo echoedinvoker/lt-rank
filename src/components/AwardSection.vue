@@ -60,7 +60,7 @@
           <div class="text-card col-span-2 mt-8 lg:mt-0">每週個人500紅利</div>
           <div class="border-3 border-white rounded-md text-center text-base sm:text-3xl font-bold font-noto-sans-tc py-1 sm:py-4 px-6
             bg-white text-[#FF0000] col-span-2 lg:col-span-1 text-nowrap">
-            達成!!
+            加油!!
           </div>
 
           <!-- 額外的黑白卡片，絕對定位超出容器 -->
