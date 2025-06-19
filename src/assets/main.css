@@ -131,6 +131,9 @@
     overscroll-behavior: none;
     overscroll-behavior-y: none;
   }
+  html {
+    background-color: #323600;
+  }
   body {
     @apply bg-background text-foreground;
   }
