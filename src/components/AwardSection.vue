@@ -35,26 +35,45 @@
         </p>
 
         <!-- Award Cards -->
-        <div class="grid grid-cols-[min-content_1fr] lg:grid-cols-[max-content_1fr_max-content_1fr]
-          gap-1.5 sm:gap-4 w-full relative max-w-[270px] sm:max-w-[480px] lg:max-w-[1098px]
-          items-center">
+        <TransitionGroup
+          :name="shouldUseTransition ? 'award-layout' : 'award-layout-lg'"
+          tag="div"
+          class="grid grid-cols-[min-content_1fr] lg:grid-cols-[max-content_1fr_max-content_1fr]
+            gap-1.5 sm:gap-4 w-full relative max-w-[270px] sm:max-w-[480px] lg:max-w-[1098px]
+            items-center"
+          >
 
-          <div class="text-card"
+          <div key="school-rank" class="text-card"
             :class="{ 'blur-sm': selectedWeekSchoolLV === null || !authStore.isAuthenticated }">
             {{ `No.${selectedWeekSchoolLV}` }}
           </div>
-          <div class="text-card" :class="{ 'blur-sm': !selfSchool }">{{ selfSchool || '學校名稱' }}</div>
-          <AwardResult :condition="hasSelectedWeekSchoolBonus" />
-          <AlreadyTaken :condition="hasSelectedWeekSchoolBonus" />
 
-          <div class="text-card col-span-2 mt-6 lg:mt-0"
-            :class="{ 'blur-sm': !authStore.isAuthenticated }"
-          >每週個人500紅利</div>
+          <div key="school-name" class="text-card" :class="{ 'blur-sm': !selfSchool }">
+            {{ selfSchool || '學校名稱' }}
+          </div>
 
-          <AwardResult :condition="hasSelectedWeekPersonalBonus" />
-          <AlreadyTaken :condition="hasSelectedWeekPersonalBonus" />
+          <AwardResult key="school-award" :condition="hasSelectedWeekSchoolBonus" />
 
-        </div>
+          <AlreadyTaken
+            key="school-taken"
+            :condition="hasSelectedWeekSchoolBonus"
+          />
+
+          <div key="personal-bonus"
+            class="text-card col-span-2 mt-6 lg:mt-0"
+            :class="{ 'blur-sm': selectedWeekSchoolLV === null || !authStore.isAuthenticated }"
+          >
+            每週個人500紅利
+          </div>
+
+          <AwardResult key="personal-award" :condition="hasSelectedWeekPersonalBonus" />
+
+          <AlreadyTaken
+            key="personal-taken"
+            :condition="hasSelectedWeekPersonalBonus"
+          />
+
+        </TransitionGroup>
       </div>
     </div>
   </section>
@@ -68,8 +87,16 @@ import { useActivityWeeks, type WeekConfig } from '@/composables/useActivityWeek
 import { useSelfBonusInfo } from '@/composables/useSelfBonusInfo'
 import { useSelfSchool } from '@/composables/useSelfSchool'
 import { useAuthStore } from '@/stores/auth'
-import { computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import type { TransitionGroup } from 'vue'
 
+// 檢測是否為小螢幕（上到下排列）
+const shouldUseTransition = ref(false)
+
+const checkScreenSize = () => {
+  // lg 斷點是 1024px，小於此值時使用 TransitionGroup
+  shouldUseTransition.value = window.innerWidth < 1024
+}
 
 const { selectedWeek, selectedWeekText, activityWeeks } = useActivityWeeks()
 const { data: bonusInfo } = useSelfBonusInfo()
@@ -94,6 +121,15 @@ const selectedWeekSchoolLV = computed(() => {
 const handleClick = (weekConfig: WeekConfig) => {
   selectedWeek.value = weekConfig
 }
+
+onMounted(() => {
+  checkScreenSize()
+  window.addEventListener('resize', checkScreenSize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkScreenSize)
+})
 </script>
 
 <style scoped>
@@ -119,4 +155,35 @@ const handleClick = (weekConfig: WeekConfig) => {
     background-position: center;
   }
 }
+
+/* TransitionGroup 動畫 */
+.award-layout-move,
+.award-layout-enter-active,
+.award-layout-leave-active {
+  transition: all 0.3s ease;
+}
+
+.award-layout-enter-from,
+.award-layout-leave-to {
+  opacity: 0;
+  transform: translateY(-5px);
+}
+
+.award-layout-leave-active {
+  position: absolute;
+}
+
+/* TransitionGroup 動畫 */
+.award-layout-lg-move,
+.award-layout-lg-enter-active,
+.award-layout-lg-leave-active {
+  transition: all 0.3s ease;
+}
+
+.award-layout-lg-enter-from,
+.award-layout-lg-leave-to {
+  opacity: 0;
+  transform: translateX(10px);
+}
+
 </style>
