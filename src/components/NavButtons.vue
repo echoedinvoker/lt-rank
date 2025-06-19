@@ -1,11 +1,11 @@
 <template>
-  <nav class="flex space-x-2 lg:space-x-4">
+  <nav class="flex space-x-2 lg:space-x-[23px] lg:-mr-4">
     <Button
       v-for="(button, index) in visibleNavButtons"
       :key="index"
       :variant="button.variant"
       :size="'lg'"
-      :class="`h-8 px-4 lg:h-11 rounded-[30.5px] ${button.color} text-white text-[16px] lg:text-[22px] hidden
+      :class="`h-8 lg:h-11 lg:w-[141px] rounded-[30.5px] ${button.color} text-white text-[16px] lg:text-[22px] hidden
         sm:block font-['Inter'] cursor-pointer`"
       @click="handleNavClick(button.text)"
     >
