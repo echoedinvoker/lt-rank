@@ -126,6 +126,11 @@
   * {
     @apply border-border outline-ring/50;
   }
+  /* 防止移動端過度滾動產生白色區域 */
+  html, body {
+    overscroll-behavior: none;
+    overscroll-behavior-y: none;
+  }
   body {
     @apply bg-background text-foreground;
   }
