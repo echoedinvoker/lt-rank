@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { useMobileHamburger } from '@/composables/useMobileHamburger';
+import { useScrollUtils } from '@/composables/useScrollUtils'
 import { ref, onMounted, onUnmounted, type ComponentPublicInstance } from 'vue'
 
 const props = defineProps<{
@@ -33,7 +33,7 @@ const props = defineProps<{
 const showScrollToTop = ref(false)
 const isPressed = ref(false)
 
-const { smoothScrollTo } = useMobileHamburger()
+const { scrollToTop } = useScrollUtils()
 
 const handleScroll = () => {
   if (props.section?.$el) {
@@ -61,15 +61,6 @@ const handleMouseEnter = () => {
 
 const handleMouseLeave = () => {
   isPressed.value = false
-}
-
-// 滑動至頂部 (根據當前位置動態調整滾動速度)
-const scrollToTop = () => {
-  const currentPosition = window.scrollY
-  // 根據距離計算滾動時間 (最小400ms，最大1200ms)
-  const duration = Math.min(Math.max(currentPosition / 3, 400), 1500)
-
-  smoothScrollTo(0, duration)
 }
 
 onMounted(() => {

@@ -2,6 +2,7 @@ import { ref, computed } from 'vue'
 import { useLoginDialog } from '@/composables/useLoginDialog'
 import { useAuthStore } from '@/stores/auth'
 import { useMainComponent } from '@/composables/useMainComponent'
+import { useScrollUtils } from '@/composables/useScrollUtils'
 
 const sectionIdMap = {
   校際戰績: 'school-section',
@@ -30,6 +31,7 @@ export function useMobileHamburger() {
   const authStore = useAuthStore()
   const { openLoginDialog } = useLoginDialog()
   const { forceShowSection: forceShowMainSection } = useMainComponent()
+  const { scrollToElement } = useScrollUtils()
 
   // 根據登入狀態決定顯示的按鈕
   const visibleNavButtons = computed(() => {
@@ -51,56 +53,12 @@ export function useMobileHamburger() {
     // 等待 DOM 更新和動畫完成
     await new Promise(resolve => setTimeout(resolve, 800))
 
-    const element = document.getElementById(sectionId)
+    // 動態獲取 header 高度
+    const headerElement = document.querySelector('.header') as HTMLElement
+    const headerHeight = headerElement ? headerElement.offsetHeight : 0
+    const offset = headerHeight + 40 // header 高度加一點 padding
 
-    if (element) {
-      // 重新計算元素位置，因為 LazySection 可能改變了佈局
-      const elementRect = element.getBoundingClientRect()
-      const elementPosition = window.scrollY + elementRect.top
-
-      // 動態獲取 header 高度
-      const headerElement = document.querySelector('.header') as HTMLElement
-      const headerHeight = headerElement ? headerElement.offsetHeight : 0
-
-      // 計算目標位置，只減去 header 高度加一點 padding
-      const offsetPosition = Math.max(0, elementPosition - headerHeight - 20) // 確保不會是負數
-
-      // 計算滾動距離
-      const currentPosition = window.scrollY
-      const distance = Math.abs(offsetPosition - currentPosition)
-
-      // 根據距離計算滾動時間 (最小300ms，最大1500ms)
-      const duration = Math.min(Math.max(distance / 4, 400), 1500)
-
-      // 自定義平滑滾動動畫
-      smoothScrollTo(offsetPosition, duration)
-    }
-  }
-
-  // 自定義平滑滾動函數
-  const smoothScrollTo = (targetPosition: number, duration: number) => {
-    const startPosition = window.scrollY
-    const distance = targetPosition - startPosition
-    let startTime: number | null = null
-
-    const animation = (currentTime: number) => {
-      if (startTime === null) startTime = currentTime
-      const timeElapsed = currentTime - startTime
-      const progress = Math.min(timeElapsed / duration, 1)
-
-      // 使用 easeInOutCubic 緩動函數讓滾動更自然
-      const ease = progress < 0.5
-        ? 4 * progress * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 3) / 2
-
-      window.scrollTo(0, startPosition + distance * ease)
-
-      if (progress < 1) {
-        requestAnimationFrame(animation)
-      }
-    }
-
-    requestAnimationFrame(animation)
+    scrollToElement(sectionId, offset)
   }
 
   // 處理導航按鈕點擊 (與 TheHeader.vue 保持一致的邏輯)
@@ -133,6 +91,5 @@ export function useMobileHamburger() {
     toggleMobileMenu,
     handleNavClick,
     scrollToSection,
-    smoothScrollTo, // export for scrollToTop
   }
 }
