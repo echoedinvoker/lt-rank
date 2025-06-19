@@ -16,37 +16,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import btnMissionPage from '@/assets/btn-missionpage.svg'
+import { useTouchFeedback } from '@/composables/useTouchFeedback'
 
-const isPressed = ref(false)
+const {
+  isPressed,
+  handleTouchStart,
+  handleTouchEnd,
+  handleMouseEnter,
+  handleMouseLeave
+} = useTouchFeedback()
 
 // CTA 按鈕點擊處理
 const handleCTAClick = () => {
   const webUrl = import.meta.env.VITE_WEB_URL || 'https://ltutor-web-uat.utiltech.tw'
-  console.log('CTA button clicked!')
   window.location.href = `${webUrl}/tasks`
-}
-
-// 觸摸事件處理 (移動端)
-const handleTouchStart = () => {
-  isPressed.value = true
-}
-
-const handleTouchEnd = () => {
-  // 延遲重置狀態，讓用戶能看到效果
-  setTimeout(() => {
-    isPressed.value = false
-  }, 150)
-}
-
-// 滑鼠事件處理 (桌面端)
-const handleMouseEnter = () => {
-  isPressed.value = true
-}
-
-const handleMouseLeave = () => {
-  isPressed.value = false
 }
 </script>
 

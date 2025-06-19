@@ -8,8 +8,7 @@
         @touchend="handleTouchEnd"
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave"
-        class="fixed bottom-6 right-6 z-50 bg-[#BF0244] text-white p-3 rounded-full
-               shadow-lg/30 transition-all duration-300"
+        class="fixed bottom-6 right-6 z-50 bg-[#BF0244] text-white p-3 rounded-full shadow-lg/30 transition-all duration-300"
         :class="{
           'is-pressed': isPressed,
           'hover:bg-blue-700 hover:shadow-2xl/30 hover:scale-110': !isPressed
@@ -23,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import { useTouchFeedback } from '@/composables/useTouchFeedback'
 import { useScrollUtils } from '@/composables/useScrollUtils'
 import { ref, onMounted, onUnmounted, type ComponentPublicInstance } from 'vue'
 
@@ -31,36 +31,22 @@ const props = defineProps<{
 }>()
 
 const showScrollToTop = ref(false)
-const isPressed = ref(false)
-
 const { scrollToTop } = useScrollUtils()
+
+const {
+  isPressed,
+  handleTouchStart,
+  handleTouchEnd,
+  handleMouseEnter,
+  handleMouseLeave
+} = useTouchFeedback()
+
 
 const handleScroll = () => {
   if (props.section?.$el) {
     const heroBottom = props.section.$el.offsetTop + props.section.$el.offsetHeight
     showScrollToTop.value = window.scrollY > heroBottom
   }
-}
-
-// 觸控事件處理 (移動端)
-const handleTouchStart = () => {
-  isPressed.value = true
-}
-
-const handleTouchEnd = () => {
-  // 延遲重置狀態，讓用戶能看到效果
-  setTimeout(() => {
-    isPressed.value = false
-  }, 150)
-}
-
-// 滑鼠事件處理 (桌面端)
-const handleMouseEnter = () => {
-  isPressed.value = true
-}
-
-const handleMouseLeave = () => {
-  isPressed.value = false
 }
 
 onMounted(() => {
