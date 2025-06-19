@@ -28,47 +28,32 @@
             </div>
           </template>
         </div>
+
         <!-- Week Info -->
         <p class="font-noto-sans-tc font-normal text-white text-base sm:text-[28px] text-center">
           {{ selectedWeekText }}
         </p>
+
         <!-- Award Cards -->
         <div class="grid grid-cols-[min-content_1fr] lg:grid-cols-[max-content_1fr_max-content_1fr]
           gap-1.5 sm:gap-4 w-full relative max-w-[270px] sm:max-w-[480px] lg:max-w-[1098px]
           items-center">
-          <div class="text-card">No.1</div>
-          <div class="text-card">龍騰高中</div>
-          <div class="border-3 border-white rounded-md text-center text-base sm:text-3xl font-bold
-            font-noto-sans-tc py-1 sm:py-4 px-6
-            bg-[#FFFF00] col-span-2 lg:col-span-1 text-nowrap">
-            達成!!
-          </div>
-          <div class="golden-text-card flex items-center justify-center gap-2 col-span-2
-            lg:col-span-1 py-4 sm:py-6 lg:py-4 mt-1.5 lg:mt-0">
-            <span class="text-[22px] sm:text-[30px]">領取紅利</span>
-            <span class="font-monda text-[24px] sm:text-[38px]">500</span>
-          </div>
 
-          <div class="lg:hidden golden-text-card-bw flex items-center justify-center gap-2
-            col-span-2 py-4 sm:py-6 lg:py-4
-            mt-1.5 lg:mt-0
-            lg:col-span-1">
-            <span class="text-[22px] sm:text-[30px]">已領取紅利</span>
-            <span class="font-monda text-[24px] sm:text-[38px]">500</span>
+          <div class="text-card"
+            :class="{ 'blur-sm': selectedWeekSchoolLV === null || !authStore.isAuthenticated }">
+            {{ `No.${selectedWeekSchoolLV}` }}
           </div>
+          <div class="text-card" :class="{ 'blur-sm': !selfSchool }">{{ selfSchool || '學校名稱' }}</div>
+          <AwardResult :condition="hasSelectedWeekSchoolBonus" />
+          <AlreadyTaken :condition="hasSelectedWeekSchoolBonus" />
 
-          <div class="text-card col-span-2 mt-8 lg:mt-0">每週個人500紅利</div>
-          <div class="border-3 border-white rounded-md text-center text-base sm:text-3xl font-bold font-noto-sans-tc py-1 sm:py-4 px-6
-            bg-white text-[#FF0000] col-span-2 lg:col-span-1 text-nowrap">
-            加油!!
-          </div>
+          <div class="text-card col-span-2 mt-6 lg:mt-0"
+            :class="{ 'blur-sm': !authStore.isAuthenticated }"
+          >每週個人500紅利</div>
 
-          <!-- 額外的黑白卡片，絕對定位超出容器 -->
-          <div class="hidden absolute top-0 -right-4 translate-x-full ml-4 w-auto golden-text-card-bw
-            items-center justify-center gap-2"> <!-- 會往右推開畫面, 暫時移除 lg:flex -->
-            <span class="text-[30px]">已領取紅利</span>
-            <span class="font-monda">500</span>
-          </div>
+          <AwardResult :condition="hasSelectedWeekPersonalBonus" />
+          <AlreadyTaken :condition="hasSelectedWeekPersonalBonus" />
+
         </div>
       </div>
     </div>
@@ -77,9 +62,34 @@
 
 <script setup lang="ts">
 import TabButton from '@/components/ui/button/TabButton.vue'
+import AwardResult from '@/components/AwardResult.vue'
+import AlreadyTaken from '@/components/AlreadyTaken.vue'
 import { useActivityWeeks, type WeekConfig } from '@/composables/useActivityWeeks'
+import { useSelfBonusInfo } from '@/composables/useSelfBonusInfo'
+import { useSelfSchool } from '@/composables/useSelfSchool'
+import { useAuthStore } from '@/stores/auth'
+import { computed } from 'vue'
+
 
 const { selectedWeek, selectedWeekText, activityWeeks } = useActivityWeeks()
+const { data: bonusInfo } = useSelfBonusInfo()
+const { data: selfSchool } = useSelfSchool()
+const authStore = useAuthStore()
+
+const hasSelectedWeekPersonalBonus = computed(() => {
+  if (!bonusInfo.value || !bonusInfo.value.status || !bonusInfo.value.data) return null
+  return !!bonusInfo.value.data.user[selectedWeek.value.week.toString()]
+})
+
+const hasSelectedWeekSchoolBonus = computed(() => {
+  if (!bonusInfo.value || !bonusInfo.value.status || !bonusInfo.value.data) return null
+  return !!bonusInfo.value.data.school[selectedWeek.value.week.toString()]
+})
+
+const selectedWeekSchoolLV = computed(() => {
+  if (!bonusInfo.value || !bonusInfo.value.status || !bonusInfo.value.data) return null
+  return bonusInfo.value.data.schoolLV[selectedWeek.value.week.toString()] ?? null
+})
 
 const handleClick = (weekConfig: WeekConfig) => {
   selectedWeek.value = weekConfig

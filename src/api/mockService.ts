@@ -71,7 +71,7 @@ const staticMockData: Record<string, any> = {
       "7": generateRandomBonus()
     },
     message: "success"
-  }
+  },
 }
 
 // 動態生成學校積分資料的邏輯
@@ -136,11 +136,41 @@ const generateSchoolBonusResponse = (data: any) => {
   }
 }
 
+// 生成紅利發放資訊的邏輯
+const generateBonusInfoResponse = (data: any) => {
+  const { uid } = data || {}
+
+  // 生成隨機的週次紅利狀態 (0: 未發放, 1: 已發放)
+  const generateWeeklyBonusData = (probability: number = 0.6) => {
+    const weeklyData: Record<string, 0 | 1> = {}
+    for (let week = 1; week <= 7; week++) {
+      // 根據機率決定是否已發放紅利
+      weeklyData[week.toString()] = Math.random() < probability ? 1 : 0
+    }
+    return weeklyData
+  }
+
+  return {
+    status: true,
+    data: {
+      // 用戶各週紅利狀態 (較高的發放率)
+      user: generateWeeklyBonusData(0.7),
+      // 學校各週紅利狀態 (中等發放率)
+      school: generateWeeklyBonusData(0.5),
+      // 學校各週排名 (較低的高排名率，模擬排名競爭)
+      schoolLV: generateWeeklyBonusData(0.3)
+    },
+    message: "success"
+  }
+}
+
 // 主要的 mock 回應生成器
 export const generateMockResponse = (endpoint: string, data?: any) => {
   switch (endpoint) {
     case '/point/getBonusBySchoolByWeek':
       return generateSchoolBonusResponse(data)
+    case '/point/getBonusInfo':
+      return generateBonusInfoResponse(data)
     default:
       return staticMockData[endpoint]
   }

@@ -50,6 +50,25 @@ export interface BonusByUserResponse {
   message: string
 }
 
+// 紅利發放請求參數
+export interface GetBonusInfoRequest {
+  uid: number
+}
+// 每週紅利資料結構
+export interface WeeklyBonusData {
+  [week: string]: 0 | 1
+}
+// 紅利發放回應資料
+export interface GetBonusInfoResponse {
+  status: boolean
+  data: {
+    user: WeeklyBonusData      // 用戶各週紅利狀態
+    school: WeeklyBonusData    // 學校各週紅利狀態
+    schoolLV: WeeklyBonusData  // 學校各週排名
+  }
+  message: string
+}
+
 export const pointApi = {
   // 獲取本週新紀錄
   async getNewRecord(): Promise<NewRecordResponse> {
@@ -69,5 +88,10 @@ export const pointApi = {
   // 根據用戶獲取各週積分
   async getBonusByUserByWeek(params: BonusByUserRequest): Promise<BonusByUserResponse> {
     return apiClient.post<BonusByUserResponse>('/point/getBonusByUserByWeek', params)
+  },
+
+  // 獲取紅利發放資訊
+  async getBonusInfo(params: GetBonusInfoRequest): Promise<GetBonusInfoResponse> {
+    return apiClient.post<GetBonusInfoResponse>('/point/getBonusInfo', params)
   }
 }
