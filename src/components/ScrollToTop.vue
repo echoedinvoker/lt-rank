@@ -9,10 +9,10 @@
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave"
         class="fixed bottom-6 right-6 z-50 bg-[#BF0244] text-white p-3 rounded-full
-               shadow-lg transition-all duration-300"
+               shadow-lg/30 transition-all duration-300"
         :class="{
           'is-pressed': isPressed,
-          'hover:bg-blue-700 hover:shadow-xl hover:scale-110': !isPressed
+          'hover:bg-blue-700 hover:shadow-2xl/30 hover:scale-110': !isPressed
         }"
       >
         <svg class="w-[45px] h-[45px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,7 +86,7 @@ onUnmounted(() => {
 
 /* 按壓狀態樣式 - 使用原生 CSS */
 .is-pressed {
-  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); /* shadow-xl */
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.30); /* shadow-xl */
   transform: scale(1.1); /* scale-110 */
 }
 
