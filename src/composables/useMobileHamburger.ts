@@ -70,7 +70,7 @@ export function useMobileHamburger() {
       const distance = Math.abs(offsetPosition - currentPosition)
 
       // 根據距離計算滾動時間 (最小300ms，最大1500ms)
-      const duration = Math.min(Math.max(distance / 3, 300), 1500)
+      const duration = Math.min(Math.max(distance / 4, 400), 1500)
 
       // 自定義平滑滾動動畫
       smoothScrollTo(offsetPosition, duration)

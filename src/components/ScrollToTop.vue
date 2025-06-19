@@ -67,7 +67,7 @@ const handleMouseLeave = () => {
 const scrollToTop = () => {
   const currentPosition = window.scrollY
   // 根據距離計算滾動時間 (最小400ms，最大1200ms)
-  const duration = Math.min(Math.max(currentPosition / 4, 400), 1200)
+  const duration = Math.min(Math.max(currentPosition / 3, 400), 1500)
 
   smoothScrollTo(0, duration)
 }
