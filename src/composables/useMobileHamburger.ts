@@ -65,11 +65,42 @@ export function useMobileHamburger() {
       // 計算目標位置，只減去 header 高度加一點 padding
       const offsetPosition = Math.max(0, elementPosition - headerHeight - 20) // 確保不會是負數
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
+      // 計算滾動距離
+      const currentPosition = window.scrollY
+      const distance = Math.abs(offsetPosition - currentPosition)
+
+      // 根據距離計算滾動時間 (最小300ms，最大1500ms)
+      const duration = Math.min(Math.max(distance / 3, 300), 1500)
+
+      // 自定義平滑滾動動畫
+      smoothScrollTo(offsetPosition, duration)
     }
+  }
+
+  // 自定義平滑滾動函數
+  const smoothScrollTo = (targetPosition: number, duration: number) => {
+    const startPosition = window.scrollY
+    const distance = targetPosition - startPosition
+    let startTime: number | null = null
+
+    const animation = (currentTime: number) => {
+      if (startTime === null) startTime = currentTime
+      const timeElapsed = currentTime - startTime
+      const progress = Math.min(timeElapsed / duration, 1)
+
+      // 使用 easeInOutCubic 緩動函數讓滾動更自然
+      const ease = progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2
+
+      window.scrollTo(0, startPosition + distance * ease)
+
+      if (progress < 1) {
+        requestAnimationFrame(animation)
+      }
+    }
+
+    requestAnimationFrame(animation)
   }
 
   // 處理導航按鈕點擊 (與 TheHeader.vue 保持一致的邏輯)
@@ -102,5 +133,6 @@ export function useMobileHamburger() {
     toggleMobileMenu,
     handleNavClick,
     scrollToSection,
+    smoothScrollTo, // export for scrollToTop
   }
 }
