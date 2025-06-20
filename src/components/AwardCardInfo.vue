@@ -6,10 +6,10 @@
     >
       <div
         key="school-rank"
-        class="text-card"
+        class="text-card text-nowrap"
         :class="{ 'blur-sm': selectedWeekSchoolLV === null || !authStore.isAuthenticated }"
       >
-        {{ `No.${selectedWeekSchoolLV}` }}
+        {{ selectedWeekSchoolLV === 0 ? `無排名` : `No.${selectedWeekSchoolLV}` }}
       </div>
 
       <div key="school-name" class="text-card" :class="{ 'blur-sm': !selfSchool }">
