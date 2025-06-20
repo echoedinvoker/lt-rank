@@ -30,6 +30,8 @@ const activityWeeks = ref<WeekConfig[]>([
   // { week: 3, start: '06/19', end: '06/25' },
 ])
 
+const selectedWeek = ref<WeekConfig>(activityWeeks.value[0])
+
 export function useActivityWeeks() {
   // 格式化週次文字
   const formatWeekText = (weekConfig: WeekConfig) => {
@@ -63,7 +65,6 @@ export function useActivityWeeks() {
     })
   }
 
-  const selectedWeek = ref<WeekConfig>(activityWeeks.value[0])
 
   const selectedWeekText = computed(() => {
     return formatWeekText(selectedWeek.value)
