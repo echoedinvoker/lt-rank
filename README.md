@@ -1,39 +1,8 @@
-# lt-rank
+正式部屬時
+.env.production 的
+VITE_API_URL 值要設置為正確活動後端 URL
+VITE_USE_MOCK 值要設置為 false
+VITE_WEB_URL 值要設置為正確 lt web app 的 URL
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+/src/api/ 底下的內容是假設後端僅用 GET 與 POST 兩種 method 去撰寫
+(目前後端僅給我 document，沒有實際的 API 實作, document 內容也缺乏 method)
