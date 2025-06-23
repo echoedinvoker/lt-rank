@@ -17,9 +17,14 @@ export const apiClient: ApiClient = {
     if (params) {
       const searchParams = new URLSearchParams()
       Object.entries(params).forEach(([key, value]) => {
-        searchParams.append(key, String(value))
+        if (value !== undefined) {
+          searchParams.append(key, String(value))
+        }
       })
-      url += `?${searchParams.toString()}`
+      const queryString = searchParams.toString()
+      if (queryString) {
+        url += `?${queryString}`
+      }
     }
 
     if (USE_MOCK) {
