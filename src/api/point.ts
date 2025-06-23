@@ -62,9 +62,9 @@ export interface WeeklyBonusData {
 export interface GetBonusInfoResponse {
   status: boolean
   data: {
-    user: WeeklyBonusData      // 用戶各週紅利狀態
-    school: WeeklyBonusData    // 學校各週紅利狀態
-    schoolLV: WeeklyBonusData  // 學校各週排名
+    user: WeeklyBonusData // 用戶各週紅利狀態
+    school: WeeklyBonusData // 學校各週紅利狀態
+    schoolLV: WeeklyBonusData // 學校各週排名
   }
   message: string
 }
@@ -82,16 +82,22 @@ export const pointApi = {
 
   // 根據學校和週數獲取積分
   async getBonusBySchoolByWeek(params: BonusBySchoolRequest): Promise<BonusBySchoolResponse> {
-    return apiClient.post<BonusBySchoolResponse>('/point/getBonusBySchoolByWeek', params)
+    return apiClient.post<BonusBySchoolResponse, BonusBySchoolRequest>(
+      '/point/getBonusBySchoolByWeek',
+      params,
+    )
   },
 
   // 根據用戶獲取各週積分
   async getBonusByUserByWeek(params: BonusByUserRequest): Promise<BonusByUserResponse> {
-    return apiClient.post<BonusByUserResponse>('/point/getBonusByUserByWeek', params)
+    return apiClient.post<BonusByUserResponse, BonusByUserRequest>(
+      '/point/getBonusByUserByWeek',
+      params,
+    )
   },
 
   // 獲取紅利發放資訊
   async getBonusInfo(params: GetBonusInfoRequest): Promise<GetBonusInfoResponse> {
-    return apiClient.post<GetBonusInfoResponse>('/point/getBonusInfo', params)
-  }
+    return apiClient.post<GetBonusInfoResponse, GetBonusInfoRequest>('/point/getBonusInfo', params)
+  },
 }

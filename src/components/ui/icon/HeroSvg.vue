@@ -12,12 +12,12 @@
 
 <script setup lang="ts">
 interface Props {
-  width?: string | number;
-  height?: string | number;
+  width?: string | number
+  height?: string | number
 }
 
 withDefaults(defineProps<Props>(), {
   width: '100%',
-  height: 'auto'
-});
+  height: 'auto',
+})
 </script>

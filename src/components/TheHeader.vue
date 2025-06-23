@@ -1,7 +1,6 @@
 <template>
   <header
-    class="header fixed w-full h-[65px] lg:h-[81px] top-0 left-0 bg-white flex items-center justify-between
-    px-6 lg:px-10 z-50 space-x-2 shadow-lg sm:shadow-none transition-transform duration-300 ease-in-out"
+    class="header fixed w-full h-[65px] lg:h-[81px] top-0 left-0 bg-white flex items-center justify-between px-6 lg:px-10 z-50 space-x-2 shadow-lg sm:shadow-none transition-transform duration-300 ease-in-out"
     :class="{ '-translate-y-full': isHeaderHidden }"
   >
     <LogoButton />
@@ -11,7 +10,6 @@
     <MobileHamburger />
 
     <LoginDialog />
-
   </header>
   <MobileHamburgerMenu />
 </template>
@@ -30,4 +28,3 @@ const { isMobileMenuOpen } = useMobileHamburger()
 // 使用滾動隱藏 header 的 composable
 const { isHeaderHidden } = useScrollHideHeader(isMobileMenuOpen)
 </script>
-

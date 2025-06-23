@@ -24,6 +24,6 @@ export function useMainComponent() {
   return {
     registerMainComponent,
     forceShowSection,
-    mainComponentInstance: mainComponentInstance.value
+    mainComponentInstance: mainComponentInstance.value,
   }
 }

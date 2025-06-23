@@ -1,14 +1,12 @@
-import { ref, onMounted } from "vue"
+import { ref, onMounted } from 'vue'
 import { useActivityWeeks } from '@/composables/useActivityWeeks'
-import { useAuthStore } from "@/stores/auth"
+import { useAuthStore } from '@/stores/auth'
 import { pointApi } from '@/api/point'
-import { computed } from "vue"
-import { watch } from "vue"
-import { useSearchStore } from "@/stores/search"
-
+import { computed } from 'vue'
+import { watch } from 'vue'
+import { useSearchStore } from '@/stores/search'
 
 export function useBonusBySchoolByWeek() {
-
   const { activityWeeks, currentWeek, formatWeekText } = useActivityWeeks()
   const authStore = useAuthStore()
   const searchStore = useSearchStore()
@@ -16,15 +14,15 @@ export function useBonusBySchoolByWeek() {
   const loading = ref(false)
   const error = ref<string | null>(null)
 
-  const selectableWeeks = computed<{ id: number, name: string }[]>(() => {
-    return activityWeeks.value.map(week => ({
+  const selectableWeeks = computed<{ id: number; name: string }[]>(() => {
+    return activityWeeks.value.map((week) => ({
       id: week.week,
-      name: `第${week.week}週`
+      name: `第${week.week}週`,
     }))
   })
 
   const weekText = computed(() => {
-    const weekConfig = activityWeeks.value.find(week => week.week === searchStore.selectedWeek)!
+    const weekConfig = activityWeeks.value.find((week) => week.week === searchStore.selectedWeek)!
     return formatWeekText(weekConfig)
   })
 
@@ -42,7 +40,7 @@ export function useBonusBySchoolByWeek() {
       const response = await pointApi.getBonusBySchoolByWeek({
         uid,
         schoolName,
-        week
+        week,
       })
 
       if (response.status) {
@@ -66,7 +64,7 @@ export function useBonusBySchoolByWeek() {
         stopWatcherSchoolName() // 停止監聽, 僅做初始賦值
       }
     },
-    { immediate: true }
+    { immediate: true },
   )
 
   onMounted(() => {
@@ -99,6 +97,6 @@ export function useBonusBySchoolByWeek() {
         searchStore.schoolName = searchStore.bonusData?.school_name || ''
         searchStore.selectedWeek = currentWeek.value
       }
-    }
+    },
   }
 }

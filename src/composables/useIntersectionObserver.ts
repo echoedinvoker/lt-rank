@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 export function useIntersectionObserver(
   threshold = 0.1,
   rootMargin = '0px 0px -50px 0px',
-  initialDelay = 0 // 初始延遲時間（毫秒）
+  initialDelay = 0, // 初始延遲時間（毫秒）
 ) {
   const isVisible = ref(false)
   const targetRef = ref<HTMLElement>()
@@ -36,7 +36,7 @@ export function useIntersectionObserver(
           observer?.unobserve(entry.target)
         }
       },
-      { threshold, rootMargin }
+      { threshold, rootMargin },
     )
 
     observer.observe(targetRef.value)

@@ -1,14 +1,12 @@
 <template>
   <section class="w-full px-9">
     <!-- 內容容器 -->
-    <div class="bg-gradient-to-b sm:bg-gradient-to-r from-[#D66B11] to-[#932C11] px-2.5 sm:px-6
-      py-3 sm:py-5.5 mb-18 lg:mb-32
-      rounded-lg sm:rounded-xl
-      max-w-[1098px] mx-auto">
-
-      <div class="flex flex-col items-center justify-center sm:space-y-8 px-5 sm:px-12 pb-4 sm:pb-24 rounded bg-lines-pattern
-        responsive-box-shadow">
-
+    <div
+      class="bg-gradient-to-b sm:bg-gradient-to-r from-[#D66B11] to-[#932C11] px-2.5 sm:px-6 py-3 sm:py-5.5 mb-18 lg:mb-32 rounded-lg sm:rounded-xl max-w-[1098px] mx-auto"
+    >
+      <div
+        class="flex flex-col items-center justify-center sm:space-y-8 px-5 sm:px-12 pb-4 sm:pb-24 rounded bg-lines-pattern responsive-box-shadow"
+      >
         <!-- 頂部裝飾圖標 -->
         <div class="flex justify-center sm:mt-9 sm:mb-3">
           <div class="w-2/3 sm:w-5/6">
@@ -17,22 +15,24 @@
         </div>
 
         <!-- 描述文字 -->
-        <div class="w-full max-w-[647px] font-normal text-black text-base text-[16px] sm:text-[26px] text-center
-        tracking-[0] sm:leading-9">
+        <div
+          class="w-full max-w-[647px] font-normal text-black text-base text-[16px] sm:text-[26px] text-center tracking-[0] sm:leading-9"
+        >
           <template v-for="(line, index) in mainContent.description" :key="index">
             {{ line }} <br />
           </template>
         </div>
 
         <!-- 資訊框 -->
-        <div class="w-full max-w-[905px] rounded-[11px] bg-white shadow-md flex items-center
-        justify-center px-5 my-6 sm:my-0">
-          <div class="w-full max-w-[781px] py-4 font-normal text-black text-base text-[15px] sm:text-[22px] text-center
-          tracking-[0] sm:leading-9">
+        <div
+          class="w-full max-w-[905px] rounded-[11px] bg-white shadow-md flex items-center justify-center px-5 my-6 sm:my-0"
+        >
+          <div
+            class="w-full max-w-[781px] py-4 font-normal text-black text-base text-[15px] sm:text-[22px] text-center tracking-[0] sm:leading-9"
+          >
             {{ mainContent.infoBox }}
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -97,21 +97,18 @@ const mainContent = {
 }
 
 .custom-gradient {
-  background: linear-gradient(to bottom,
-      #FCD788 33%,
-      /* offset="0.33" */
-      #FCCC6D 49%,
-      /* offset="0.49" */
-      #FCB028 82%,
-      /* offset="0.82" */
-      #FCA000 100%
-      /* offset="1" */
-    );
+  background: linear-gradient(
+    to bottom,
+    #fcd788 33%,
+    /* offset="0.33" */ #fccc6d 49%,
+    /* offset="0.49" */ #fcb028 82%,
+    /* offset="0.82" */ #fca000 100% /* offset="1" */
+  );
 }
 
 .bg-lines-pattern {
   position: relative;
-  background: linear-gradient(to bottom, #FCD788 33%, #FCCC6D 49%, #FCB028 82%, #FCA000 100%);
+  background: linear-gradient(to bottom, #fcd788 33%, #fccc6d 49%, #fcb028 82%, #fca000 100%);
   z-index: 0;
 }
 

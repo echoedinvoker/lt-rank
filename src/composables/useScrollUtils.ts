@@ -11,9 +11,8 @@ export function useScrollUtils() {
       const progress = Math.min(timeElapsed / duration, 1)
 
       // 使用 easeInOutCubic 緩動函數讓滾動更自然
-      const ease = progress < 0.5
-        ? 4 * progress * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 3) / 2
+      const ease =
+        progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2
 
       window.scrollTo(0, startPosition + distance * ease)
 
@@ -26,7 +25,12 @@ export function useScrollUtils() {
   }
 
   // 計算滾動時間 (根據距離動態調整)
-  const calculateScrollDuration = (distance: number, minDuration = 400, maxDuration = 1500, speedFactor = 3) => {
+  const calculateScrollDuration = (
+    distance: number,
+    minDuration = 400,
+    maxDuration = 1500,
+    speedFactor = 3,
+  ) => {
     return Math.min(Math.max(distance / speedFactor, minDuration), maxDuration)
   }
 
@@ -58,6 +62,6 @@ export function useScrollUtils() {
     smoothScrollTo,
     calculateScrollDuration,
     scrollToTop,
-    scrollToElement
+    scrollToElement,
   }
 }

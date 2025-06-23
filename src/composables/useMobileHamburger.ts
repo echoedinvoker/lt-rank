@@ -24,7 +24,7 @@ const navButtons = [
 
 const authButtons = {
   login: { text: '登入', color: 'bg-[#c92a2e]', variant: 'destructive' as const },
-  logout: { text: '登出', color: 'bg-[#c92a2e]', variant: 'destructive' as const }
+  logout: { text: '登出', color: 'bg-[#c92a2e]', variant: 'destructive' as const },
 }
 
 export function useMobileHamburger() {
@@ -46,12 +46,11 @@ export function useMobileHamburger() {
 
   // 滾動到指定 section (支援 LazySection)
   const scrollToSection = async (sectionId: string) => {
-
     // 先強制顯示 LazySection
     forceShowMainSection(sectionId)
 
     // 等待 DOM 更新和動畫完成
-    await new Promise(resolve => setTimeout(resolve, 800))
+    await new Promise((resolve) => setTimeout(resolve, 800))
 
     // 動態獲取 header 高度
     const headerElement = document.querySelector('.header') as HTMLElement
@@ -63,7 +62,6 @@ export function useMobileHamburger() {
 
   // 處理導航按鈕點擊 (與 TheHeader.vue 保持一致的邏輯)
   const handleNavClick = (buttonText: string) => {
-
     // 關閉選單
     if (isMobileMenuOpen.value) {
       toggleMobileMenu()

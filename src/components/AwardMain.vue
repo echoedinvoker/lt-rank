@@ -13,7 +13,6 @@
     </p>
 
     <AwardCardInfo />
-
   </div>
 </template>
 

@@ -1,18 +1,27 @@
 <template>
   <div class="sm:hidden relative">
     <Transition name="slide-down">
-      <div v-if="isMobileMenuOpen" class="fixed top-0 left-0 w-full h-2/3 shadow-lg z-40"
-        :style="{ top: headerHeight + 'px' }">
+      <div
+        v-if="isMobileMenuOpen"
+        class="fixed top-0 left-0 w-full h-2/3 shadow-lg z-40"
+        :style="{ top: headerHeight + 'px' }"
+      >
         <div class="h-full relative overflow-hidden">
           <nav class="h-full flex flex-col justify-evenly px-12 bg-[#38A1DBF2] opacity-95">
             <!-- Navigation Buttons -->
-            <button v-for="button in visibleNavButtons" :key="button.text" @click="handleNavClick(button.text)" :class="`w-full py-3 px-4 rounded-[30.5px]
+            <button
+              v-for="button in visibleNavButtons"
+              :key="button.text"
+              @click="handleNavClick(button.text)"
+              :class="`w-full py-3 px-4 rounded-[30.5px]
             ${['登入', '登出'].includes(button.text) ? 'bg-[#c92a2e]' : 'bg-transparent'}
-            text-white text-[22px] font-['Inter'] cursor-pointer transition-all hover:opacity-90`">
+            text-white text-[22px] font-['Inter'] cursor-pointer transition-all hover:opacity-90`"
+            >
               {{ button.text }}
             </button>
           </nav>
-          <div class="fade-mask"></div> <!-- 底部淡出效果 -->
+          <div class="fade-mask"></div>
+          <!-- 底部淡出效果 -->
         </div>
       </div>
     </Transition>
@@ -20,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useMobileHamburger } from '@/composables/useMobileHamburger'
 
 const { isMobileMenuOpen, visibleNavButtons, handleNavClick } = useMobileHamburger()

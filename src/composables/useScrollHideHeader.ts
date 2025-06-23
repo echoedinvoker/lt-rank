@@ -13,7 +13,9 @@ export function useScrollHideHeader(isMobileMenuOpen: Ref<boolean>) {
 
   // 只有在小螢幕且選單未開啟時才隱藏 header
   const isHeaderHidden = computed(() => {
-    return isMobile.value && !isMobileMenuOpen.value && !showLoginModal.value && isScrollingDown.value
+    return (
+      isMobile.value && !isMobileMenuOpen.value && !showLoginModal.value && isScrollingDown.value
+    )
   })
 
   const handleScroll = () => {
@@ -52,6 +54,6 @@ export function useScrollHideHeader(isMobileMenuOpen: Ref<boolean>) {
   })
 
   return {
-    isHeaderHidden
+    isHeaderHidden,
   }
 }

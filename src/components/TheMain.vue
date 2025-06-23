@@ -1,6 +1,7 @@
 <template>
-  <main class="bg-custom-bg lg:pt-[81px] flex flex-col space-y-7 xs:space-y-12 xxs:space-y-18
-    sm:space-y-24 min-h-screen">
+  <main
+    class="bg-custom-bg lg:pt-[81px] flex flex-col space-y-7 xs:space-y-12 xxs:space-y-18 sm:space-y-24 min-h-screen"
+  >
     <HeroSection ref="heroSection" />
 
     <LazySection>
@@ -8,7 +9,9 @@
     </LazySection>
 
     <LazySection>
-      <CTASection class="-mt-[130px] xs:-mt-[150px] xxs:-mt-[170px] sm:-mt-[250px] lg:-mt-[300px]" />
+      <CTASection
+        class="-mt-[130px] xs:-mt-[150px] xxs:-mt-[170px] sm:-mt-[250px] lg:-mt-[300px]"
+      />
     </LazySection>
 
     <LazySection ref="schoolSectionRef">
@@ -84,7 +87,7 @@ const forceShowSection = (sectionId: string) => {
 }
 
 defineExpose({
-  forceShowSection
+  forceShowSection,
 })
 
 // 註冊到全域狀態
@@ -92,7 +95,7 @@ const { registerMainComponent } = useMainComponent()
 
 onMounted(() => {
   registerMainComponent({
-    forceShowSection
+    forceShowSection,
   })
 })
 </script>

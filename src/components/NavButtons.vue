@@ -1,6 +1,6 @@
 <template>
   <nav class="flex space-x-2 lg:space-x-[23px] lg:-mr-4">
-    <Button
+    <UiButton
       v-for="(button, index) in visibleNavButtons"
       :key="index"
       :variant="button.variant"
@@ -10,12 +10,12 @@
       @click="handleNavClick(button.text)"
     >
       {{ button.text }}
-    </Button>
+    </UiButton>
   </nav>
 </template>
 
 <script setup lang="ts">
-import Button from '@/components/ui/button/Button.vue'
+import UiButton from '@/components/ui/button/UiButton.vue'
 import { useMobileHamburger } from '@/composables/useMobileHamburger'
 
 const { visibleNavButtons, handleNavClick } = useMobileHamburger()

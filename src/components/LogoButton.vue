@@ -21,7 +21,7 @@ const {
   handleTouchStart,
   handleTouchEnd,
   handleMouseEnter,
-  handleMouseLeave
+  handleMouseLeave,
 } = useTouchFeedback()
 
 const handleLogoClick = () => {

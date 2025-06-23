@@ -1,8 +1,8 @@
-import { pointApi } from "@/api/point"
-import { useAuthStore } from "@/stores/auth"
-import { useQuery } from "@tanstack/vue-query"
-import { storeToRefs } from "pinia"
-import { computed } from "vue"
+import { pointApi } from '@/api/point'
+import { useAuthStore } from '@/stores/auth'
+import { useQuery } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
 
 export function useSelfSchool() {
   const authStore = useAuthStore()

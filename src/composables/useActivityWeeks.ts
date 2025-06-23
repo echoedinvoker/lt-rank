@@ -54,7 +54,7 @@ export function useActivityWeeks() {
     const now = new Date()
     const currentYear = now.getFullYear()
 
-    return activityWeeks.value.findIndex(weekConfig => {
+    return activityWeeks.value.findIndex((weekConfig) => {
       const [startMonth, startDay] = weekConfig.start.split('/').map(Number)
       const [endMonth, endDay] = weekConfig.end.split('/').map(Number)
 
@@ -64,7 +64,6 @@ export function useActivityWeeks() {
       return now >= startDate && now <= endDate
     })
   }
-
 
   const selectedWeekText = computed(() => {
     return formatWeekText(selectedWeek.value)
@@ -109,6 +108,6 @@ export function useActivityWeeks() {
     currentWeekText,
     lastWeekText,
     getCurrentWeekIndex,
-    formatWeekText
+    formatWeekText,
   }
 }

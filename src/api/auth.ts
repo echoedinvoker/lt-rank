@@ -15,9 +15,8 @@ export interface LoginResponse {
 }
 
 export const authApi = {
-
   async login(credentials: LoginRequest): Promise<LoginResponse> {
-    return apiClient.post<LoginResponse>('/login', credentials)
+    return apiClient.post<LoginResponse, LoginRequest>('/login', credentials)
   },
 
   logout(): void {
@@ -36,5 +35,5 @@ export const authApi = {
     } catch {
       return false
     }
-  }
+  },
 }

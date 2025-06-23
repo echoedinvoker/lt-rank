@@ -42,9 +42,13 @@ export function useLoginDialog() {
       // 登入成功，關閉彈窗
       closeLoginDialog()
       console.log('登入成功')
-    } catch (error: any) {
-      // 顯示錯誤訊息
-      loginError.value = error?.response?.data?.message || '登入失敗，請檢查帳號密碼'
+    } catch (error: unknown) {
+      if (error && typeof error === 'object' && 'response' in error) {
+        const apiError = error as { response?: { data?: { message?: string } } }
+        loginError.value = apiError.response?.data?.message || '登入失敗，請檢查帳號密碼'
+      } else {
+        loginError.value = '登入失敗，請檢查帳號密碼'
+      }
     }
   }
 

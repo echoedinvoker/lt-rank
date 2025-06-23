@@ -8,7 +8,9 @@
     >
       <!-- 可選：添加淡淡的載入指示器 -->
       <div class="absolute inset-0 flex items-center justify-center">
-        <div class="w-8 h-8 border-2 border-gray-300 border-t-transparent rounded-full animate-spin opacity-30"></div>
+        <div
+          class="w-8 h-8 border-2 border-gray-300 border-t-transparent rounded-full animate-spin opacity-30"
+        ></div>
       </div>
     </div>
 
@@ -45,7 +47,9 @@
     >
       <!-- 可選：添加淡淡的載入指示器 -->
       <div class="absolute inset-0 flex items-center justify-center">
-        <div class="w-8 h-8 border-2 border-gray-300 border-t-transparent rounded-full animate-spin opacity-30"></div>
+        <div
+          class="w-8 h-8 border-2 border-gray-300 border-t-transparent rounded-full animate-spin opacity-30"
+        ></div>
       </div>
     </div>
 
@@ -92,12 +96,9 @@ const isImageSmallLoaded = computed(() => {
 
 // 預載入關鍵圖片到記憶體
 onMounted(() => {
-  const preloadImages = [
-    '/src/assets/hero-B.png',
-    '/src/assets/hero-S.png'
-  ]
+  const preloadImages = ['/src/assets/hero-B.png', '/src/assets/hero-S.png']
 
-  preloadImages.forEach(src => {
+  preloadImages.forEach((src) => {
     const img = new Image()
     img.src = src
   })
@@ -124,7 +125,8 @@ const onImageError = (image: 'heroImage' | 'heroImageSmall') => {
 }
 
 @keyframes float-left {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -133,7 +135,8 @@ const onImageError = (image: 'heroImage' | 'heroImageSmall') => {
 }
 
 @keyframes float-right {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/vue-query'
-import { pointApi, type BonusByUserRequest, type GetBonusInfoRequest } from '@/api/point'
+import { pointApi, type GetBonusInfoRequest } from '@/api/point'
 import { useAuthStore } from '@/stores/auth'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'

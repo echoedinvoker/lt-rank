@@ -1,43 +1,43 @@
 <template>
-    <TransitionGroup
-      :name="shouldUseTransition ? 'award-layout' : 'award-layout-lg'"
-      tag="div"
-      class="grid grid-cols-[min-content_1fr] lg:grid-cols-[max-content_1fr_max-content_1fr] gap-1.5 sm:gap-4 w-full relative max-w-[270px] sm:max-w-[480px] lg:max-w-[1098px] items-center"
+  <TransitionGroup
+    :name="shouldUseTransition ? 'award-layout' : 'award-layout-lg'"
+    tag="div"
+    class="grid grid-cols-[min-content_1fr] lg:grid-cols-[max-content_1fr_max-content_1fr] gap-1.5 sm:gap-4 w-full relative max-w-[270px] sm:max-w-[480px] lg:max-w-[1098px] items-center"
+  >
+    <div
+      key="school-rank"
+      class="text-card text-nowrap"
+      :class="{ 'blur-sm': selectedWeekSchoolLV === null || !authStore.isAuthenticated }"
     >
-      <div
-        key="school-rank"
-        class="text-card text-nowrap"
-        :class="{ 'blur-sm': selectedWeekSchoolLV === null || !authStore.isAuthenticated }"
-      >
-        {{ selectedWeekSchoolLV === 0 ? `無排名` : `No.${selectedWeekSchoolLV}` }}
-      </div>
+      {{ selectedWeekSchoolLV === 0 ? `無排名` : `No.${selectedWeekSchoolLV}` }}
+    </div>
 
-      <div key="school-name" class="text-card" :class="{ 'blur-sm': !selfSchool }">
-        {{ selfSchool || '學校名稱' }}
-      </div>
+    <div key="school-name" class="text-card" :class="{ 'blur-sm': !selfSchool }">
+      {{ selfSchool || '學校名稱' }}
+    </div>
 
-      <AwardResult key="school-award" :condition="hasSelectedWeekSchoolBonus" />
+    <AwardResult key="school-award" :condition="hasSelectedWeekSchoolBonus" />
 
-      <AlreadyTaken key="school-taken" :condition="hasSelectedWeekSchoolBonus" />
+    <AlreadyTaken key="school-taken" :condition="hasSelectedWeekSchoolBonus" />
 
-      <div
-        key="personal-bonus"
-        class="text-card col-span-2 mt-6 lg:mt-0"
-        :class="{ 'blur-sm': selectedWeekSchoolLV === null || !authStore.isAuthenticated }"
-      >
-        每週個人500紅利
-      </div>
+    <div
+      key="personal-bonus"
+      class="text-card col-span-2 mt-6 lg:mt-0"
+      :class="{ 'blur-sm': selectedWeekSchoolLV === null || !authStore.isAuthenticated }"
+    >
+      每週個人500紅利
+    </div>
 
-      <AwardResult key="personal-award" :condition="hasSelectedWeekPersonalBonus" />
+    <AwardResult key="personal-award" :condition="hasSelectedWeekPersonalBonus" />
 
-      <AlreadyTaken key="personal-taken" :condition="hasSelectedWeekPersonalBonus" />
-    </TransitionGroup>
+    <AlreadyTaken key="personal-taken" :condition="hasSelectedWeekPersonalBonus" />
+  </TransitionGroup>
 </template>
 
 <script setup lang="ts">
 import AwardResult from '@/components/AwardResult.vue'
 import AlreadyTaken from '@/components/AlreadyTaken.vue'
-import { useActivityWeeks, type WeekConfig } from '@/composables/useActivityWeeks'
+import { useActivityWeeks } from '@/composables/useActivityWeeks'
 import { useSelfBonusInfo } from '@/composables/useSelfBonusInfo'
 import { useSelfSchool } from '@/composables/useSelfSchool'
 import { useAuthStore } from '@/stores/auth'

@@ -7,10 +7,14 @@
       @touchstart="handleTouchStart"
       @touchend="handleTouchEnd"
       @mouseenter="handleMouseEnter"
-      @mouseleave="handleMouseLeave">
+      @mouseleave="handleMouseLeave"
+    >
       <!-- 按鈕背景 -->
-      <img :src="btnMissionPage" alt="Mission Button Background"
-        class="absolute inset-0 w-full object-cover transition-all duration-200" />
+      <img
+        :src="btnMissionPage"
+        alt="Mission Button Background"
+        class="absolute inset-0 w-full object-cover transition-all duration-200"
+      />
     </button>
   </div>
 </template>
@@ -19,13 +23,8 @@
 import btnMissionPage from '@/assets/btn-missionpage.svg'
 import { useTouchFeedback } from '@/composables/useTouchFeedback'
 
-const {
-  isPressed,
-  handleTouchStart,
-  handleTouchEnd,
-  handleMouseEnter,
-  handleMouseLeave
-} = useTouchFeedback()
+const { isPressed, handleTouchStart, handleTouchEnd, handleMouseEnter, handleMouseLeave } =
+  useTouchFeedback()
 
 // CTA 按鈕點擊處理
 const handleCTAClick = () => {

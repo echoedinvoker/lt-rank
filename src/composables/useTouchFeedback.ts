@@ -29,6 +29,6 @@ export function useTouchFeedback() {
     handleTouchStart,
     handleTouchEnd,
     handleMouseEnter,
-    handleMouseLeave
+    handleMouseLeave,
   }
 }
