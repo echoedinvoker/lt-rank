@@ -43,7 +43,7 @@ const selectedTab = ref<'new' | 'last'>('new')
 
 const displayedRecord = computed(() =>
   selectedTab.value === 'new'
-    ? (newRecord.value?.data.record ?? [])
-    : (lastWeekRecord.value?.data.record ?? []),
+    ? (newRecord.value?.data?.record ?? [])
+    : (lastWeekRecord.value?.data?.record ?? []),
 )
 </script>
