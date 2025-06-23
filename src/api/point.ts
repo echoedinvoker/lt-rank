@@ -82,7 +82,7 @@ export const pointApi = {
 
   // 根據學校和週數獲取積分
   async getBonusBySchoolByWeek(params: BonusBySchoolRequest): Promise<BonusBySchoolResponse> {
-    return apiClient.post<BonusBySchoolResponse, BonusBySchoolRequest>(
+    return apiClient.get<BonusBySchoolResponse>(
       '/point/getBonusBySchoolByWeek',
       params,
     )
@@ -90,7 +90,7 @@ export const pointApi = {
 
   // 根據用戶獲取各週積分
   async getBonusByUserByWeek(params: BonusByUserRequest): Promise<BonusByUserResponse> {
-    return apiClient.post<BonusByUserResponse, BonusByUserRequest>(
+    return apiClient.get<BonusByUserResponse>(
       '/point/getBonusByUserByWeek',
       params,
     )
@@ -98,6 +98,6 @@ export const pointApi = {
 
   // 獲取紅利發放資訊
   async getBonusInfo(params: GetBonusInfoRequest): Promise<GetBonusInfoResponse> {
-    return apiClient.post<GetBonusInfoResponse, GetBonusInfoRequest>('/point/getBonusInfo', params)
+    return apiClient.get<GetBonusInfoResponse>('/point/getBonusInfo', params)
   },
 }

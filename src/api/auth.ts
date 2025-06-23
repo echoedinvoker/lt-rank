@@ -16,7 +16,7 @@ export interface LoginResponse {
 
 export const authApi = {
   async login(credentials: LoginRequest): Promise<LoginResponse> {
-    return apiClient.post<LoginResponse, LoginRequest>('/login', credentials)
+    return apiClient.get<LoginResponse>('/login', credentials)
   },
 
   logout(): void {
