@@ -2,7 +2,10 @@ import { generateMockResponse, mockDelay } from './mockService'
 
 interface ApiClient {
   get<T>(endpoint: string): Promise<T>
-  post<T, U>(endpoint: string, data?: U): Promise<T>
+  post<T, U extends Record<string, unknown> | undefined = undefined>(
+    endpoint: string,
+    data?: U
+  ): Promise<T>
 }
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
@@ -28,7 +31,10 @@ export const apiClient: ApiClient = {
     return response.json()
   },
 
-  async post<T, U>(endpoint: string, data?: U): Promise<T> {
+  async post<T, U extends Record<string, unknown> | undefined = undefined>(
+    endpoint: string,
+    data?: U
+  ): Promise<T> {
     if (USE_MOCK) {
       await mockDelay()
       return generateMockResponse(endpoint, data) as T

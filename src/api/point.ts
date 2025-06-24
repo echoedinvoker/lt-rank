@@ -29,6 +29,7 @@ export interface BonusBySchoolRequest {
   uid: number
   schoolName?: string
   week?: number
+  [key: string]: unknown
 }
 
 export interface BonusBySchoolResponse {
@@ -42,6 +43,7 @@ export interface BonusBySchoolResponse {
 
 export interface BonusByUserRequest {
   uid: number
+  [key: string]: unknown
 }
 
 export interface BonusByUserResponse {
@@ -53,6 +55,7 @@ export interface BonusByUserResponse {
 // 紅利發放請求參數
 export interface GetBonusInfoRequest {
   uid: number
+  [key: string]: unknown
 }
 // 每週紅利資料結構
 export interface WeeklyBonusData {

@@ -62,8 +62,8 @@
             <TheInput v-model="searchStore.schoolName" label="學校" placeholder="請輸入學校名稱" />
             <TheSelect v-model="searchStore.selectedWeek" label="週次" :options="selectableWeeks" />
             <QueryButton
-              :loading="loading"
-              @click="searchHandler(searchStore.selectedWeek, searchStore.schoolName)"
+              :loading="isLoading"
+              @click="searchHandler()"
             />
 
             <p
@@ -79,9 +79,9 @@
           >
             <div
               class="col-span-2 md:col-span-1 text-card border-[#5B0E11] smooth-transition"
-              :class="{ 'blur-sm': !hasBonusData || !authStore.isAuthenticated }"
+              :class="{ 'blur-sm': !data || !authStore.isAuthenticated }"
             >
-              {{ hasBonusData ? searchStore.bonusData?.school_name : '學校名稱' }}
+              {{ schoolNameResult }}
             </div>
             <div class="bold-text text-primary px-0 sm:px-2 leading-4.5 sm:leading-8 text-center">
               <span class="text-nowrap">累積</span>
@@ -89,11 +89,9 @@
             </div>
             <div
               class="golden-text-card smooth-transition"
-              :class="{ 'blur-sm': !hasBonusData || !authStore.isAuthenticated }"
+              :class="{ 'blur-sm': !data || !authStore.isAuthenticated }"
             >
-              {{
-                hasBonusData ? Number(searchStore.bonusData?.BONUS).toLocaleString() : '19,999,999'
-              }}
+              {{ bonusResult }}
             </div>
           </div>
         </div>
@@ -106,13 +104,11 @@
 import TheSelect from '@/components/ui/select/TheSelect.vue'
 import TheInput from '@/components/ui/input/TheInput.vue'
 import QueryButton from '@/components/ui/button/QueryButton.vue'
-import { computed } from 'vue'
 import { useBonusBySchoolByWeek } from '@/composables/useBonusBySchoolByWeek'
 import { useSearchStore } from '@/stores/search'
 import { useAuthStore } from '@/stores/auth' // 新增 auth store
 
 const searchStore = useSearchStore()
 const authStore = useAuthStore() // 新增 auth store 實例
-const { searchHandler, loading, weekText, selectableWeeks, error } = useBonusBySchoolByWeek()
-const hasBonusData = computed(() => searchStore.bonusData)
+const { data, schoolNameResult, bonusResult, searchHandler, isLoading, weekText, selectableWeeks, error } = useBonusBySchoolByWeek()
 </script>

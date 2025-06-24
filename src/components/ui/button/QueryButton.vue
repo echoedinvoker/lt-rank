@@ -4,7 +4,8 @@
     :disabled="loading || !authStore.isAuthenticated"
     :class="`bg-primary text-white font-noto-sans-tc w-full rounded-md cursor-pointer
     disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center
-    justify-center gap-2 py-1.5 ${loading ? 'text-lg sm:text-[26px]' : 'text-lg sm:text-[28px]'}`"
+    justify-center gap-2 py-1.5 ${loading ? 'text-lg sm:text-[26px]' : 'text-lg sm:text-[28px]'}
+    ${isClicked ? 'scale-95 bg-primary/80' : 'hover:bg-primary/90'}`"
   >
     <!-- 載入動畫 -->
     <svg
@@ -35,6 +36,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth'
+import { ref } from 'vue'
 
 interface Props {
   loading?: boolean
@@ -54,13 +56,22 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const authStore = useAuthStore()
-
-// 定義 emits
 const emit = defineEmits<Emits>()
+
+// 點擊效果狀態
+const isClicked = ref(false)
 
 // 處理點擊事件
 const handleClick = () => {
   if (!props.loading) {
+    // 觸發點擊效果
+    isClicked.value = true
+
+    // 150ms 後重置效果
+    setTimeout(() => {
+      isClicked.value = false
+    }, 150)
+
     emit('click')
   }
 }

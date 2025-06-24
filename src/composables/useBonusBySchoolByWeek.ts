@@ -1,18 +1,15 @@
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useActivityWeeks } from '@/composables/useActivityWeeks'
 import { useAuthStore } from '@/stores/auth'
 import { pointApi } from '@/api/point'
 import { computed } from 'vue'
-import { watch } from 'vue'
 import { useSearchStore } from '@/stores/search'
+import { useQuery } from '@tanstack/vue-query'
 
 export function useBonusBySchoolByWeek() {
-  const { activityWeeks, currentWeek, formatWeekText } = useActivityWeeks()
+  const { activityWeeks, formatWeekText } = useActivityWeeks()
   const authStore = useAuthStore()
   const searchStore = useSearchStore()
-
-  const loading = ref(false)
-  const error = ref<string | null>(null)
 
   const selectableWeeks = computed<{ id: number; name: string }[]>(() => {
     return activityWeeks.value.map((week) => ({
@@ -29,12 +26,8 @@ export function useBonusBySchoolByWeek() {
   // 獲取積分數據的通用方法
   const fetchBonusData = async (uid: number, schoolName?: string, week?: number) => {
     if (!uid) {
-      error.value = '用戶 ID 不能為空'
-      return
+      throw new Error('用戶未登錄或 UID 無效')
     }
-
-    loading.value = true
-    error.value = null
 
     try {
       const response = await pointApi.getBonusBySchoolByWeek({
@@ -44,60 +37,61 @@ export function useBonusBySchoolByWeek() {
       })
 
       if (response.status) {
-        searchStore.bonusData = response.data
-        error.value = null
+        return response.data
       } else {
-        error.value = response.message || '獲取數據失敗'
+        throw new Error(response.message || '獲取積分數據失敗')
       }
     } catch (err) {
-      error.value = err instanceof Error ? err.message : '網路錯誤'
-      console.error('獲取積分數據失敗:', err)
-    } finally {
-      loading.value = false
+      throw err instanceof Error ? err : new Error('獲取積分數據時發生未知錯誤')
     }
   }
 
-  const stopWatcherSchoolName = watch(
-    () => searchStore.bonusData?.school_name,
-    (newSchoolName) => {
-      if (newSchoolName) {
-        searchStore.schoolName = newSchoolName
-        stopWatcherSchoolName() // 停止監聽, 僅做初始賦值
-      }
-    },
-    { immediate: true },
-  )
+  const queryParams = computed(() => ({
+    uid: authStore.userUid,
+    schoolName: searchStore.schoolNameSearch,
+    week: searchStore.selectedWeekSearch,
+  }))
 
-  onMounted(() => {
-    searchStore.selectedWeek = currentWeek.value || 1
-    // 一開始載入時, 先使用 uid 與 currentWeek 來查詢 (沒有 schoolName, 會自動取得該uid學生的school name 與 bonus 資訊)
-    if (authStore.uid && currentWeek.value) {
-      fetchBonusData(Number(authStore.uid), undefined, currentWeek.value)
-    }
+  const schoolNameResult = ref('學校名稱')
+  const bonusResult = ref('19,999,999')
+
+  const { data, isLoading, error } = useQuery({
+    enabled: computed(() => !!authStore.uid),
+    queryKey: ['bonusBySchoolByWeek', queryParams],
+    queryFn: () => fetchBonusData(
+      Number(authStore.uid),
+      searchStore.schoolNameSearch,
+      searchStore.selectedWeekSearch
+    ),
+    select: (data) => {
+      schoolNameResult.value = data.school_name || '學校名稱'
+      bonusResult.value = formatNumber(data.BONUS) || '19,999,999'
+      return data
+    },
+    retry: false
   })
+
+  function formatNumber(num: number | string): string {
+    if (typeof num === 'number') {
+      return num.toLocaleString('zh-TW')
+    }
+    return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+
 
   return {
     // 響應式數據
-    loading,
+    data,
+    schoolNameResult,
+    bonusResult,
+    isLoading,
     error,
 
     // Computed 屬性
     weekText,
     selectableWeeks,
 
-    // 查詢方法
-    searchHandler: async (week: number, schoolName?: string) => {
-      // 點擊"查詢"按鈕時, 使用 uid 與 schoolName 來查詢該學校在指定週次的 bonus 資訊
-      await fetchBonusData(Number(authStore.uid), schoolName, week) // no return, only update bonusData inside useBonusBySchoolByWeek
-    },
-
-    // 重新載入當前數據
-    refresh: async () => {
-      if (authStore.userUid && currentWeek.value) {
-        await fetchBonusData(Number(authStore.uid), undefined, currentWeek.value)
-        searchStore.schoolName = searchStore.bonusData?.school_name || ''
-        searchStore.selectedWeek = currentWeek.value
-      }
-    },
+    // Search Handler
+    searchHandler: () => searchStore.handleSearch()
   }
 }

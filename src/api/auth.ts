@@ -3,6 +3,7 @@ import { apiClient } from './index'
 export interface LoginRequest {
   account: string
   password: string
+  [key: string]: unknown
 }
 
 export interface LoginResponse {

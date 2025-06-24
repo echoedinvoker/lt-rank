@@ -1,8 +1,30 @@
-正式部屬時
-.env.production 的
-VITE_API_URL 值要設置為正確活動後端 URL
-VITE_USE_MOCK 值要設置為 false
-VITE_WEB_URL 值要設置為正確 lt web app 的 URL
+## 環境需求
 
-/src/api/ 底下的內容是假設後端僅用 GET 與 POST 兩種 method 去撰寫
-(目前後端僅給我 document，沒有實際的 API 實作, document 內容也缺乏 method)
+- Node.js 22.x 或更高版本
+- npm 或其他包管理工具
+
+## 生產部署流程
+
+1. **複製專案**
+   ```bash
+   git clone <repository-url>
+   cd lt-rank
+   ```
+
+2. **安裝依賴**
+   ```bash
+    npm install
+    ```
+
+
+3. **更新環境變數** (`.env.production`)
+   - `VITE_API_URL`: 設定為正式後端 API URL
+   - `VITE_USE_MOCK`: 設定為 `false`
+   - `VITE_WEB_URL`: 設定為正式網站 URL
+
+4. **建置專案**
+   ```bash
+   npm run build
+   ```
+
+5. **部署 `dist` 資料夾**到您的網頁伺服器

@@ -144,7 +144,7 @@ const generateSchoolBonusResponse = (data: {
     } else {
       return {
         status: false,
-        data: null,
+        data: { school_name: '', BONUS: 0 },
         message: '查無此學校資料',
       }
     }
