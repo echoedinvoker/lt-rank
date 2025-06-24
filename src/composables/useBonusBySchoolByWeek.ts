@@ -45,6 +45,7 @@ export function useBonusBySchoolByWeek() {
 
       if (response.status) {
         searchStore.bonusData = response.data
+        error.value = null
       } else {
         error.value = response.message || '獲取數據失敗'
       }

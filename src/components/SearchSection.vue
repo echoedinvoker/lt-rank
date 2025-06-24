@@ -35,6 +35,26 @@
             </div>
           </div>
 
+          <!-- 錯誤訊息顯示區域 -->
+          <div
+            v-if="error"
+            class="w-full max-w-[320px] sm:max-w-[600px] lg:max-w-[800px] bg-red-100 border-l-4 border-red-400 p-4 rounded-md"
+          >
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm text-red-700 font-noto-sans-tc">{{ error }}</p>
+              </div>
+            </div>
+          </div>
           <!-- 搜尋表單區域 -->
           <div
             class="md:grid md:grid-cols-[8fr_6fr_3fr] md:gap-5 space-y-5 sm:space-y-7 w-full justify-items-center max-w-[320px] sm:max-w-[600px] lg:max-w-[800px]"
@@ -93,6 +113,6 @@ import { useAuthStore } from '@/stores/auth' // 新增 auth store
 
 const searchStore = useSearchStore()
 const authStore = useAuthStore() // 新增 auth store 實例
-const { searchHandler, loading, weekText, selectableWeeks } = useBonusBySchoolByWeek()
+const { searchHandler, loading, weekText, selectableWeeks, error } = useBonusBySchoolByWeek()
 const hasBonusData = computed(() => searchStore.bonusData)
 </script>
