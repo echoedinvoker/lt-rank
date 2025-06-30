@@ -5,7 +5,7 @@
       :class="{ 'sm:block': true, 'block sm:hidden': false }"></div>
 
     <!-- 大螢幕熱氣球背景 -->
-    <img ref="heroImage" src="@/assets/bg-intro.png" alt="Hero Section"
+    <img ref="heroImage" :src="bigIntroImage" alt="Hero Section"
       class="w-full h-auto object-cover min-h-[800px] hidden sm:block transition-opacity duration-500"
       :class="{ 'opacity-0': !isImageLoaded, 'opacity-100': isImageLoaded }" @load="onImageLoad('heroImage')"
       @error="onImageError('heroImage')" />
@@ -20,11 +20,11 @@
     />
 
     <!-- 大螢幕熱氣球 - 左側 -->
-    <img src="@/assets/ballon-left-B.svg" alt="Hot Air Balloon Left"
+    <img :src="ballonLeftB" alt="Hot Air Balloon Left"
       class="hidden sm:block absolute top-[16%] left-[8%] w-[5%] h-auto floating-balloon-left transition-opacity duration-500"
       :class="{ 'opacity-0': !isImageLoaded, 'opacity-100': isImageLoaded }" />
     <!-- 大螢幕熱氣球 - 右側 -->
-    <img src="@/assets/ballon-right-B.svg" alt="Hot Air Balloon Right"
+    <img :src="ballonRightB" alt="Hot Air Balloon Right"
       class="hidden sm:block absolute top-[11%] right-[10%] w-[13%] h-auto floating-balloon-right transition-opacity duration-500"
       :class="{ 'opacity-0': !isImageLoaded, 'opacity-100': isImageLoaded }" />
 
@@ -38,7 +38,7 @@
     </div>
 
     <!-- 小螢幕熱氣球背景 -->
-    <img ref="heroImageSmall" src="@/assets/sm-intro.png" alt="Hero Section"
+    <img ref="heroImageSmall" :src="smallIntroImage" alt="Hero Section"
       class="w-full h-auto object-cover sm:hidden transition-opacity duration-500"
       :class="{ 'opacity-0': !isImageSmallLoaded, 'opacity-100': isImageSmallLoaded }"
       @load="onImageLoad('heroImageSmall')" @error="onImageError('heroImageSmall')" />
@@ -54,12 +54,12 @@
     />
 
     <!-- 小螢幕熱氣球 - 左側 -->
-    <img src="@/assets/ballon-left-S.svg" alt="Hot Air Balloon Left"
+    <img :src="ballonLeftS" alt="Hot Air Balloon Left"
       class="sm:hidden absolute top-[18%] left-[10%] w-[8%] h-auto floating-balloon-left transition-opacity duration-500"
       :class="{ 'opacity-0': !isImageSmallLoaded, 'opacity-100': isImageSmallLoaded }" />
 
     <!-- 小螢幕熱氣球 - 右側 -->
-    <img src="@/assets/ballon-right-S.svg" alt="Hot Air Balloon Right"
+    <img :src="ballonRightS" alt="Hot Air Balloon Right"
       class="sm:hidden absolute top-[15%] right-[6%] w-[15%] h-auto floating-balloon-right transition-opacity duration-500"
       :class="{ 'opacity-0': !isImageSmallLoaded, 'opacity-100': isImageSmallLoaded }" />
   </section>
@@ -68,6 +68,21 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import ParallaxDecorations from '@/components/ParallaxDecorations.vue'
+import bigIntroImage from '@/assets/bg-intro.png'
+import decoIntro1 from '@/assets/deco-intro-01.png'
+import decoIntro2 from '@/assets/deco-intro-02.png'
+import decoIntro3 from '@/assets/deco-intro-03.png'
+import smallIntroImage from '@/assets/sm-intro.png'
+import smDeco1 from '@/assets/sm-deco-1.png'
+import smDeco2 from '@/assets/sm-deco-2.png'
+import smDeco3 from '@/assets/sm-deco-3.png'
+import ballonLeftB from '@/assets/ballon-left-B.svg'
+import ballonRightB from '@/assets/ballon-right-B.svg'
+import ballonLeftS from '@/assets/ballon-left-S.svg'
+import ballonRightS from '@/assets/ballon-right-S.svg'
+
+
+
 
 const imageLoaded = ref<Array<'heroImage' | 'heroImageSmall'>>([])
 
@@ -77,21 +92,21 @@ const enableMobileParallax = ref(true) // 控制是否在小螢幕啟用 Paralla
 // 大螢幕裝飾圖片配置
 const desktopDecorations = [
   {
-    src: '/src/assets/deco-intro-03.png',
+    src: decoIntro3,
     alt: 'Decoration 3',
     speed: 0.3, // 最快移動
     duration: '500ms',
     className: 'w-[1201px]'
   },
   {
-    src: '/src/assets/deco-intro-02.png',
+    src: decoIntro2,
     alt: 'Decoration 2',
     speed: 0.5, // 中等速度
     duration: '700ms',
     className: 'w-[1201px]'
   },
   {
-    src: '/src/assets/deco-intro-01.png',
+    src: decoIntro1,
     alt: 'Decoration 1',
     speed: 0.7, // 最慢移動
     duration: '1000ms',
@@ -102,21 +117,21 @@ const desktopDecorations = [
 // 小螢幕裝飾圖片配置 (可選)
 const mobileDecorations = [
   {
-    src: '/src/assets/sm-deco-1.png',
+    src: smDeco1,
     alt: 'machine image',
     speed: 0.3,
     duration: '500ms',
     className: 'w-full max-w-[360px]'
   },
   {
-    src: '/src/assets/sm-deco-2.png',
+    src: smDeco2,
     alt: 'Lucky seven image',
     speed: 0.5,
     duration: '700ms',
     className: 'w-full max-w-[171px] pb-[270px]'
   },
   {
-    src: '/src/assets/sm-deco-3.png',
+    src: smDeco3,
     alt: 'Text image',
     speed: 0.7,
     duration: '1000ms',
@@ -144,18 +159,30 @@ onMounted(() => {
   window.addEventListener('resize', checkScreenSize)
 
   const preloadImages = [
-    '/src/assets/bg-intro.png',
-    '/src/assets/deco-intro-01.png',
-    '/src/assets/deco-intro-02.png',
-    '/src/assets/deco-intro-03.png',
-    '/src/assets/sm-intro.png',
-    '/src/assets/sm-deco-1.png',
-    '/src/assets/sm-deco-2.png',
-    '/src/assets/sm-deco-3.png',
-    '/src/assets/ballon-left-B.svg',
-    '/src/assets/ballon-right-B.svg',
-    '/src/assets/ballon-left-S.svg',
-    '/src/assets/ballon-right-S.svg',
+    // '/src/assets/bg-intro.png',
+    // '/src/assets/deco-intro-01.png',
+    // '/src/assets/deco-intro-02.png',
+    // '/src/assets/deco-intro-03.png',
+    // '/src/assets/sm-intro.png',
+    // '/src/assets/sm-deco-1.png',
+    // '/src/assets/sm-deco-2.png',
+    // '/src/assets/sm-deco-3.png',
+    // '/src/assets/ballon-left-B.svg',
+    // '/src/assets/ballon-right-B.svg',
+    // '/src/assets/ballon-left-S.svg',
+    // '/src/assets/ballon-right-S.svg',
+    bigIntroImage,
+    decoIntro1,
+    decoIntro2,
+    decoIntro3,
+    smallIntroImage,
+    smDeco1,
+    smDeco2,
+    smDeco3,
+    ballonLeftB,
+    ballonRightB,
+    ballonLeftS,
+    ballonRightS
   ]
 
   preloadImages.forEach((src) => {
