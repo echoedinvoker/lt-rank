@@ -23,8 +23,11 @@ const navButtons = [
 ]
 
 const authButtons = {
-  login: { text: '登入', color: 'bg-[#c92a2e]', variant: 'destructive' as const },
-  logout: { text: '登出', color: 'bg-[#c92a2e]', variant: 'destructive' as const },
+  login: [
+    {text: '登入', color: 'bg-[#c92a2e]', variant: 'destructive' as const },
+    {text: '註冊', color: 'bg-[#c92a2e]', variant: 'destructive' as const },
+  ],
+  logout: [{ text: '登出', color: 'bg-[#c92a2e]', variant: 'destructive' as const }],
 }
 
 export function useMobileHamburger() {
@@ -36,7 +39,7 @@ export function useMobileHamburger() {
   // 根據登入狀態決定顯示的按鈕
   const visibleNavButtons = computed(() => {
     const authButton = authStore.isAuthenticated ? authButtons.logout : authButtons.login
-    return [...navButtons, authButton]
+    return [...navButtons, ...authButton]
   })
 
   // 切換手機選單顯示狀態 //
@@ -69,6 +72,8 @@ export function useMobileHamburger() {
 
     if (buttonText === '登入') {
       openLoginDialog() // 使用 composable 開啟登入對話框
+    } else if (buttonText === '註冊') {
+      window.location.href = 'https://ltrust.tw/signup'
     } else if (buttonText === '登出') {
       authStore.clearAuth()
     } else {

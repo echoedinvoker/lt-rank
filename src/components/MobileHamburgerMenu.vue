@@ -14,7 +14,7 @@
               :key="button.text"
               @click="handleNavClick(button.text)"
               :class="`w-full py-3 px-4 rounded-[30.5px]
-            ${['登入', '登出'].includes(button.text) ? 'bg-[#c92a2e]' : 'bg-transparent'}
+            ${['登入', '註冊', '登出'].includes(button.text) ? 'bg-[#c92a2e]' : 'bg-transparent'}
             text-white text-[22px] font-['Inter'] cursor-pointer transition-all hover:opacity-90`"
             >
               {{ button.text }}
