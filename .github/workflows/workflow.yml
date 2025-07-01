@@ -37,6 +37,16 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H 34.81.184.55 >> ~/.ssh/known_hosts
     
-    - name: Test SSH Connection
+    # - name: Test SSH Connection
+    #   run: |
+    #     ssh -i ~/.ssh/id_rsa ltrust_cheng@34.81.184.55 'echo "SSH connection successful!"'
+
+    - name: Deploy on GCP VM
       run: |
-        ssh -i ~/.ssh/id_rsa ltrust_cheng@34.81.184.55 'echo "SSH connection successful!"'
+        ssh -i ~/.ssh/id_rsa ltrust_cheng@34.81.184.55 << 'EOF'
+          cd /home/ubuntu/lt-rank-web/
+          sudo docker compose pull frontend
+          sudo docker compose up -d frontend
+          
+          echo "Deployment completed!"
+        EOF
