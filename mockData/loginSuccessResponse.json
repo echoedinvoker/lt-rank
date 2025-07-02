@@ -1,0 +1,9 @@
+{
+  "status": true,
+  "data": {
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJhdWQiOiIiLCJpYXQiOjE3NTE0MTc4OTUsImV4cCI6MTc1MTUwNDI5NSwiZGF0YSI6eyJpZCI6IjIiLCJlbWFpbCI6ImVjaG9lZGludm9rZXJAZ21haWwuY29tIiwibmFtZSI6Ilx1NWYzNVx1NWZkN1x1NzQ0YiJ9fQ.Y_BHpSLx7bHlQZphg6exI5RVoYLQETW9slOOlzu7wnw",
+    "uid": "2",
+    "name": "張志瑋"
+  },
+  "message": "success"
+}
