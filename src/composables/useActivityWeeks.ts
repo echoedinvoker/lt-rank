@@ -9,7 +9,7 @@ export interface WeekConfig {
 
 // 將活動週次配置定義在外部，讓所有組件共享同一份資料
 const activityWeeks = ref<WeekConfig[]>([
-  { week: 1, start: '07/01', end: '07/16' },
+  { week: 1, start: '07/10', end: '07/16' },
   { week: 2, start: '07/17', end: '07/23' },
   { week: 3, start: '07/24', end: '07/30' },
   { week: 4, start: '07/31', end: '08/06' },
