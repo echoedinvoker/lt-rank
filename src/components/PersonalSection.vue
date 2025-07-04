@@ -15,7 +15,7 @@
               class="golden-text-card justify-self-end smooth-transition col-start-2 col-end-3 lg:col-span-1 transform -translate-y-1/6 lg:translate-y-0 -translate-x-[3%] lg:translate-x-0 scale-x-105 lg:scale-x-100"
               :class="{ 'blur-sm': !isDataLoaded }"
             >
-              {{ totalBonus }}
+              {{ currentBonus ? currentBonus.toLocaleString() : '0' }}
             </div>
           </div>
         </div>
@@ -80,10 +80,9 @@ const isDataLoaded = computed(() => {
 })
 
 const weeklyBonus = computed(() => {
-  if (!data.value || !data.value.status) {
-    return defaultWeeklyBonus
-  }
-  return Object.values(data.value.data).map((bonus, index) => {
+  if (!data.value || !data.value.status) { return defaultWeeklyBonus }
+
+  return Object.values(data.value.data.data).map((bonus, index) => {
     return {
       week: defaultWeeklyBonus[index].week,
       bonus: Number(bonus).toLocaleString(),
@@ -92,15 +91,9 @@ const weeklyBonus = computed(() => {
   })
 })
 
-const totalBonus = computed(() => {
-  if (!data.value || !data.value.status) {
-    return '19,999,999'
-  }
-  return Number(
-    weeklyBonus.value.reduce((acc, curr) => {
-      return acc + Number(curr.numBonus)
-    }, 0),
-  ).toLocaleString()
+const currentBonus = computed(() => {
+  if (!data.value || !data.value.status) { return 0 }
+  return data.value.data.data[data.value.data.now]
 })
 </script>
 

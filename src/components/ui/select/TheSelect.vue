@@ -42,14 +42,14 @@
 import { computed } from 'vue'
 
 interface SelectOption {
-  id: number
+  id: string
   name: string
 }
 
 interface Props {
   label: string
   options: SelectOption[]
-  modelValue?: number
+  modelValue?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -57,13 +57,13 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  'update:modelValue': [value: number]
+  'update:modelValue': [value: string]
 }>()
 
 // 雙向綁定的計算屬性
 const selectedItem = computed({
   get: () => props.modelValue,
-  set: (value: number) => {
+  set: (value: string) => {
     emit('update:modelValue', value)
   },
 })

@@ -28,7 +28,7 @@ export interface LastWeekRecordResponse {
 export interface BonusBySchoolRequest {
   uid: number
   schoolName?: string
-  week?: number
+  week?: string
   [key: string]: unknown
 }
 
@@ -48,7 +48,10 @@ export interface BonusByUserRequest {
 
 export interface BonusByUserResponse {
   status: boolean
-  data: Record<string, number> // { "1": 0, "2": 0, ... }
+  data: {
+    data: Record<string, number> // { "1": 0, "2": 0, ... }
+    now: string // 當前週數 ex. "2"
+  }
   message: string
 }
 

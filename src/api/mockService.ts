@@ -79,14 +79,16 @@ const staticMockData: Record<
   '/point/getBonusByUserByWeek': {
     status: true,
     data: {
-      // 每次呼叫都會產生新的隨機數值 (0~1999)
-      '1': generateRandomBonus(),
-      '2': generateRandomBonus(),
-      '3': generateRandomBonus(),
-      '4': generateRandomBonus(),
-      '5': generateRandomBonus(),
-      '6': generateRandomBonus(),
-      '7': generateRandomBonus(),
+      data: {
+        '1': generateRandomBonus(),
+        '2': generateRandomBonus(),
+        '3': generateRandomBonus(),
+        '4': generateRandomBonus(),
+        '5': generateRandomBonus(),
+        '6': generateRandomBonus(),
+        '7': generateRandomBonus(),
+      },
+      now: '2',
     },
     message: 'success',
   },

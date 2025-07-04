@@ -11,7 +11,7 @@ export function useBonusBySchoolByWeek() {
   const authStore = useAuthStore()
   const searchStore = useSearchStore()
 
-  const selectableWeeks = computed<{ id: number; name: string }[]>(() => {
+  const selectableWeeks = computed<{ id: string; name: string }[]>(() => {
     return activityWeeks.value.map((week) => ({
       id: week.week,
       name: `第${week.week}週`,
@@ -24,7 +24,7 @@ export function useBonusBySchoolByWeek() {
   })
 
   // 獲取積分數據的通用方法
-  const fetchBonusData = async (uid: number, schoolName?: string, week?: number) => {
+  const fetchBonusData = async (uid: number, schoolName?: string, week?: string) => {
     if (!uid) {
       throw new Error('用戶未登錄或 UID 無效')
     }
