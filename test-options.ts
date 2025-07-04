@@ -78,7 +78,7 @@ export const test = base.extend<TestOptions>({
     await page.getByRole('button', { name: '登入' }).click()
     await use('')
   },
-  logged: async ({ page, loginModal }, use) => {
+  logged: async ({ page, mockLoginResponse, loginModal }, use) => {
     await page.getByPlaceholder('請輸入帳號').fill('testuser')
     await page.getByPlaceholder('請輸入密碼').fill('testpassword')
     await page.locator('form').getByRole('button', { name: '登入' }).click()
