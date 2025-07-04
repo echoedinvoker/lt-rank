@@ -31,6 +31,7 @@ export const test = base.extend<TestOptions>({
         }),
       })
     })
+    await use('')
   },
   homePage: async ({ page }, use) => {
     await page.goto('/')
