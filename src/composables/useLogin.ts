@@ -6,7 +6,17 @@ export function useLogin() {
   const authStore = useAuthStore()
 
   return useMutation({
-    mutationFn: (credentials: LoginRequest) => authApi.login(credentials),
+    mutationFn: async (credentials: LoginRequest) => {
+      const response = await authApi.login(credentials)
+
+      if (!response.status) {
+        const error = new Error(response.message || '登入失敗');
+        (error as any).response = { data: { message: response.message } }
+        throw error
+      }
+
+      return response
+    },
     onSuccess: (data) => {
       if (data.status) {
         // 儲存 token 和 uid
@@ -15,6 +25,7 @@ export function useLogin() {
     },
     onError: (error) => {
       console.error('Login failed:', error)
+      throw error
     },
   })
 }

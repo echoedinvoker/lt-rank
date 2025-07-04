@@ -45,9 +45,9 @@ export function useLoginDialog() {
     } catch (error: unknown) {
       if (error && typeof error === 'object' && 'response' in error) {
         const apiError = error as { response?: { data?: { message?: string } } }
-        loginError.value = apiError.response?.data?.message || '登入失敗，請檢查帳號密碼'
+        loginError.value = apiError.response?.data?.message || '登入失敗'
       } else {
-        loginError.value = '登入失敗，請檢查帳號密碼'
+        loginError.value = '登入失敗'
       }
     }
   }
