@@ -1,6 +1,5 @@
 import { onMounted } from 'vue'
 import { ref, computed } from 'vue'
-import { useBonusByUser } from './useBonusByUser'
 
 export interface WeekConfig {
   week: string

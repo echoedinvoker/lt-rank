@@ -37,26 +37,6 @@ export const test = base.extend<TestOptions>({
     await use('')
   },
   loggedPersonal: async ({ page, logged }, use) => {
-    await page.route('*/**/point/getBonusByUserByWeek', (route) => {
-      route.fulfill({
-        body: JSON.stringify({
-          status: true,
-          data: {
-            data: {
-              '1': 11,
-              '2': 22,
-              '3': 33,
-              '4': 44,
-              '5': 55,
-              '6': 66,
-              '7': 0,
-            },
-            now: '2',
-          },
-          message: 'success',
-        }),
-      })
-    })
     await page.locator('header').getByRole('button', { name: '個人成就' }).click()
     await page.waitForTimeout(3000)
     use('')

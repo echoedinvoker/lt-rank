@@ -82,11 +82,14 @@ const isDataLoaded = computed(() => {
 const weeklyBonus = computed(() => {
   if (!data.value || !data.value.status) { return defaultWeeklyBonus }
 
-  return Object.values(data.value.data.data).map((bonus, index) => {
+  return Object.keys(data.value.data.data).map(weekNum => {
+    const numBonus = data.value.data.data[weekNum]
+    const bonus = Number(numBonus).toLocaleString()
+    const week = `第${weekNum}週`
     return {
-      week: defaultWeeklyBonus[index].week,
-      bonus: Number(bonus).toLocaleString(),
-      numBonus: bonus,
+      week,
+      bonus,
+      numBonus,
     }
   })
 })

@@ -1,28 +1,62 @@
 import { expect } from '@playwright/test'
 import { test } from '../test-options'
 
-test('current bonus', async ({ page, logged }) => {
-  await page.route('*/**/point/getBonusByUserByWeek', (route) => {
-    route.fulfill({
-      body: JSON.stringify({
-        status: true,
-        data: {
+test.beforeEach(async ({ page }) => {
+    await page.route('*/**/point/getBonusByUserByWeek', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: true,
           data: {
-            '1': 11,
-            '2': 22,
-            '3': 33,
-            '4': 44,
-            '5': 55,
-            '6': 66,
-            '7': 0,
+            data: {
+              '1': 11,
+              '2': 22,
+              '3': 33,
+              // '4': 44,
+              '5': 55,
+              '6': 66,
+              '7': 0,
+            },
+            now: '3',
           },
-          now: '2',
-        },
-        message: 'success',
-      }),
+          message: 'success',
+        }),
+      })
     })
-  })
-  await page.locator('header').getByRole('button', { name: '個人成就' }).click()
-  await page.waitForTimeout(3000);
-  await expect(page.locator('.grid', { hasText: '本週任務紅利已累積' }).getByText('22')).toBeVisible()
+})
+
+test('current bonus', async ({ page, loggedPersonal }) => {
+  await expect(
+    page.locator('.grid', { hasText: '本週任務紅利已累積' }).getByText('33'),
+  ).toBeVisible()
+})
+test('existing week', async ({ page, loggedPersonal }) => {
+  await expect(
+    page.locator('section#award-section').getByRole('button', { name: '第1週' }),
+  ).toBeVisible()
+  await expect(
+    page.locator('section#award-section').getByRole('button', { name: '第2週' }),
+  ).toBeVisible()
+  await expect(
+    page.locator('section#award-section').getByRole('button', { name: '第3週' }),
+  ).toBeVisible()
+  await expect(
+    page.locator('section#award-section').getByRole('button', { name: '第5週' }),
+  ).toBeVisible()
+  await expect(
+    page.locator('section#award-section').getByRole('button', { name: '第6週' }),
+  ).toBeVisible()
+  await expect(
+    page.locator('section#award-section').getByRole('button', { name: '第7週' }),
+  ).toBeVisible()
+})
+test('not existing week', async ({ page, loggedPersonal }) => {
+  await page.pause()
+  await expect(
+    page.locator('section#award-section').getByRole('button', { name: '第4週' }),
+  ).not.toBeVisible()
+})
+test('filtering week', async ({ page, loggedPersonal }) => {
+  await expect(
+    page.locator('section#award-section').getByRole('button', { name: '第99週' }),
+  ).not.toBeVisible()
 })
