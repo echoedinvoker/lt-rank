@@ -74,7 +74,7 @@ export const test = base.extend<TestOptions>({
     await page.goto('/')
     await use('')
   },
-  loginModal: async ({ page, mockLoginResponse, homePage }, use) => {
+  loginModal: async ({ page, homePage }, use) => {
     await page.getByRole('button', { name: '登入' }).click()
     await use('')
   },
