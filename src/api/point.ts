@@ -27,7 +27,7 @@ export interface LastWeekRecordResponse {
 
 export interface BonusBySchoolRequest {
   uid: number
-  schoolName?: string
+  school?: string
   week?: string
   [key: string]: unknown
 }
