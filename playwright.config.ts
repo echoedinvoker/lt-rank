@@ -19,9 +19,9 @@ export default defineConfig<TestOptions>({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  // webServer: {
-  //   command: 'npm run dev',
-  //   url: 'http://localhost:5173',
-  //   timeout: 120 * 1000, // 2 minutes
-  // }
+  webServer: {
+    command: 'npm run dev',
+    url: 'http://localhost:5173',
+    timeout: 120 * 1000, // 2 minutes
+  }
 });
