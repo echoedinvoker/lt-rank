@@ -1,6 +1,7 @@
 import { test as base } from '@playwright/test'
 
 export type TestOptions = {
+  mockApi: string
   homePage: string
   loginModal: string
   logged: string
@@ -9,6 +10,28 @@ export type TestOptions = {
 }
 
 export const test = base.extend<TestOptions>({
+  mockApi: async ({ page }, use) => {
+    await page.route('*/**/point/getBonusByUserByWeek', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: true,
+          data: {
+            data: {
+              '1': 11,
+              '2': 22,
+              '3': 33,
+              // '4': 44,
+              '5': 55,
+              '6': 66,
+              '7': 0,
+            },
+            now: '3',
+          },
+          message: 'success',
+        }),
+      })
+    })
+  },
   homePage: async ({ page }, use) => {
     await page.goto('/')
     await use('')
