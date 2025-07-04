@@ -1,7 +1,8 @@
 import { test as base } from '@playwright/test'
 
 export type TestOptions = {
-  mockApi: string
+  mockResponseLogin: string
+  mockResponseGetBonusByUserByWeek: string
   homePage: string
   loginModal: string
   logged: string
@@ -10,7 +11,24 @@ export type TestOptions = {
 }
 
 export const test = base.extend<TestOptions>({
-  mockApi: async ({ page }, use) => {
+  mockResponseLogin: async ({ page }, use) => {
+    await page.route('*/**/login', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: true,
+          data: {
+            token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9',
+            uid: '1',
+            name: '測試使用者',
+          },
+          message: 'success',
+        }),
+      })
+    })
+    use('')
+  },
+
+  mockResponseGetBonusByUserByWeek: async ({ page }, use) => {
     await page.route('*/**/point/getBonusByUserByWeek', (route) => {
       route.fulfill({
         body: JSON.stringify({
@@ -37,24 +55,11 @@ export const test = base.extend<TestOptions>({
     await page.goto('/')
     await use('')
   },
-  loginModal: async ({ page, homePage }, use) => {
+  loginModal: async ({ page, mockResponseLogin, homePage }, use) => {
     await page.getByRole('button', { name: '登入' }).click()
     await use('')
   },
   logged: async ({ page, loginModal }, use) => {
-    await page.route('*/**/login', (route) => {
-      route.fulfill({
-        body: JSON.stringify({
-          status: true,
-          data: {
-            token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9',
-            uid: '1',
-            name: '測試使用者',
-          },
-          message: 'success',
-        }),
-      })
-    })
     await page.getByPlaceholder('請輸入帳號').fill('testuser')
     await page.getByPlaceholder('請輸入密碼').fill('testpassword')
     await page.locator('form').getByRole('button', { name: '登入' }).click()

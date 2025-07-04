@@ -1,12 +1,20 @@
 import { expect } from '@playwright/test'
 import { test } from '../test-options'
 
-test('current bonus', async ({ page, mockApi, loggedPersonal }) => {
+test('current bonus', async ({
+  page,
+  mockResponseGetBonusByUserByWeek,
+  loggedPersonal
+}) => {
   await expect(
     page.locator('.grid', { hasText: '本週任務紅利已累積' }).getByText('33'),
   ).toBeVisible()
 })
-test('existing week', async ({ page, loggedPersonal }) => {
+test('existing week', async ({
+  page,
+  mockResponseGetBonusByUserByWeek,
+  loggedPersonal
+}) => {
   await expect(
     page.locator('section#award-section').getByRole('button', { name: '第1週' }),
   ).toBeVisible()
@@ -26,13 +34,20 @@ test('existing week', async ({ page, loggedPersonal }) => {
     page.locator('section#award-section').getByRole('button', { name: '第7週' }),
   ).toBeVisible()
 })
-test('not existing week', async ({ page, loggedPersonal }) => {
-  await page.pause()
+test('not existing week', async ({
+  page,
+  mockResponseGetBonusByUserByWeek,
+  loggedPersonal
+}) => {
   await expect(
     page.locator('section#award-section').getByRole('button', { name: '第4週' }),
   ).not.toBeVisible()
 })
-test('filtering week', async ({ page, loggedPersonal }) => {
+test('filtering week', async ({
+  page,
+  mockResponseGetBonusByUserByWeek,
+  loggedPersonal
+}) => {
   await expect(
     page.locator('section#award-section').getByRole('button', { name: '第99週' }),
   ).not.toBeVisible()
