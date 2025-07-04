@@ -24,7 +24,7 @@ export function useBonusBySchoolByWeek() {
   })
 
   // 獲取積分數據的通用方法
-  const fetchBonusData = async (uid: number, schoolName?: string, week?: string) => {
+  const fetchBonusData = async (uid: number, school?: string, week?: string) => {
     if (!uid) {
       throw new Error('用戶未登錄或 UID 無效')
     }
@@ -32,7 +32,7 @@ export function useBonusBySchoolByWeek() {
     try {
       const response = await pointApi.getBonusBySchoolByWeek({
         uid,
-        schoolName,
+        school,
         week,
       })
 
