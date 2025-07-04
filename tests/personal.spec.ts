@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test'
 import { test } from '../test-options'
 
-test('show correct current bonus in personal section', async ({ page, logged }) => {
+test('current bonus', async ({ page, logged }) => {
   await page.route('*/**/point/getBonusByUserByWeek', (route) => {
     route.fulfill({
       body: JSON.stringify({
