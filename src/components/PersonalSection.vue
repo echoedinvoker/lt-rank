@@ -50,6 +50,7 @@
           </template>
         </div>
       </template>
+      <div>{{ currentWeek }}</div>
     </TheCard>
   </section>
 </template>
@@ -60,8 +61,10 @@ import UserIcon from '@/components/ui/icon/UserIcon.vue'
 import TheCard from '@/components/ui/card/TheCard.vue'
 import { useBonusByUser } from '@/composables/useBonusByUser'
 import { computed } from 'vue'
+import { useActivityWeeks } from '@/composables/useActivityWeeks'
 
 const { data } = useBonusByUser()
+const { currentWeek } = useActivityWeeks()
 
 const title = '每週任務紅利'
 
@@ -83,13 +86,15 @@ const weeklyBonus = computed(() => {
   if (!data.value || !data.value.status) {
     return defaultWeeklyBonus
   }
-  return Object.values(data.value.data).map((bonus, index) => {
+  const result = Object.values(data.value.data).map((bonus, index) => {
     return {
       week: defaultWeeklyBonus[index].week,
       bonus: Number(bonus).toLocaleString(),
       numBonus: bonus,
     }
   })
+  console.log('weeklyBonus:', result)
+  return result
 })
 
 const totalBonus = computed(() => {
