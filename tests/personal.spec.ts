@@ -3,7 +3,7 @@ import { test } from '../test-options'
 
 test('current bonus', async ({
   page,
-  mockResponseGetBonusByUserByWeek,
+  mockGetBonusByUserByWeekResponse,
   loggedPersonal
 }) => {
   await expect(
@@ -12,7 +12,7 @@ test('current bonus', async ({
 })
 test('existing week', async ({
   page,
-  mockResponseGetBonusByUserByWeek,
+  mockGetBonusByUserByWeekResponse,
   loggedPersonal
 }) => {
   await expect(
@@ -36,7 +36,7 @@ test('existing week', async ({
 })
 test('not existing week', async ({
   page,
-  mockResponseGetBonusByUserByWeek,
+  mockGetBonusByUserByWeekResponse,
   loggedPersonal
 }) => {
   await expect(
@@ -45,7 +45,7 @@ test('not existing week', async ({
 })
 test('filtering week', async ({
   page,
-  mockResponseGetBonusByUserByWeek,
+  mockGetBonusByUserByWeekResponse,
   loggedPersonal
 }) => {
   await expect(

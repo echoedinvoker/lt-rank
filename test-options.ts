@@ -1,8 +1,10 @@
 import { test as base } from '@playwright/test'
 
 export type TestOptions = {
-  mockResponseLogin: string
-  mockResponseGetBonusByUserByWeek: string
+  mockLoginResponse: string
+  mockLoginResponseUnexpectedError: string
+  mockLoginResponseWrongCredential: string
+  mockGetBonusByUserByWeekResponse: string
   homePage: string
   loginModal: string
   logged: string
@@ -11,7 +13,7 @@ export type TestOptions = {
 }
 
 export const test = base.extend<TestOptions>({
-  mockResponseLogin: async ({ page }, use) => {
+  mockLoginResponse: async ({ page }, use) => {
     await page.route('*/**/login', (route) => {
       route.fulfill({
         body: JSON.stringify({
@@ -27,8 +29,25 @@ export const test = base.extend<TestOptions>({
     })
     use('')
   },
-
-  mockResponseGetBonusByUserByWeek: async ({ page }, use) => {
+  mockLoginResponseUnexpectedError: async ({ page }, use) => {
+    await page.route('*/**/login', (route) => {
+      route.fulfill({ status: 500 })
+    })
+    await use('')
+  },
+  mockLoginResponseWrongCredential: async ({ page }, use) => {
+    await page.route('*/**/login', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: false,
+          data: null,
+          message: '驗證失敗',
+        }),
+      })
+    })
+    await use('')
+  },
+  mockGetBonusByUserByWeekResponse: async ({ page }, use) => {
     await page.route('*/**/point/getBonusByUserByWeek', (route) => {
       route.fulfill({
         body: JSON.stringify({
@@ -55,7 +74,7 @@ export const test = base.extend<TestOptions>({
     await page.goto('/')
     await use('')
   },
-  loginModal: async ({ page, mockResponseLogin, homePage }, use) => {
+  loginModal: async ({ page, mockLoginResponse, homePage }, use) => {
     await page.getByRole('button', { name: '登入' }).click()
     await use('')
   },
@@ -72,7 +91,7 @@ export const test = base.extend<TestOptions>({
   },
   loggedAwards: async ({ page, loggedPersonal }, use) => {
     await page.locator('header').getByRole('button', { name: '紅利領取' }).click()
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(3000)
     use('')
-  }
+  },
 })
