@@ -7,6 +7,8 @@
     <div class="bg-white rounded-lg p-8 w-96 max-w-[90vw]" @click.stop>
       <h2 class="text-2xl font-bold mb-6 text-center">登入</h2>
 
+      <p class="text-sm text-gray-600 mb-6 text-center">請使用LTrust平台帳號密碼登入</p>
+
       <form @submit.prevent="handleLogin">
         <!-- 帳號輸入 -->
         <div class="mb-4">
