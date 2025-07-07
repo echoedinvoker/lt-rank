@@ -4,6 +4,8 @@ export type TestOptions = {
   mockLoginResponse: string
   mockLoginResponseUnexpectedError: string
   mockLoginResponseWrongCredential: string
+  mockGetBonusInfo:string
+  mockGetBonusBySchoolByWeekResponse: string
   mockGetBonusByUserByWeekResponse: string
   homePage: string
   loginModal: string
@@ -42,6 +44,61 @@ export const test = base.extend<TestOptions>({
           status: false,
           data: null,
           message: '驗證失敗',
+        }),
+      })
+    })
+    await use('')
+  },
+  mockGetBonusInfo: async ({ page }, use) => {
+    await page.route('*/**/point/getBonusInfo', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: true,
+          data: {
+            user: {
+              '1': 0,
+              '2': 0,
+              '3': 1,
+              '4': 0,
+              '5': 0,
+              '6': 0,
+              '7': 0,
+            },
+            school: {
+              '1': 0,
+              '2': 0,
+              '3': 0,
+              '4': 0,
+              '5': 0,
+              '6': 0,
+              '7': 0,
+            },
+            schoolLV: {
+              '1': 0,
+              '2': 1,
+              '3': 7,
+              '4': 5,
+              '5': 4,
+              '6': 0,
+              '7': 3,
+            },
+          },
+          message: 'success',
+        }),
+      })
+    })
+    await use('')
+  },
+  mockGetBonusBySchoolByWeekResponse: async ({ page }, use) => {
+    await page.route('*/**/point/getBonusBySchoolByWeek', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: true,
+          data: {
+            school_name: '測試學校',
+            BONUS: 100,
+          },
+          message: 'success',
         }),
       })
     })
