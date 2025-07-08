@@ -4,12 +4,20 @@ export type TestOptions = {
   mockLoginResponse: string
   mockLoginResponseUnexpectedError: string
   mockLoginResponseWrongCredential: string
-  mockGetBonusInfo:string
+  mockGetNewRecord: string
+  mockGetNewRecordEmpty: string
+  mockGetLastWeekRecord: string
+  mockGetLastWeekRecordEmpty: string
+  mockGetBonusInfo: string
   mockGetBonusBySchoolByWeekResponse: string
   mockGetBonusByUserByWeekResponse: string
+  mockGetBonusByUserByWeekResponseNowFirst: string
+  mockGetBonusByUserByWeekResponseNowLast: string
+  mockGetBonusByUserByWeekResponseNowUndefined: string
   homePage: string
   loginModal: string
   logged: string
+  loggedSchool: string
   loggedPersonal: string
   loggedAwards: string
 }
@@ -44,6 +52,113 @@ export const test = base.extend<TestOptions>({
           status: false,
           data: null,
           message: '驗證失敗',
+        }),
+      })
+    })
+    await use('')
+  },
+  mockGetNewRecord: async ({ page }, use) => {
+    await page.route('*/**/point/getNewRecord', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: true,
+          data: {
+            record: [
+              {
+                school_name: '立人高中',
+                BONUS: '125',
+              },
+              {
+                school_name: '啟英高中',
+                BONUS: '100',
+              },
+              {
+                school_name: '新民高中',
+                BONUS: '100',
+              },
+              {
+                school_name: '國立臺灣海洋大學附屬基隆海事高級中等學校補校',
+                BONUS: '50',
+              },
+              {
+                school_name: '馬公高中',
+                BONUS: '50',
+              },
+            ],
+            startTime: '2025-07-03 12:00:00',
+            endTime: '2025-07-09 11:59:59',
+          },
+          message: 'success',
+        }),
+      })
+    })
+    await use('')
+  },
+  mockGetNewRecordEmpty: async ({ page }, use) => {
+    await page.route('*/**/point/getNewRecord', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: true,
+          data: {
+            record: [],
+            startTime: '2025-07-03 12:00:00',
+            endTime: '2025-07-09 11:59:59',
+          },
+          message: 'success',
+        }),
+      })
+    })
+    await use('')
+  },
+  mockGetLastWeekRecord: async ({ page }, use) => {
+    await page.route('*/**/point/getLastWeekRecord', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: true,
+          data: {
+            record: [
+              {
+                school_name: '立人高中',
+                BONUS: '125',
+              },
+              {
+                school_name: '啟英高中',
+                BONUS: '100',
+              },
+              {
+                school_name: '新民高中',
+                BONUS: '100',
+              },
+              {
+                school_name: '國立臺灣海洋大學附屬基隆海事高級中等學校補校',
+                BONUS: '50',
+              },
+              {
+                school_name: '馬公高中',
+                BONUS: '50',
+              },
+            ],
+            startTime: '2025-06-26 12:00:00',
+            endTime: '2025-07-02 11:59:59',
+          },
+          message: 'success',
+        }),
+      })
+    })
+    await use('')
+  },
+  mockGetLastWeekRecordEmpty: async ({ page }, use) => {
+    await page.route('*/**/point/getLastWeekRecord', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: true,
+          data: {
+            record: [
+            ],
+            startTime: '2025-06-26 12:00:00',
+            endTime: '2025-07-02 11:59:59',
+          },
+          message: 'success',
         }),
       })
     })
@@ -111,6 +226,7 @@ export const test = base.extend<TestOptions>({
           status: true,
           data: {
             data: {
+              '99': 999,
               '1': 11,
               '2': 22,
               '3': 33,
@@ -120,6 +236,78 @@ export const test = base.extend<TestOptions>({
               '7': 0,
             },
             now: '3',
+          },
+          message: 'success',
+        }),
+      })
+    })
+    await use('')
+  },
+  mockGetBonusByUserByWeekResponseNowFirst: async ({ page }, use) => {
+    await page.route('*/**/point/getBonusByUserByWeek', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: true,
+          data: {
+            data: {
+              '99': 999,
+              '1': 11,
+              '2': 22,
+              '3': 33,
+              // '4': 44,
+              '5': 55,
+              '6': 66,
+              '7': 0,
+            },
+            now: '1',
+          },
+          message: 'success',
+        }),
+      })
+    })
+    await use('')
+  },
+  mockGetBonusByUserByWeekResponseNowLast: async ({ page }, use) => {
+    await page.route('*/**/point/getBonusByUserByWeek', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: true,
+          data: {
+            data: {
+              '99': 999,
+              '1': 11,
+              '2': 22,
+              '3': 33,
+              // '4': 44,
+              '5': 55,
+              '6': 66,
+              '7': 0,
+            },
+            now: '7',
+          },
+          message: 'success',
+        }),
+      })
+    })
+    await use('')
+  },
+  mockGetBonusByUserByWeekResponseNowUndefined: async ({ page }, use) => {
+    await page.route('*/**/point/getBonusByUserByWeek', (route) => {
+      route.fulfill({
+        body: JSON.stringify({
+          status: true,
+          data: {
+            data: {
+              '99': 999,
+              '1': 11,
+              '2': 22,
+              '3': 33,
+              // '4': 44,
+              '5': 55,
+              '6': 66,
+              '7': 0,
+            },
+            now: '99',
           },
           message: 'success',
         }),
@@ -140,6 +328,11 @@ export const test = base.extend<TestOptions>({
     await page.getByPlaceholder('請輸入密碼').fill('testpassword')
     await page.locator('form').getByRole('button', { name: '登入' }).click()
     await use('')
+  },
+  loggedSchool: async ({ page, logged }, use) => {
+    await page.locator('header').getByRole('button', { name: '校際戰績' }).click()
+    await page.waitForTimeout(3000)
+    use('')
   },
   loggedPersonal: async ({ page, logged }, use) => {
     await page.locator('header').getByRole('button', { name: '個人成就' }).click()
