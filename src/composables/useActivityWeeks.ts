@@ -19,7 +19,7 @@ const activityWeeks = ref<WeekConfig[]>([
   { week: '7', start: '08/21', end: '08/27' },
 ])
 
-const selectedWeek = ref<WeekConfig | null>(activityWeeks.value[0])
+const selectedWeek = ref<WeekConfig>(activityWeeks.value[0])
 
 export function useActivityWeeks() {
 
