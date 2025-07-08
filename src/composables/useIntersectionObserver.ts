@@ -22,17 +22,17 @@ export function useIntersectionObserver(
     const isInitiallyVisible = visibleRatio >= threshold && rect.top < windowHeight * 0.8
 
     // Debug 訊息
-    console.log('🔍 Initial Visibility Check:', {
-      elementHeight,
-      visibleHeight,
-      visibleRatio,
-      threshold,
-      rectTop: rect.top,
-      windowHeight,
-      maxTop: windowHeight * 0.8,
-      isInitiallyVisible,
-      userAgent: navigator.userAgent
-    })
+    // console.log('🔍 Initial Visibility Check:', {
+    //   elementHeight,
+    //   visibleHeight,
+    //   visibleRatio,
+    //   threshold,
+    //   rectTop: rect.top,
+    //   windowHeight,
+    //   maxTop: windowHeight * 0.8,
+    //   isInitiallyVisible,
+    //   userAgent: navigator.userAgent
+    // })
 
     return isInitiallyVisible
   }
@@ -40,22 +40,22 @@ export function useIntersectionObserver(
   onMounted(() => {
     if (!targetRef.value) return
 
-    console.log('🚀 Setting up IntersectionObserver for:', targetRef.value.className)
+    // console.log('🚀 Setting up IntersectionObserver for:', targetRef.value.className)
 
     // 使用更寬鬆的配置以提高跨平台兼容性
     observer = new IntersectionObserver(
       ([entry]) => {
-        console.log('👁️ IntersectionObserver triggered:', {
-          isIntersecting: entry.isIntersecting,
-          intersectionRatio: entry.intersectionRatio,
-          boundingClientRect: entry.boundingClientRect,
-          rootBounds: entry.rootBounds,
-          isVisible: isVisible.value,
-          userAgent: navigator.userAgent
-        })
+        // console.log('👁️ IntersectionObserver triggered:', {
+        //   isIntersecting: entry.isIntersecting,
+        //   intersectionRatio: entry.intersectionRatio,
+        //   boundingClientRect: entry.boundingClientRect,
+        //   rootBounds: entry.rootBounds,
+        //   isVisible: isVisible.value,
+        //   userAgent: navigator.userAgent
+        // })
 
         if (entry.isIntersecting && !isVisible.value) {
-          console.log('✅ Element became visible via IntersectionObserver')
+          // console.log('✅ Element became visible via IntersectionObserver')
           isVisible.value = true
           observer?.unobserve(entry.target)
         }
@@ -70,7 +70,7 @@ export function useIntersectionObserver(
 
     // 檢查初始可見性，如果可見則立即顯示
     if (checkInitialVisibility()) {
-      console.log('⚡ Element initially visible, showing immediately')
+      // console.log('⚡ Element initially visible, showing immediately')
       setTimeout(() => {
         if (!isVisible.value) {
           isVisible.value = true
@@ -89,7 +89,7 @@ export function useIntersectionObserver(
 
         // 更寬鬆的可見性檢查
         if (rect.top < windowHeight && rect.bottom > 0) {
-          console.log('📜 Element became visible via scroll backup')
+          // console.log('📜 Element became visible via scroll backup')
           isVisible.value = true
           window.removeEventListener('scroll', handleScroll)
           observer?.unobserve(targetRef.value)
