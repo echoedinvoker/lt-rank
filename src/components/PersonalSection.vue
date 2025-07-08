@@ -41,7 +41,7 @@
         <div
           class="w-full grid grid-cols-[repeat(2,minmax(0,max-content))_1fr] lg:grid-cols-[repeat(2,minmax(0,max-content))_1fr_repeat(2,minmax(0,max-content))_1fr] items-center justify-items-center gap-3 sm:gap-6 sm:mt-6 max-w-[270px] sm:max-w-[550px] lg:max-w-[1098px]"
         >
-          <template v-for="item in weeklyBonus" :key="item.week">
+          <template v-for="item in filteredWeeklyBonus" :key="item.week">
             <div class="text-card font-normal">{{ item.week }}</div>
             <div class="bold-text">紅利</div>
             <div class="golden-text-card smooth-transition" :class="{ 'blur-sm': !isDataLoaded }">
@@ -92,6 +92,10 @@ const weeklyBonus = computed(() => {
       numBonus,
     }
   })
+})
+
+const filteredWeeklyBonus = computed(() => {
+  return weeklyBonus.value.filter(item => defaultWeeklyBonus.map(d => d.week).includes(item.week))
 })
 
 const currentBonus = computed(() => {
