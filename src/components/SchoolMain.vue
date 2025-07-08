@@ -14,7 +14,7 @@
     </TabButton>
   </div>
   <p class="font-noto-sans-tc font-bold text-[#ffff00] text-base sm:text-3xl text-center sm:pb-3">
-    {{ selectedTab === 'new' ? currentWeekText : lastWeekText }}
+    {{ selectedTab === 'new' ? currentSchoolWeekText : lastSchoolWeekText }}
   </p>
   <template v-for="(record, index) in displayedRecord" :key="index">
     <div
@@ -33,11 +33,11 @@ import { ref, computed } from 'vue'
 import TabButton from '@/components/ui/button/TabButton.vue'
 import { useNewRecord } from '@/composables/useNewRecord'
 import { useLastWeekRecord } from '@/composables/useLastWeekRecord'
-import { useActivityWeeks } from '@/composables/useActivityWeeks'
+import { useSchool } from '@/composables/useSchool'
 
 const { data: newRecord } = useNewRecord()
 const { data: lastWeekRecord } = useLastWeekRecord()
-const { currentWeekText, lastWeekText } = useActivityWeeks()
+const { currentSchoolWeekText, lastSchoolWeekText } = useSchool()
 
 const selectedTab = ref<'new' | 'last'>('new')
 
