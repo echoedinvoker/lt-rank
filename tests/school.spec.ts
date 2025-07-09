@@ -13,7 +13,7 @@ test('first week', async ({
   await expect(page.locator('#school-section')).toContainText('尚無上週戰績')
 })
 
-test.only('last week', async ({
+test('last week', async ({
   page,
   mockGetBonusByUserByWeekResponseNowLast,
   mockGetNewRecord,
