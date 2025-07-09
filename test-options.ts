@@ -118,16 +118,16 @@ export const test = base.extend<TestOptions>({
           data: {
             record: [
               {
-                school_name: '立人高中',
-                BONUS: '125',
+                school_name: '啟英高中',
+                BONUS: '111',
               },
               {
-                school_name: '啟英高中',
-                BONUS: '100',
+                school_name: '立人高中',
+                BONUS: '95',
               },
               {
                 school_name: '新民高中',
-                BONUS: '100',
+                BONUS: '88',
               },
               {
                 school_name: '國立臺灣海洋大學附屬基隆海事高級中等學校補校',

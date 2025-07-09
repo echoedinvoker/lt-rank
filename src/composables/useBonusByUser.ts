@@ -19,7 +19,7 @@ export function useBonusByUser() {
     enabled: computed(() => !!authStore.uid), // 只有當用戶已登入時才執行查詢
     select: (data) => {
       selectedWeek.value = activityWeeks.value.find(weekConfig => weekConfig.week === data.data.now) || activityWeeks.value[0]
-      currentSchoolWeek.value = activityWeeks.value.find(weekConfig => weekConfig.week === data.data.now) || activityWeeks.value[0]
+      currentSchoolWeek.value = activityWeeks.value.find(weekConfig => weekConfig.week === data.data.now)
 
       const existingWeeks = Object.keys(data.data.data)
       activityWeeks.value = activityWeeks.value.filter(weekConfig => {

@@ -16,7 +16,9 @@
   <p class="font-noto-sans-tc font-bold text-[#ffff00] text-base sm:text-3xl text-center sm:pb-3">
     {{ selectedTab === 'new' ? currentSchoolWeekText : lastSchoolWeekText }}
   </p>
-  <template v-for="(record, index) in displayedRecord" :key="index">
+  <template
+    v-if="currentSchoolWeekIndex >= 0"
+    v-for="(record, index) in displayedRecord" :key="index">
     <div
       class="grid grid-cols-[1fr_3fr] lg:grid-cols-[max-content_1fr_max-content_1fr] gap-3 sm:gap-4 justify-items-center items-center w-full max-w-[270px] sm:max-w-[480px] lg:max-w-[1098px]"
     >
@@ -37,7 +39,7 @@ import { useSchool } from '@/composables/useSchool'
 
 const { data: newRecord } = useNewRecord()
 const { data: lastWeekRecord } = useLastWeekRecord()
-const { currentSchoolWeekText, lastSchoolWeekText } = useSchool()
+const { currentSchoolWeekText, lastSchoolWeekText, currentSchoolWeekIndex } = useSchool()
 
 const selectedTab = ref<'new' | 'last'>('new')
 
