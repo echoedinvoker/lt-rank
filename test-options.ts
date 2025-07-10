@@ -323,10 +323,8 @@ export const test = base.extend<TestOptions>({
     await page.getByRole('button', { name: '登入' }).click()
     await use('')
   },
-  logged: async ({ page, mockLoginResponse, loginModal }, use) => {
-    await page.getByPlaceholder('請輸入帳號').fill('testuser')
-    await page.getByPlaceholder('請輸入密碼').fill('testpassword')
-    await page.locator('form').getByRole('button', { name: '登入' }).click()
+  logged: async ({ page }, use) => {
+    await page.goto('/?uid=2&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9')
     await use('')
   },
   loggedSchool: async ({ page, logged }, use) => {
