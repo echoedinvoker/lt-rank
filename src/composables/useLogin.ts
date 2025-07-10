@@ -29,3 +29,30 @@ export function useLogin() {
     },
   })
 }
+
+export function useSocialLogin() {
+  const authStore = useAuthStore()
+
+  return useMutation({
+    mutationFn: async (provider: 'google' | 'line' | 'facebook') => {
+      const response = await authApi.socialLogin(provider)
+
+      if (!response.status) {
+        const error = new Error(response.message || '社群登入失敗');
+        (error as any).response = { data: { message: response.message } }
+        throw error
+      }
+
+      return response
+    },
+    onSuccess: (data) => {
+      if (data.status) {
+        authStore.setAuth(data.data.token, data.data.uid)
+      }
+    },
+    onError: (error) => {
+      console.error('Social login failed:', error)
+      throw error
+    },
+  })
+}
