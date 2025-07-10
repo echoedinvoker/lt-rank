@@ -72,7 +72,7 @@ export function useMobileHamburger() {
 
     if (buttonText === '登入') {
       // openLoginDialog() // 使用 composable 開啟登入對話框
-      window.location.href = 'https://vendor.ltrust.tw/login?vendor=4a4da231-c514-47d2-93f6-7be70c770a84'
+      window.location.href = 'https://ltrust.tw/login?vendor=4a4da231-c514-47d2-93f6-7be70c770a84'
     } else if (buttonText === '註冊') {
       window.location.href = 'https://ltrust.tw/signup'
     } else if (buttonText === '登出') {
