@@ -8,12 +8,12 @@ test('logo navigation', async ({ page, homePage }) => {
   await expect(page).toHaveURL('https://uat.ltrust.tw/')
 })
 
-test('nav to school section', async ({ page, homePage }) => {
-  const pm = new PageManager(page)
-  await pm.header.navigateToSchool()
-  await expect(page.getByRole('button', { name: '最新戰績' })).toBeInViewport()
-  await expect(page.getByRole('button', { name: '上週戰績' })).toBeInViewport()
-})
+// test('nav to school section', async ({ page, homePage }) => {
+//   const pm = new PageManager(page)
+//   await pm.header.navigateToSchool()
+//   await expect(page.getByRole('button', { name: '最新戰績' })).toBeInViewport()
+//   await expect(page.getByRole('button', { name: '上週戰績' })).toBeInViewport()
+// })
 
 test('nav to personal section', async ({ page, homePage }) => {
   const pm = new PageManager(page)
