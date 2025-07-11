@@ -1,4 +1,5 @@
 import { test as base } from '@playwright/test'
+import { PageManager } from './page-objects/pageManager'
 
 export type TestOptions = {
   mockLoginResponse: string
@@ -320,7 +321,8 @@ export const test = base.extend<TestOptions>({
     await use('')
   },
   loginModal: async ({ page, homePage }, use) => {
-    await page.getByRole('button', { name: '登入' }).click()
+    const pm = new PageManager(page)
+    await pm.header.clickLogin()
     await use('')
   },
   logged: async ({ page }, use) => {
@@ -328,18 +330,18 @@ export const test = base.extend<TestOptions>({
     await use('')
   },
   loggedSchool: async ({ page, logged }, use) => {
-    await page.locator('header').getByRole('button', { name: '校際戰績' }).click()
-    await page.waitForTimeout(3000)
+    const pm = new PageManager(page)
+    await pm.header.navigateToSchool()
     use('')
   },
   loggedPersonal: async ({ page, logged }, use) => {
-    await page.locator('header').getByRole('button', { name: '個人成就' }).click()
-    await page.waitForTimeout(3000)
+    const pm = new PageManager(page)
+    await pm.header.navigateToPersonal()
     use('')
   },
   loggedAwards: async ({ page, loggedPersonal }, use) => {
-    await page.locator('header').getByRole('button', { name: '紅利領取' }).click()
-    await page.waitForTimeout(3000)
+    const pm = new PageManager(page)
+    await pm.header.navigateToAwards()
     use('')
   },
 })
