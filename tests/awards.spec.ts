@@ -1,5 +1,5 @@
-import { expect } from '@playwright/test'
 import { test } from '../test-options'
+import { PageManager } from '../page-objects/pageManager'
 
 test('init status', async ({
   page,
@@ -7,12 +7,12 @@ test('init status', async ({
   mockGetBonusBySchoolByWeekResponse,
   mockGetBonusByUserByWeekResponse,
   loggedAwards }) => {
-  await expect(page.locator('#award-section').getByRole('button', { name: '第3週' }))
-    .toHaveCSS('background-color', 'rgb(255, 255, 255)')
-  await expect(page.locator('#award-section')).toContainText('No.7')
-  await expect(page.locator('#award-section')).toContainText('測試學校')
-  await expect(page.locator('#award-section')).toContainText('加油!!')
-  await expect(page.locator('#award-section')).toContainText('達成!!')
+  const pm = new PageManager(page)
+  await pm.awards.expectWeekSelected(3)
+  await pm.awards.expectContainsText('No.7')
+  await pm.awards.expectContainsText('測試學校')
+  await pm.awards.expectContainsText('加油!!')
+  await pm.awards.expectContainsText('達成!!')
 })
 
 test('select week', async ({
@@ -21,11 +21,11 @@ test('select week', async ({
   mockGetBonusBySchoolByWeekResponse,
   mockGetBonusByUserByWeekResponse,
   loggedAwards }) => {
-  await page.locator('#award-section').getByRole('button', { name: '第6週' }).click()
-  await expect(page.locator('#award-section').getByRole('button', { name: '第3週' }))
-    .toHaveCSS('background-color', 'rgb(0, 0, 0)')
-  await expect(page.locator('#award-section').getByRole('button', { name: '第6週' }))
-    .toHaveCSS('background-color', 'rgb(255, 255, 255)')
-  await expect(page.locator('#award-section')).toContainText('無排名')
-  await expect(page.locator('#award-section')).not.toContainText('達成!!')
+  const pm = new PageManager(page)
+  await pm.awards.selectWeek(6)
+  await pm.awards.expectWeekNotSelected(3)
+  await pm.awards.expectWeekSelected(6)
+  await pm.awards.expectContainsText('無排名')
+  await pm.awards.expectNotContainsText('達成!!')
+
 })
