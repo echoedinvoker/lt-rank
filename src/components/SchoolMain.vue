@@ -6,14 +6,12 @@
     <TabButton
       @click="selectedTab = 'new'"
       :variant="selectedTab === 'new' ? 'primary' : 'secondary'"
-      class="mx-12 max-w-[320px]"
       >最新戰績</TabButton
     >
     <!-- temporarily hidden testing data -->
     <TabButton
       @click="selectedTab = 'last'"
       :variant="selectedTab === 'last' ? 'primary' : 'secondary'"
-      v-show="false"
       >上週戰績
     </TabButton>
   </div>
