@@ -15,9 +15,9 @@
       >上週戰績
     </TabButton>
   </div>
-  <p class="font-noto-sans-tc font-bold text-[#ffff00] text-base sm:text-3xl text-center sm:pb-3">
+  <!-- p class="font-noto-sans-tc font-bold text-[#ffff00] text-base sm:text-3xl text-center sm:pb-3">
     {{ selectedTab === 'new' ? currentSchoolWeekText : lastSchoolWeekText }}
-  </p>
+  </p -->
   <template
     v-for="(record, index) in displayedRecord" :key="index">
     <div
