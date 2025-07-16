@@ -18,7 +18,8 @@ export function useSchool() {
 
   const currentSchoolWeekText = computed(() => {
     if (currentSchoolWeekIndex.value === -1) {
-      return '活動尚未開始或已結束';
+      // return '活動尚未開始或已結束';
+      return '';
     }
     return formatWeekText(activityWeeks.value[currentSchoolWeekIndex.value]);
   })
@@ -26,7 +27,8 @@ export function useSchool() {
   const lastSchoolWeekText = computed(() => {
     const index = currentSchoolWeekIndex.value - 1;
     if (index < 0) {
-      return '尚無上週戰績';
+      // return '尚無上週戰績';
+      return '';
     }
     return formatWeekText(activityWeeks.value[index]);
   })
