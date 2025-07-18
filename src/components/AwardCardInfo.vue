@@ -2,11 +2,11 @@
   <TransitionGroup
     :name="shouldUseTransition ? 'award-layout' : 'award-layout-lg'"
     tag="div"
-    class="grid grid-cols-[content_1fr] lg:grid-cols-[max-content_1fr_max-content_1fr] gap-1.5 sm:gap-4 w-full relative max-w-[270px] sm:max-w-[480px] lg:max-w-[1098px] items-center"
+    class="grid grid-cols-[100px_1fr] lg:grid-cols-[max-content_1fr_max-content_1fr] gap-1.5 sm:gap-4 w-full relative max-w-[270px] sm:max-w-[480px] lg:max-w-[1098px] items-center"
   >
     <div
       key="school-rank"
-      class="text-card text-nowrap  lg:w-42"
+      class="text-card text-nowrap lg:w-36"
       :class="{ 'blur-sm': selectedWeekSchoolLV === null || !authStore.isAuthenticated }"
     >
       {{ selectedWeekSchoolLV === 0 ? `無排名` : `No.${selectedWeekSchoolLV}` }}
