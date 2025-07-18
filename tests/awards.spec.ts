@@ -15,7 +15,7 @@ test('init status', async ({
   await pm.awards.expectContainsText('達成!!')
 })
 
-test.only('select week', async ({
+test('select week', async ({
   page,
   mockGetBonusInfo,
   mockGetBonusBySchoolByWeekResponse,
